@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.div`
     background-color: #171823;
-    padding-bottom: 10px;
+    padding-bottom: 160px;
 `;
 
 export const Banner = styled.div`
