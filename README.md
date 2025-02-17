@@ -12,9 +12,6 @@
 <p>O  problema é que mesmo fazendo as revisões, os estudos continuarão e novas revisões precisarão ser planejadas, dificultando bastante a organização.</p>
 <p>E é aqui que esse projeto entra, a ideia é a partir dos horários de estudo do usuário, fazer todo o planejamento das revisões e mostrar quais são as revisões que precisam ser feitas em cada dia.</p>
 
-## Setup
-
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
