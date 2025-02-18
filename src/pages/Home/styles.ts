@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const MainContainer = styled.div`
-    background-color: #171823;
+    background-color: ${({ theme }) => theme.HomeBackground};
     padding-bottom: 160px;
 `;
 
@@ -72,7 +72,7 @@ export const HowWorksContainer = styled.div`
     width: 995px;
     margin: -105px auto 0px auto;
     padding: 64px 72px;
-    background-color: #242533;
+    background-color: ${({theme}) => theme.secondBackground};
     border-radius: 20px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5)
 `;
@@ -80,7 +80,7 @@ export const HowWorksContainer = styled.div`
 export const HowWorksTitle = styled.h1`
     font-weight: 600;
     font-size: 18pt;
-    color: white;
+    color: ${({theme}) => theme.text};
     text-align: center;
 `;
 
@@ -128,12 +128,12 @@ export const HowWorksItem = styled.li`
 export const ItemTitle = styled.h2`
     font-weight: 600;
     font-size: 15pt;
-    color: white;
+    color: ${({theme}) => theme.text};
 `;
 
 export const ItemParagraph = styled.p`
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: ${({theme}) => theme.secondText};
     margin: 20px 0px 0px 30px;
 `;
 
@@ -144,7 +144,7 @@ export const Benefits = styled.div`
 
 export const BenefitsTitle = styled.h2`
     margin-bottom :60px;
-    color: white;
+    color: ${({theme}) => theme.text};
     text-align: center;
     font-size: 20pt;
 `;
@@ -161,21 +161,21 @@ export const BenefitsItem = styled.div`
     width: 525px; 
     height: 350px;
     padding: 40px;
-    background: linear-gradient(140deg, #242533, 65%, #11121C 100%);
-    border: 1px solid #2D2F3D;
+    background: ${({theme}) => theme.gradientBackground};
+    border: 1px solid ${({theme}) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5)
 `;
 
 export const BenefitsItemTitle = styled.h2`
     margin-bottom: 15px;
-    color: white;
+    color: ${({theme}) => theme.text};
     font-size: 17pt;
     font-weight: 600;
 `;
 
 export const BenefitsItemText = styled.p`
-    color: rgba(255, 255, 255, 0.7);
+    color: ${({theme}) => theme.secondText};
     font-weight: 400;
     font-size: 12pt;
     width: 320px;
@@ -191,20 +191,20 @@ export const BenefitsIcon = styled.img`
 export const StartContainer = styled.div`
     width: fit-content;
     margin: 0 auto 25px auto;
-    background-color: #2D2F3E;
+    background-color: ${({theme}) => theme.contrastBackground};
     padding: 20px 30px;
     border-radius: 5px;
 `;
 
 export const StartText = styled.p`
-    color: white;
+    color: ${({theme}) => theme.text};
     text-align: center;
     font-size: 18pt;
     font-weight: 600
 `;
 
 export const Text = styled.p`
-    color: white;
+    color: ${({theme}) => theme.text};
     text-align: center;
     width: 700px;
     margin: 0 auto 100px auto;

@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 import { IoSunnyOutline } from "react-icons/io5";
-import RocketIcon from '../../assets/rocket.svg'
-import ClockIcon from '../../assets/clock.svg'
-import CalendarIcon from '../../assets/calendar.svg'
-import StarIcon from '../../assets/star.svg'
+import RocketLight from '../../assets/rocket_light.svg';
+import ClockLight from '../../assets/clock_light.svg';
+import CalendarLight from '../../assets/calendar_light.svg';
+import StarLight from '../../assets/star_light.svg';
+import RocketDark from '../../assets/rocket.svg';
+import ClockDark from '../../assets/clock.svg';
+import CalendarDark from '../../assets/calendar.svg';
+import StarDark from '../../assets/star.svg';
 import {
     MainContainer,
     Banner,
@@ -39,6 +44,9 @@ import {
 
 const Home:React.FC = () => {
     const navigate = useNavigate();
+    const { theme, toggleTheme } = useTheme();
+
+    console.log(theme)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -50,7 +58,7 @@ const Home:React.FC = () => {
                 <Header>
                     <LogoContainer>
                         <Logo>Revise Minder</Logo>
-                        <ThemeButton>
+                        <ThemeButton onClick={toggleTheme}>
                             <IoSunnyOutline color='white' size='35'/>    
                         </ThemeButton> 
                     </LogoContainer>
@@ -96,25 +104,25 @@ const Home:React.FC = () => {
                     <BenefitsItem>
                         <BenefitsItemTitle>Melhore a Retenção</BenefitsItemTitle>
                         <BenefitsItemText>Nossa abordagem de revisão espaçada é comprovada para melhorar a retenção de informações.</BenefitsItemText>
-                        <BenefitsIcon src={RocketIcon} alt="Foguete" />
+                        <BenefitsIcon src={theme === 'light' ? RocketLight : RocketDark} alt="Foguete" />
                     </BenefitsItem>
 
                     <BenefitsItem>
                         <BenefitsItemTitle>Economize Tempo</BenefitsItemTitle>
                         <BenefitsItemText>Elimine a preocupação de quando revisar. Nosso sistema faz o trabalho pesado por você.</BenefitsItemText>
-                        <BenefitsIcon src={ClockIcon} alt="Relógio" />
+                        <BenefitsIcon src={theme === 'light' ? ClockLight : ClockDark} alt="Relógio" />
                     </BenefitsItem>
 
                     <BenefitsItem>
                         <BenefitsItemTitle>Agendamento Flexível</BenefitsItemTitle>
                         <BenefitsItemText>Nosso sistema se adapta à sua programação. Mude as datas de estudo conforme necessário e continue recebendo um plano de revisão otimizado.</BenefitsItemText>
-                        <BenefitsIcon src={CalendarIcon} alt="Calendário" />
+                        <BenefitsIcon src={theme === 'light' ? CalendarLight : CalendarDark} alt="Calendário" />
                     </BenefitsItem>
 
                     <BenefitsItem>
                         <BenefitsItemTitle>Simplicidade Intuitiva</BenefitsItemTitle>
                         <BenefitsItemText>Navegue pelo nosso site de forma fácil e intuitiva. Não é necessário ser um expert em tecnologia para aproveitar todos os benefícios.</BenefitsItemText>
-                        <BenefitsIcon src={StarIcon} alt="Estrela" />
+                        <BenefitsIcon src={theme === 'light' ? StarLight : StarDark} alt="Estrela" />
                     </BenefitsItem>
                 </BenefitsItemsContainer>
             </Benefits>

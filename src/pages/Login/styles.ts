@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const MainContainer = styled.div`
     min-height: 100vh;
     padding: 150px 0 20px 0;
-    background-color: #171823;
+    background-color: ${({ theme }) => theme.background};
 
     @media (max-width: 1360px) {
         padding-top: 40px ;
@@ -14,8 +14,8 @@ export const FormContainer = styled.div`
     width: 430px;
     margin: 0 auto;
     padding: 60px 35px 30px 35px;
-    background-color: #242533;
-    border: 1px solid #2D2F3D;
+    background-color: ${({ theme }) => theme.secondBackground};
+    border: 1px solid ${({ theme }) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 
@@ -25,7 +25,7 @@ export const FormContainer = styled.div`
 `;
 
 export const FormTitle = styled.h1`
-    color: white;
+    color: ${({ theme }) => theme.text};
     text-align: center;
     margin-bottom: 25px;
 
@@ -36,19 +36,19 @@ export const InputContainer = styled.div``;
 export const Label = styled.label`
     display: block;
     font-size: 13pt;
-    color: white;
+    color: ${({ theme }) => theme.text};
     margin: 20px 0 8px 0;
 `;
 
 export const Input = styled.input`
     width: 100%;
-    background-color: #171823;
-    border: 1px solid #2D2F3D;
+    background-color: ${({ theme }) => theme.background};
+    border: 1px solid ${({ theme }) => theme.inputBorder};
     border-radius: 5px;
     font-size: 13pt;
     padding: 10px 15px;
     outline: none;
-    color: white;
+    color: ${({ theme }) => theme.text};
 `;
 
 export const Error = styled.div`
@@ -59,7 +59,7 @@ export const ForgotPassword = styled.a`
     display: block;
     margin-top: 10px;
     margin-left: 5px;
-    color: white;
+    color: ${({ theme }) => theme.text};
 `;
 
 export const SubmitButton = styled.button`
@@ -82,10 +82,11 @@ export const SubmitButton = styled.button`
 export const SignUpContainer = styled.div`
     width: 300px;
     margin: 35px auto 0 auto;
-    background-color: #242533;
-    border: 1px solid #2D2F3D;
+    background-color: ${({ theme }) => theme.secondBackground};
+    border: 1px solid ${({ theme }) => theme.border};
     border-radius: 5px;
     padding: 15px 30px;
+    border: 1px solid ${({theme}) => theme.inputBorder};
 
     @media (max-width: 1360px) {
         margin: 20px auto 0 auto;
@@ -93,7 +94,7 @@ export const SignUpContainer = styled.div`
 `;
 
 export const SignUpText = styled.p`
-    color: white;
+    color: ${({ theme }) => theme.text};
     text-align: center;
 
     u {
