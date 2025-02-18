@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
     background-color: #171823;
 
     @media (max-width: 1360px) {
-        padding-top: 40px ;
+        padding-top: 20px ;
     }
 `;
 
@@ -20,7 +20,7 @@ export const FormContainer = styled.div`
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 
     @media (max-width: 1360px) {
-        padding: 30px;
+        padding: 10px 30px 30px 30px;
     }
 `;
 
@@ -29,6 +29,9 @@ export const FormTitle = styled.h1`
     text-align: center;
     margin-bottom: 25px;
 
+    @media (max-width: 1360px) {
+        margin-bottom: 15px ;
+    }
 `;
 
 export const InputContainer = styled.div``;
@@ -38,6 +41,17 @@ export const Label = styled.label`
     font-size: 13pt;
     color: white;
     margin: 20px 0 8px 0;
+`;
+
+export const CheckboxLabel = styled.label`
+    font-size: 13pt;
+    color: white;
+    margin: 20px 0 8px 0;
+
+    u {
+        color: #1A97F0;
+        cursor: pointer;
+    }
 `;
 
 export const Input = styled.input`
@@ -51,15 +65,12 @@ export const Input = styled.input`
     color: white;
 `;
 
-export const Error = styled.div`
-    color: red
+export const CheckboxInput = styled.input`
+    margin: 20px 10px 0 5px;
 `;
 
-export const ForgotPassword = styled.a`
-    display: block;
-    margin-top: 10px;
-    margin-left: 5px;
-    color: white;
+export const Error = styled.div`
+    color: red
 `;
 
 export const SubmitButton = styled.button`
@@ -75,11 +86,11 @@ export const SubmitButton = styled.button`
     cursor: pointer;
 
     @media (max-width: 1360px) {
-        margin-top: 50px;
+        margin-top: 30px;
     }
 `;
 
-export const SignUpContainer = styled.div`
+export const RedirectContainer = styled.div`
     width: 300px;
     margin: 35px auto 0 auto;
     background-color: #242533;
@@ -92,7 +103,7 @@ export const SignUpContainer = styled.div`
     }
 `;
 
-export const SignUpText = styled.p`
+export const RedirectText = styled.p`
     color: white;
     text-align: center;
 

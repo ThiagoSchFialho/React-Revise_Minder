@@ -8,40 +8,47 @@ import {
     FormTitle,
     InputContainer,
     Label,
+    CheckboxLabel,
     Input,
+    CheckboxInput,
     Error,
-    ForgotPassword,
     SubmitButton,
-    SignUpContainer,
-    SignUpText
+    RedirectContainer,
+    RedirectText
 } from './styles'
 
 const validations = Yup.object({ 
     email: Yup.string()
-      .email('Email inválido')
       .required('Por favor, informe o seu email!'),
   
     password: Yup.string()
       .min(8, 'A senha deve possuir pelo menos 8 caracteres!')
       .required('Por favor, informe uma senha!'),
+  
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password')], 'As duas senhas não coincidem')
+      .required('Por favor, confirme a senha!'),
+
+    terms: Yup.boolean()
+        .oneOf([true], 'Aceite os termos para continuar')
   })
 
-const Login: React.FC = () => {
+const SignUp: React.FC = () => {
     const navigate = useNavigate()
 
-    const handleLogin = (values) => {
+    const handleSignUp = (values) => {
         console.log(values)
     }
 
     return (
         <MainContainer>            
-            <FormTitle>Login</FormTitle>
+            <FormTitle>Cadastro</FormTitle>
             <FormContainer>
                 <Formik
-                    initialValues={{email: '', password: ''}}
+                    initialValues={{email: '', password: '', confirmPassword: '', terms: false}}
                     enableReinitialize={true}
                     validationSchema={validations}
-                    onSubmit={(values) => handleLogin(values)}
+                    onSubmit={(values) => handleSignUp(values)}
                 >
                 {({values, handleChange, touched, errors }) => (
                     <Form>
@@ -69,18 +76,40 @@ const Login: React.FC = () => {
                             {touched.password && errors.password && <Error>{errors.password}</Error>}
                         </InputContainer>
 
-                        <ForgotPassword href="">Esqueci minha senha</ForgotPassword>
-                        <SubmitButton>Entrar</SubmitButton>
+                        <InputContainer>
+                            <Label htmlFor='confirmPassword'>Confirme sua senha</Label>
+                            <Input 
+                                type="password"
+                                name="confirmPassword"
+                                id="confirmPassword"
+                                onChange={handleChange}
+                                value={values.confirmPassword}
+                            />
+                            {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
+                        </InputContainer>
+
+                        <InputContainer>
+                            <CheckboxInput 
+                                type="checkbox"
+                                name="terms"
+                                id="terms"
+                                onChange={handleChange}
+                                value={values.terms}
+                            />
+                            <CheckboxLabel>Li e aceito os <u>termos de uso</u>.</CheckboxLabel>
+                            {touched.terms && errors.terms && <Error>{errors.terms}</Error>}
+                        </InputContainer>
+                        <SubmitButton>Cadastrar</SubmitButton>
                     </Form>
                 )}
                     
                 </Formik>
             </FormContainer>
-            <SignUpContainer>
-                <SignUpText>Não tem conta? <u onClick={() => navigate('/signUp')}>Cadastre-se</u></SignUpText>
-            </SignUpContainer>
+            <RedirectContainer>
+                <RedirectText>Já tem conta? <u onClick={() => navigate('/login')}>Entre</u></RedirectText>
+            </RedirectContainer>
         </MainContainer>
     )
 }
 
-export default Login
+export default SignUp
