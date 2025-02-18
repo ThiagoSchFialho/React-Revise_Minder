@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
@@ -34,7 +34,11 @@ const validations = Yup.object({
   })
 
 const SignUp: React.FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleSignUp = (values) => {
         console.log(values)

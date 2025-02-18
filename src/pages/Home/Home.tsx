@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { IoSunnyOutline } from "react-icons/io5";
 import RocketIcon from '../../assets/rocket.svg'
@@ -38,7 +38,11 @@ import {
 } from './styles'
 
 const Home:React.FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return(
         <MainContainer>
@@ -53,7 +57,7 @@ const Home:React.FC = () => {
                     
                     <AuthContainer>
                         <AuthButton onClick={() => navigate('login')}>Entrar</AuthButton>
-                        <AuthButton>Cadastrar</AuthButton>
+                        <AuthButton onClick={() => navigate('/signUp')}>Cadastrar</AuthButton>
                     </AuthContainer>
                 </Header>
                 <BannerTextContainer>
@@ -120,7 +124,7 @@ const Home:React.FC = () => {
             </StartContainer>
             <Text>Crie uma conta gratuita e coloque Revise Minder para trabalhar por você.</Text>
 
-            <StartButton>Começar agora</StartButton>
+            <StartButton onClick={() => navigate('/signUp')}>Começar agora</StartButton>
         </MainContainer>
     )
 }
