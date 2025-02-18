@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { IoSunnyOutline } from "react-icons/io5";
 import RocketIcon from '../../assets/rocket.svg'
 import ClockIcon from '../../assets/clock.svg'
@@ -37,6 +38,8 @@ import {
 } from './styles'
 
 const Home:React.FC = () => {
+    const navigate = useNavigate()
+
     return(
         <MainContainer>
             <Banner>
@@ -49,7 +52,7 @@ const Home:React.FC = () => {
                     </LogoContainer>
                     
                     <AuthContainer>
-                        <AuthButton>Entrar</AuthButton>
+                        <AuthButton onClick={() => navigate('login')}>Entrar</AuthButton>
                         <AuthButton>Cadastrar</AuthButton>
                     </AuthContainer>
                 </Header>

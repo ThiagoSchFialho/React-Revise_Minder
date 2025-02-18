@@ -45,6 +45,11 @@ export const AuthButton = styled.button`
     font-weight: 800;
     font-size: 16pt;
     cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 `;
 
 export const BannerTextContainer = styled.div`
@@ -218,4 +223,10 @@ export const StartButton = styled.button`
     padding: 20px 40px;
     margin: 0 auto;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+
+    &:hover {
+        box-shadow: 0 0 15px rgba(26, 151, 240, 0.8);
+    }
 `;

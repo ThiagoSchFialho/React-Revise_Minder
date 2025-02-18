@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const FooterContainer = styled.div`
-    background-color: #2D2F3D;
-    border 1px solid black;
+    background-color: #242533;
+    border-top: 1px solid #2D2F3D;
     padding: 40px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3)
 `;
 
 export const Title = styled.h1`
