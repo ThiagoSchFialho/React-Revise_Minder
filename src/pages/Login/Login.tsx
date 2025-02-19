@@ -35,6 +35,7 @@ const Login: React.FC = () => {
 
     const handleLogin = (values) => {
         console.log(values)
+        navigate('/dashboard')
     }
 
     return (
