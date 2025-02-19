@@ -12,7 +12,9 @@ import {
     UserContainer,
     AddStudy,
     ProfileButton,
-    SideMenuContainer
+    SideMenuContainer,
+    MenuItemContainer,
+    MenuItemText
 } from './styles'
 
 interface HeaderProps {
@@ -42,10 +44,25 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                     </ProfileButton>
                 </UserContainer>
             </HeaderContainer>
-            <SideMenuContainer>
-                <FaHouse style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
-                <FaGraduationCap style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
-                <FaFileCircleCheck style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
+            <SideMenuContainer isMenuOpen={isMenuOpen}>
+                <MenuItemContainer onClick={() => navigate('/dashboard')}>
+                    <FaHouse style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
+                    {isMenuOpen ? (
+                        <MenuItemText>Início</MenuItemText>
+                    ) : (<></>)}
+                </MenuItemContainer>
+                <MenuItemContainer onClick={() => navigate('/dashboard')}>
+                    <FaGraduationCap style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
+                    {isMenuOpen ? (
+                        <MenuItemText>Meus estudos</MenuItemText>
+                    ) : (<></>)}
+                </MenuItemContainer>
+                <MenuItemContainer onClick={() => navigate('/dashboard')}>
+                    <FaFileCircleCheck style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={32}/>
+                    {isMenuOpen ? (
+                        <MenuItemText>Revisões passadas</MenuItemText>
+                    ) : (<></>)}
+                </MenuItemContainer>
             </SideMenuContainer>
         </>
     )
