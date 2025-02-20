@@ -7,7 +7,10 @@ export const lightTheme = {
     text: '#171823',
     secondText: 'rgba(23, 24, 35, 0.7)',
     border: '#EEEFF1',
-    inputBorder: '#77849E'
+    inputBorder: '#77849E',
+    shadow: '0px 2px 5px rgba(5, 55, 73, 0.5)',
+    bigShadow: '0px 2px 10px rgba(5, 55, 73, 0.5)',
+    strongShadow: '0px 0px 15px rgba(5, 55, 73, 0.5)'
 }
 
 export const darkTheme = {
@@ -19,5 +22,8 @@ export const darkTheme = {
     text: '#FFFFFF',
     secondText: 'rgba(255, 255, 255, 0.7)',
     border: '#2D2F3D',
-    inputBorder: '#2D2F3D'
+    inputBorder: '#2D2F3D',
+    shadow: '0px 2px 5px rgba(0, 0, 0, 0.5)',
+    bigShadow: '0px 2px 10px rgba(0, 0, 0, 0.5)',
+    strongShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)'
 }

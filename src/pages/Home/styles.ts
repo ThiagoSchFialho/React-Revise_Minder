@@ -74,7 +74,7 @@ export const HowWorksContainer = styled.div`
     padding: 64px 72px;
     background-color: ${({theme}) => theme.secondBackground};
     border-radius: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5)
+    box-shadow: ${({theme}) => theme.bigShadow};
 `;
 
 export const HowWorksTitle = styled.h1`
@@ -164,7 +164,7 @@ export const BenefitsItem = styled.div`
     background: ${({theme}) => theme.gradientBackground};
     border: 1px solid ${({theme}) => theme.border};
     border-radius: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5)
+    box-shadow: ${({theme}) => theme.shadow};
 `;
 
 export const BenefitsItemTitle = styled.h2`

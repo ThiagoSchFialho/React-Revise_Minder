@@ -5,13 +5,13 @@ export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px 20px;
 `;
 
 export const MenuContainer = styled.div`
     display: flex;
     align-items: center;
-    gap: 80px;
+    gap: 40px;
 `;
 
 export const Logo = styled.h1`
@@ -35,11 +35,11 @@ export const AddStudy = styled.button`
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: 1px solid ${({theme}) => theme.text};
     border-radius: 10px;
     color: ${({theme}) => theme.text};
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: 600;
     cursor: pointer;
 `;
@@ -54,7 +54,7 @@ export const SideMenuContainer = styled.div<{ isMenuOpen?: boolean }>`
     width: ${(props) => props.isMenuOpen ? '260px' : '88px' };
     justify-content: center;
     gap: 60px;
-    padding: 30px 28px;
+    padding: 30px 26px;
 `;
 
 export const MenuItemContainer = styled.div`
