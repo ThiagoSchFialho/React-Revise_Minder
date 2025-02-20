@@ -13,15 +13,11 @@ export const MainContainer = styled.div`
 export const FormContainer = styled.div`
     width: 430px;
     margin: 0 auto;
-    padding: 60px 35px 30px 35px;
+    padding: 10px 30px 30px 30px;
     background-color: ${({theme}) => theme.secondBackground};
     border: 1px solid ${({theme}) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-
-    @media (max-width: 1360px) {
-        padding: 10px 30px 30px 30px;
-    }
 `;
 
 export const FormTitle = styled.h1`

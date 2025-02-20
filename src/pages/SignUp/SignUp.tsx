@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import TermsAndPrivacyModal from '../../components/Terms/Terms';
 import {
     MainContainer,
     FormContainer,
@@ -15,7 +16,7 @@ import {
     SubmitButton,
     RedirectContainer,
     RedirectText
-} from './styles'
+} from './styles';
 
 const validations = Yup.object({ 
     email: Yup.string()
@@ -35,6 +36,7 @@ const validations = Yup.object({
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -45,74 +47,77 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <MainContainer>            
-            <FormTitle>Cadastro</FormTitle>
-            <FormContainer>
-                <Formik
-                    initialValues={{email: '', password: '', confirmPassword: '', terms: false}}
-                    enableReinitialize={true}
-                    validationSchema={validations}
-                    onSubmit={(values) => handleSignUp(values)}
-                >
-                {({values, handleChange, touched, errors }) => (
-                    <Form>
-                        <InputContainer>
-                            <Label htmlFor='email'>Email</Label>
-                            <Input 
-                                type="email"
-                                name="email"
-                                id="email"
-                                onChange={handleChange}
-                                value={values.email}
-                            />
-                            {touched.email && errors.email && <Error>{errors.email}</Error>}
-                        </InputContainer>
+        <>
+            <TermsAndPrivacyModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
+            <MainContainer>
+                <FormTitle>Cadastro</FormTitle>
+                <FormContainer>
+                    <Formik
+                        initialValues={{email: '', password: '', confirmPassword: '', terms: false}}
+                        enableReinitialize={true}
+                        validationSchema={validations}
+                        onSubmit={(values) => handleSignUp(values)}
+                    >
+                    {({values, handleChange, touched, errors }) => (
+                        <Form>
+                            <InputContainer>
+                                <Label htmlFor='email'>Email</Label>
+                                <Input 
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    onChange={handleChange}
+                                    value={values.email}
+                                />
+                                {touched.email && errors.email && <Error>{errors.email}</Error>}
+                            </InputContainer>
 
-                        <InputContainer>
-                            <Label htmlFor='password'>Senha</Label>
-                            <Input 
-                                type="password"
-                                name="password"
-                                id="password"
-                                onChange={handleChange}
-                                value={values.password}
-                            />
-                            {touched.password && errors.password && <Error>{errors.password}</Error>}
-                        </InputContainer>
+                            <InputContainer>
+                                <Label htmlFor='password'>Senha</Label>
+                                <Input 
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    onChange={handleChange}
+                                    value={values.password}
+                                />
+                                {touched.password && errors.password && <Error>{errors.password}</Error>}
+                            </InputContainer>
 
-                        <InputContainer>
-                            <Label htmlFor='confirmPassword'>Confirme sua senha</Label>
-                            <Input 
-                                type="password"
-                                name="confirmPassword"
-                                id="confirmPassword"
-                                onChange={handleChange}
-                                value={values.confirmPassword}
-                            />
-                            {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
-                        </InputContainer>
+                            <InputContainer>
+                                <Label htmlFor='confirmPassword'>Confirme sua senha</Label>
+                                <Input 
+                                    type="password"
+                                    name="confirmPassword"
+                                    id="confirmPassword"
+                                    onChange={handleChange}
+                                    value={values.confirmPassword}
+                                />
+                                {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
+                            </InputContainer>
 
-                        <InputContainer>
-                            <CheckboxInput 
-                                type="checkbox"
-                                name="terms"
-                                id="terms"
-                                onChange={handleChange}
-                                value={values.terms}
-                            />
-                            <CheckboxLabel>Li e aceito os <u>termos de uso</u>.</CheckboxLabel>
-                            {touched.terms && errors.terms && <Error>{errors.terms}</Error>}
-                        </InputContainer>
-                        <SubmitButton>Cadastrar</SubmitButton>
-                    </Form>
-                )}
-                    
-                </Formik>
-            </FormContainer>
-            <RedirectContainer>
-                <RedirectText>Já tem conta? <u onClick={() => navigate('/login')}>Entre</u></RedirectText>
-            </RedirectContainer>
-        </MainContainer>
+                            <InputContainer>
+                                <CheckboxInput 
+                                    type="checkbox"
+                                    name="terms"
+                                    id="terms"
+                                    onChange={handleChange}
+                                    value={values.terms}
+                                />
+                                <CheckboxLabel>Li e aceito os <u onClick={() => setIsModalVisible(true)}>termos de uso</u>.</CheckboxLabel>
+                                {touched.terms && errors.terms && <Error>{errors.terms}</Error>}
+                            </InputContainer>
+                            <SubmitButton>Cadastrar</SubmitButton>
+                        </Form>
+                    )}
+                        
+                    </Formik>
+                </FormContainer>
+                <RedirectContainer>
+                    <RedirectText>Já tem conta? <u onClick={() => navigate('/login')}>Entre</u></RedirectText>
+                </RedirectContainer>
+            </MainContainer>
+        </>
     )
 }
 

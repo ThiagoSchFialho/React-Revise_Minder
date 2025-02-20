@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
 export const FormContainer = styled.div`
     width: 430px;
     margin: 0 auto;
-    padding: 60px 35px 30px 35px;
+    padding: 30px 35px;
     background-color: ${({ theme }) => theme.secondBackground};
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: 20px;
