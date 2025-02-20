@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
-import { IoSunnyOutline } from "react-icons/io5";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import RocketLight from '../../assets/rocket_light.svg';
 import ClockLight from '../../assets/clock_light.svg';
 import CalendarLight from '../../assets/calendar_light.svg';
@@ -59,7 +59,11 @@ const Home:React.FC = () => {
                     <LogoContainer>
                         <Logo>Revise Minder</Logo>
                         <ThemeButton onClick={toggleTheme}>
-                            <IoSunnyOutline color='white' size='35'/>    
+                            { theme === 'light' ? (
+                                <MdOutlineDarkMode color='white' size={35} />
+                            ) : (
+                                <MdOutlineLightMode color='white' size={35}/>  
+                            )}  
                         </ThemeButton> 
                     </LogoContainer>
                     

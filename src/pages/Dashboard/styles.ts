@@ -40,11 +40,11 @@ export const KanbanContent = styled.div<{ status: string }>`
     & > div {
         background-color: ${(props) => {
             if (props.status === 'doing') {
-                return 'rgba(26, 151, 240)';
+                return '#1A97F0';
             } else if (props.status === 'done') {
-                return 'rgba(4, 140, 56)';
+                return '#048C38';
             } else {
-                return 'rgba(161, 161, 161)';
+                return '#6E6E70';
             }
         }};
     }
