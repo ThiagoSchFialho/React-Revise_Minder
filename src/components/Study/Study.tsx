@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
+import { useTheme } from '../../contexts/ThemeContext'
 import {
     StudyContainer,
     StudyTitle,
@@ -20,6 +21,7 @@ interface StudyProps {
 }
 
 const Study: React.FC<StudyProps> = ({ id, topic, qntReviews, date }) => {
+    const { theme } = useTheme();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [openMenuIndex, setOpenMenuIndex] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -48,7 +50,7 @@ const Study: React.FC<StudyProps> = ({ id, topic, qntReviews, date }) => {
                 <StudyInfo>{qntReviews} Revisões</StudyInfo>
                 <StudyInfo>{date}</StudyInfo>
                 <StudyMore onClick={() => toggleMenu(id)}>
-                    <IoIosMore color="white" size={32} />
+                    <IoIosMore color={theme == 'light' ? '#171823' : 'white'} size={32} />
                 </StudyMore>
                 {openMenuIndex === id && (
                     <ToggleMenu ref={menuRef}>

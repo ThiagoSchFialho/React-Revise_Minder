@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                         <MenuItemText>Meus estudos</MenuItemText>
                     ) : (<></>)}
                 </MenuItemContainer>
-                <MenuItemContainer onClick={() => navigate('/dashboard')}>
+                <MenuItemContainer onClick={() => navigate('/pastReviews')}>
                     <FaFileCircleCheck style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={30}/>
                     {isMenuOpen ? (
                         <MenuItemText>Revisões passadas</MenuItemText>
