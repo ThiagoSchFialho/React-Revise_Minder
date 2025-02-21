@@ -13,6 +13,21 @@ import {
     ReviewDate
 } from './styles';
 
+
+const FutureReview: React.FC<FutureReviewProps> = ({ review }) => (
+    <ReviewContainer>
+    <ReviewTitle>{review.title}</ReviewTitle>
+    <ReviewInfoContainer>
+        <ReviewStatus>Pendente</ReviewStatus>
+        <ReviewDate>{review.date}</ReviewDate>
+    </ReviewInfoContainer>
+    </ReviewContainer>
+)
+
+interface FutureReviewProps {
+    review: { id: string; title: string; date: string }
+}
+
 const mockReviews = [
     { id: '1', title: 'Aprendendo TypeScript do Zero', status: 'todo' },
     { id: '2', title: 'Interfaces e Tipagens Avançadas', status: 'todo' },
@@ -21,6 +36,10 @@ const mockReviews = [
     { id: '5', title: 'Testes Unitários com Jest e TypeScript', status: 'done' },
 ];
 
+const mockFutureReviews = [
+    { id: '1', title: 'Aprendendo TypeScript do Zero', date: '14/05/2025' },
+    { id: '2', title: 'Interfaces e Tipagens Avançadas', date: '17/05/2025' },
+];
 
 const Dashboard: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,21 +55,9 @@ const Dashboard: React.FC = () => {
                 <SeparatorLine/>
 
                 <FutureReviewsContainer>
-                    <ReviewContainer>
-                    <ReviewTitle>TypeScript</ReviewTitle>
-                    <ReviewInfoContainer>
-                        <ReviewStatus>Pendente</ReviewStatus>
-                        <ReviewDate>14/05/2025</ReviewDate>
-                    </ReviewInfoContainer>
-                    </ReviewContainer>
-
-                    <ReviewContainer>
-                    <ReviewTitle>TypeScript</ReviewTitle>
-                    <ReviewInfoContainer>
-                        <ReviewStatus>Pendente</ReviewStatus>
-                        <ReviewDate>14/05/2025</ReviewDate>
-                    </ReviewInfoContainer>
-                    </ReviewContainer>
+                    {mockFutureReviews.map((review) => (
+                        <FutureReview review={review} />
+                    ))}
                 </FutureReviewsContainer>
             </MainContainer>
         </>

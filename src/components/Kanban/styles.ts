@@ -38,7 +38,7 @@ export const KanbanContent = styled.div<{ status: string }>`
             } else if (props.status === 'done') {
                 return '#048C38';
             } else {
-                return '#6E6E70';
+                return 'rgb(76, 76, 80)';
             }
         }};
     }
@@ -46,7 +46,7 @@ export const KanbanContent = styled.div<{ status: string }>`
 
 export const KanbanItem = styled.div`
     font-size: 12pt;
-    font-weight: 400;
+    font-weight: 500;
     color: #FFFFFF;
     padding: 15px;
     border-radius: 5px;

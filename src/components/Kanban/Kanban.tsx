@@ -23,6 +23,7 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
         e.dataTransfer.setData('id', id);
+        e.currentTarget.style.opacity = '0.5';
     };
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {

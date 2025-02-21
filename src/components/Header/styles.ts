@@ -72,3 +72,30 @@ export const MenuItemText = styled.p`
     -ms-user-select: none;
     user-select: none;
 `;
+
+export const ToggleMenu = styled.div`
+  z-index: 100;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background-color: ${({ theme }) => theme.secondBackground};
+  border: 1px solid ${({theme}) => theme.border};
+  border-radius: 10px;
+  box-shadow: ${({theme}) => theme.bigShadow};
+`;
+
+export const ToggleMenuList = styled.ul`
+  list-style-type: none;
+  padding: 5px 50px 5px 10px;
+`;
+
+export const ToggleMenuItem = styled.li`
+  padding: 5px;
+  margin: 3px;
+  text-align: left;
+  cursor: pointer;
+  color: ${({theme}) => theme.text};
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;

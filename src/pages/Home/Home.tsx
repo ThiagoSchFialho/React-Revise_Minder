@@ -46,8 +46,6 @@ const Home:React.FC = () => {
     const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
 
-    console.log(theme)
-
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
