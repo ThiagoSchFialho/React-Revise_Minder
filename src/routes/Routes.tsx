@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import Dashboard from '../pages/Dashboard/Dashboard';
 import StudyForm from '../pages/StudyForm/StudyForm';
+import MyStudies from '../pages/MyStudies/MyStudies';
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/studyForm' element={<StudyForm />} />
         <Route path='/studyForm/:id' element={<StudyForm />} />
+        <Route path='/myStudies' element={<MyStudies />} />
       </Routes>
     </Router>
   );

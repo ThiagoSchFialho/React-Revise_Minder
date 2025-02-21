@@ -42,7 +42,7 @@ const StudyForm: React.FC = () => {
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <MainContainer isMenuOpen={isMenuOpen}>
-                <FormTitle>{id ? 'Atualizar' : 'Adicionar'} estudo</FormTitle>
+                <FormTitle>{id ? 'Editar' : 'Adicionar'} estudo</FormTitle>
                 <FormContainer>
                     <Formik
                         initialValues={{topic: '', qntReviews: '', studyDate: ''}}
@@ -89,7 +89,7 @@ const StudyForm: React.FC = () => {
                                 {touched.studyDate && errors.studyDate && <Error>{errors.studyDate}</Error>}
                             </InputContainer>
 
-                            <SubmitButton type='submit'>{id ? 'Atualizar' : 'Adicionar'}</SubmitButton>
+                            <SubmitButton type='submit'>{id ? 'Salvar' : 'Adicionar'}</SubmitButton>
                         </Form>
                     )}
                         

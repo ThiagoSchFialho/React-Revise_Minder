@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                         <MenuItemText>Início</MenuItemText>
                     ) : (<></>)}
                 </MenuItemContainer>
-                <MenuItemContainer onClick={() => navigate('/dashboard')}>
+                <MenuItemContainer onClick={() => navigate('/myStudies')}>
                     <FaGraduationCap style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={30}/>
                     {isMenuOpen ? (
                         <MenuItemText>Meus estudos</MenuItemText>
