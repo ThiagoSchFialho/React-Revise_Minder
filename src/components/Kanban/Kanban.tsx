@@ -42,67 +42,35 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
         setReviews(updatedReviews);
     };
 
+    const KanbanCell: React.FC<{ title: string; status: 'todo' | 'doing' | 'done' }> = ({ title, status }) => {
+        return (
+            <KanbanColumn
+                onDragOver={onDragOver}
+                onDrop={(e) => onDrop(e, status)}
+            >
+                <KanbanTitleContainer>
+                    <KanbanTitle>{title}</KanbanTitle>
+                </KanbanTitleContainer>
+                <KanbanContent status={status}>
+                    {reviews.filter((review) => review.status === status).map((review) => (
+                        <KanbanItem
+                            key={review.id}
+                            draggable
+                            onDragStart={(e) => onDragStart(e, review.id)}
+                        >
+                            {review.title}
+                        </KanbanItem>
+                    ))}
+                </KanbanContent>
+            </KanbanColumn>
+        )
+    }
+
     return (
         <KanbanContainer>
-            <KanbanColumn
-                onDragOver={onDragOver}
-                onDrop={(e) => onDrop(e, 'todo')}
-            >
-                <KanbanTitleContainer>
-                    <KanbanTitle>Para fazer hoje</KanbanTitle>
-                </KanbanTitleContainer>
-                <KanbanContent status='todo'>
-                    {reviews.filter((review) => review.status === 'todo').map((review) => (
-                        <KanbanItem
-                            key={review.id}
-                            draggable
-                            onDragStart={(e) => onDragStart(e, review.id)}
-                        >
-                            {review.title}
-                        </KanbanItem>
-                    ))}
-                </KanbanContent>
-            </KanbanColumn>
-
-            <KanbanColumn
-                onDragOver={onDragOver}
-                onDrop={(e) => onDrop(e, 'doing')}
-            >
-                <KanbanTitleContainer>
-                    <KanbanTitle>Fazendo</KanbanTitle>
-                </KanbanTitleContainer>
-                <KanbanContent status='doing'>
-                    {reviews.filter((review) => review.status === 'doing').map((review) => (
-                        <KanbanItem
-                            key={review.id}
-                            draggable
-                            onDragStart={(e) => onDragStart(e, review.id)}
-                        >
-                            {review.title}
-                        </KanbanItem>
-                    ))}
-                </KanbanContent>
-            </KanbanColumn>
-
-            <KanbanColumn
-                onDragOver={onDragOver}
-                onDrop={(e) => onDrop(e, 'done')}
-            >
-                <KanbanTitleContainer>
-                    <KanbanTitle>Feitas</KanbanTitle>
-                </KanbanTitleContainer>
-                <KanbanContent status='done'>
-                    {reviews.filter((review) => review.status === 'done').map((review) => (
-                        <KanbanItem
-                            key={review.id}
-                            draggable
-                            onDragStart={(e) => onDragStart(e, review.id)}
-                        >
-                            {review.title}
-                        </KanbanItem>
-                    ))}
-                </KanbanContent>
-            </KanbanColumn>
+            <KanbanCell title='Para fazer hoje' status='todo' />
+            <KanbanCell title='Fazendo' status='doing' />
+            <KanbanCell title='Feitas' status='done' />
         </KanbanContainer>
     );
 };
