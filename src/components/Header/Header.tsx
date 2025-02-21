@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                 </MenuContainer>
                 
                 <UserContainer>
-                    <AddStudy>
+                    <AddStudy onClick={() => navigate('/studyForm')}>
                         <IoMdAdd color={theme == 'light' ? '#171823' : 'white'} size={25}/>
                         Estudo
                     </AddStudy>

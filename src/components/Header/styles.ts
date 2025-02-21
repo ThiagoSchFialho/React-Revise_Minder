@@ -76,7 +76,7 @@ export const MenuItemText = styled.p`
 export const ToggleMenu = styled.div`
   z-index: 100;
   position: absolute;
-  top: 70px;
+  top: 60px;
   right: 20px;
   background-color: ${({ theme }) => theme.secondBackground};
   border: 1px solid ${({theme}) => theme.border};
