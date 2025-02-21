@@ -29,13 +29,13 @@ export const ModalContainer = styled.div`
     }
 
     &::-webkit-scrollbar-track {
-        background: ${({ theme }) => theme.secondBackground};
+        background: #242533;
         border-radius: 0 10px 10px 0;
     }
 
     &::-webkit-scrollbar-thumb {
         background: #1A97F0;
-        border-radius:  0 10px 10px 0;
+        border-radius: 0 10px 10px 0;
     }
 
     &::-webkit-scrollbar-thumb:hover {

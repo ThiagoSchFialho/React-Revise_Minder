@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
-import Header from '../../components/Header/Header'
+import React, { useState } from 'react';
+import Header from '../../components/Header/Header';
+import Kanban from '../../components/Kanban/Kanban';
 import {
     MainContainer,
-    KambanContainer,
-    KambanColumn,
-    KambanTitleContainer,
-    KambanTitle,
-    KanbanContent,
-    KanbanItem,
     SeparatorTitle,
     SeparatorLine,
     FutureReviewsContainer,
@@ -16,60 +11,26 @@ import {
     ReviewInfoContainer,
     ReviewStatus,
     ReviewDate
-} from './styles'
+} from './styles';
+
+const mockReviews = [
+    { id: '1', title: 'Aprendendo TypeScript do Zero', status: 'todo' },
+    { id: '2', title: 'Interfaces e Tipagens Avançadas', status: 'todo' },
+    { id: '3', title: 'Refatorando Código JavaScript para TypeScript', status: 'doing' },
+    { id: '4', title: 'Criando Tipos Dinâmicos', status: 'doing' },
+    { id: '5', title: 'Testes Unitários com Jest e TypeScript', status: 'done' },
+];
+
 
 const Dashboard: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [coords, setCoords] = useState({ x: 0, y: 0 });
-    
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        setCoords({
-            x: e.pageX,
-            y: e.pageY
-        });
-    };
 
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <MainContainer isMenuOpen={isMenuOpen}>
-                <KambanContainer onMouseMove={handleMouseMove}>
-                    <KambanColumn>
-                        <KambanTitleContainer>
-                            <KambanTitle>Para fazer hoje</KambanTitle>
-                        </KambanTitleContainer>
-                        <KanbanContent status='toDo'>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 1</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 2</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 3</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 4</KanbanItem>
-                        </KanbanContent>
-                    </KambanColumn>
 
-                    <KambanColumn>
-                        <KambanTitleContainer>
-                            <KambanTitle>Fazendo</KambanTitle>
-                        </KambanTitleContainer>
-                        <KanbanContent status='doing'>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 1</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 2</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 3</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 4</KanbanItem>
-                        </KanbanContent>
-                    </KambanColumn>
-
-                    <KambanColumn>
-                        <KambanTitleContainer>
-                            <KambanTitle>Feitas</KambanTitle>
-                        </KambanTitleContainer>
-                        <KanbanContent status='done'>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 1</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 2</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 3</KanbanItem>
-                            <KanbanItem x={coords.x} y={coords.y}>TypeScript 4</KanbanItem>
-                        </KanbanContent>
-                    </KambanColumn>
-                </KambanContainer>
+                <Kanban data={mockReviews}/>
 
                 <SeparatorTitle>Revisões futuras</SeparatorTitle>
                 <SeparatorLine/>
