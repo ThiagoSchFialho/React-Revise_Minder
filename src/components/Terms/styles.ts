@@ -54,26 +54,41 @@ export const ModalContainer = styled.div`
 `;
 
 export const Title1 = styled.h1`
-    font-size: 1em;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+    }
 `;
 
 export const Title2 = styled.h2 `
-    font-size: 1em;
     margin-bottom: 5px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+    }
 `;
 
 export const List = styled.ul`
-    font-size: 1em;
     margin: 0 0 15px 17px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+    }
 `;
 
 export const Item = styled.li`
-    font-size: 1em;
     margin-bottom: 5px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+    }
 `;
 
 export const Text = styled.p`
-    font-size: 1em;
     margin: 0 0 15px 17px;
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+    }
 `;
