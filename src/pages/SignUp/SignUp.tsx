@@ -18,6 +18,13 @@ import {
     RedirectText
 } from './styles';
 
+interface FormValues {
+    email: string
+    password: string
+    confirmPassword: string
+    terms: boolean
+}
+
 const validations = Yup.object({ 
     email: Yup.string()
       .required('Por favor, informe o seu email!'),
@@ -42,7 +49,7 @@ const SignUp: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const handleSignUp = (values) => {
+    const handleSignUp = (values: FormValues) => {
         console.log(values)
     }
 

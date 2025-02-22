@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
@@ -13,6 +13,12 @@ import {
     Error,
     SubmitButton
 } from './styles';
+
+interface FormValues {
+    topic: string
+    qntReviews: number
+    studyDate: string
+}
 
 const validations = Yup.object({ 
     topic: Yup.string()
@@ -32,8 +38,24 @@ const StudyForm: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const [initialValues, setInitialValues] = useState<FormValues>({
+        topic: '',
+        qntReviews: 0,
+        studyDate: ''
+    })
 
-    const handleSubmit = (values) => {
+    useEffect(() => {
+        if (id) {
+            setInitialValues({
+                topic: '',
+                qntReviews: 0,
+                studyDate: ''
+            })
+        }
+
+    }, [id])
+
+    const handleSubmit = (values: FormValues) => {
         console.log(values);
         navigate('/dashboard');
     }
@@ -45,7 +67,7 @@ const StudyForm: React.FC = () => {
                 <FormTitle>{id ? 'Editar' : 'Adicionar'} estudo</FormTitle>
                 <FormContainer>
                     <Formik
-                        initialValues={{topic: '', qntReviews: '', studyDate: ''}}
+                        initialValues={initialValues}
                         enableReinitialize={true}
                         validationSchema={validations}
                         onSubmit={(values) => handleSubmit(values)}

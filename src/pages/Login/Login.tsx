@@ -16,6 +16,11 @@ import {
     SignUpText
 } from './styles'
 
+interface FormValues {
+    email: string
+    password: string
+}
+
 const validations = Yup.object({ 
     email: Yup.string()
       .email('Email inválido')
@@ -33,7 +38,7 @@ const Login: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const handleLogin = (values) => {
+    const handleLogin = (values: FormValues) => {
         console.log(values)
         navigate('/dashboard')
     }
