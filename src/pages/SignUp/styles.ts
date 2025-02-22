@@ -18,6 +18,10 @@ export const FormContainer = styled.div`
     border: 1px solid ${({theme}) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 `;
 
 export const FormTitle = styled.h1`

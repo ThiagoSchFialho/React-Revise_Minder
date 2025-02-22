@@ -7,9 +7,13 @@ export const StudyContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+    width: 60%;
     margin: 0 auto 30px auto;
     box-shadow: ${({theme}) => theme.shadow};
+
+    @media (max-width: 1360px) {
+        width: 80%;
+    }
 `;
 
 export const StudyTitle = styled.div`

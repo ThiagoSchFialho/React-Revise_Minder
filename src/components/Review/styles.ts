@@ -7,9 +7,13 @@ export const ReviewContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+    width: 60%;
     margin: 0 auto 30px auto;
     box-shadow: ${({theme}) => theme.shadow};
+
+    @media (max-width: 1360px) {
+        width: 80%;
+    }
 `;
 
 export const ReviewTitle = styled.div`
@@ -36,7 +40,7 @@ export const ReviewStatus = styled.div<{ status: string}>`
     }};
     color: ${(props) => {
         if (props.status === 'Realizada') {
-            return '#005B3B';
+            return '#006B45';
         } else if (props.status === 'Não Realizada') {
             return '#A30000';
         } else {

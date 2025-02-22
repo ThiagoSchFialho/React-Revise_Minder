@@ -22,6 +22,10 @@ export const FormContainer = styled.div`
     @media (max-width: 1360px) {
         padding: 30px;
     }
+    
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 `;
 
 export const FormTitle = styled.h1`
