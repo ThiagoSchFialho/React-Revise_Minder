@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     KanbanContainer,
     KanbanColumn,
@@ -9,9 +9,10 @@ import {
 } from './styles';
 
 interface Review {
-    id: string;
-    title: string;
-    status: 'todo' | 'doing' | 'done';
+    id: string
+    topic: string
+    status: string
+    date: string
 }
 
 interface KanbanProps {
@@ -19,7 +20,11 @@ interface KanbanProps {
 }
 
 const Kanban: React.FC<KanbanProps> = ({ data }) => {
-    const [reviews, setReviews] = useState<Review[]>(data);
+    const [reviews, setReviews] = useState<Review[]>([]);
+
+    useEffect(() => {
+        setReviews(data)
+    }, [data])
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
         e.dataTransfer.setData('id', id);
@@ -30,7 +35,7 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
         e.preventDefault();
     };
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>, status: 'todo' | 'doing' | 'done') => {
+    const onDrop = (e: React.DragEvent<HTMLDivElement>, status: string) => {
         const id = e.dataTransfer.getData('id');
 
         const updatedReviews = reviews.map((review) => {
@@ -59,7 +64,7 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
                             draggable
                             onDragStart={(e) => onDragStart(e, review.id)}
                         >
-                            {review.title}
+                            {review.topic}
                         </KanbanItem>
                     ))}
                 </KanbanContent>

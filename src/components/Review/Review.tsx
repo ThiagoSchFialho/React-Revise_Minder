@@ -28,14 +28,13 @@ const Review: React.FC<ReviewProps> = ({ id, topic, status, date }) => {
     const getStatus = () => {
         const currentDate = new Date();
         const reviewDate = new Date(date);
-
+        
         if (reviewDate < currentDate) {
             if (status === 'done') {
                 return 'Realizada';
             } else {
                 return 'Não Realizada';
             }
-            
         } else {
             return 'Pendente';
         }
