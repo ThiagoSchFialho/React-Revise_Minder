@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import { useAuth } from '../../hooks/useAuth';
 import {
     MainContainer,
     FormContainer,
@@ -17,30 +18,30 @@ import {
 } from './styles'
 
 interface FormValues {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 const validations = Yup.object({ 
     email: Yup.string()
-      .email('Email inválido')
-      .required('Por favor, informe o seu email!'),
-  
+        .email('Email inválido')
+        .required('Por favor, informe o seu email!'),
+
     password: Yup.string()
-      .min(8, 'A senha deve possuir pelo menos 8 caracteres!')
-      .required('Por favor, informe uma senha!'),
-  })
+        .min(8, 'A senha deve possuir pelo menos 8 caracteres!')
+        .required('Por favor, informe uma senha!'),
+});
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     const handleLogin = (values: FormValues) => {
-        console.log(values)
-        navigate('/dashboard')
+        login(values);
     }
 
     return (
