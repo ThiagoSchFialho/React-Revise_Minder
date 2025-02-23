@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 
 interface LoginValues {
   email: string;
@@ -9,6 +10,18 @@ interface SignUpValues {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+const getUserIdFromToken = (token: string) => {
+  if (!token) return null;
+  
+  try {
+    const decodedToken = jwtDecode<{ userId: string }>(token);
+    return decodedToken.userId;
+  } catch (error) {
+    console.error('Erro ao decodificar token:', error);
+    return null;
+  }
 }
 
 export const useAuth = () => {
@@ -28,10 +41,17 @@ export const useAuth = () => {
 
       if (data?.error === 'Authentication failed') {
         alert('Credenciais incorretas');
+        return;
       }
 
-      if (response.ok) {
-        localStorage.setItem('token', data)
+      if (response.ok && data.token) {
+        localStorage.setItem('token', data.token)
+
+        const userId = getUserIdFromToken(data.token);
+        if (userId) {
+          localStorage.setItem('userId', userId);
+        }
+
         navigate('/dashboard');
       } else {
         console.error('Erro no login:', data.error);
@@ -55,6 +75,7 @@ export const useAuth = () => {
 
       if (data?.error === 'User with that email already exists') {
           alert('Email indisponivel');
+          return;
       }
 
       if (response.ok) {
