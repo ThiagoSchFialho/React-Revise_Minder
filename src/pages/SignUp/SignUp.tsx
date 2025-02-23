@@ -49,8 +49,30 @@ const SignUp: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const handleSignUp = (values: FormValues) => {
-        console.log(values)
+    const handleSignUp = async (values: FormValues) => {
+        try {
+            const response = await fetch('http://localhost:3000/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+            console.log(data);
+
+            if (data?.error === 'User with that email already exists') {
+                alert('Email indisponivel');
+            }
+
+            if (response.ok) {
+                navigate('/login');
+            } else {
+                console.error('Erro no cadastro:', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
     }
 
     return (
