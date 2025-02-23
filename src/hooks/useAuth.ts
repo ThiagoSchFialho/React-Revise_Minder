@@ -15,7 +15,7 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const host = 'http://localhost:3000/auth';
 
-  const login = async (values: LoginValues) => {
+  const handleLogin = async (values: LoginValues) => {
     try {
       const response = await fetch(`${host}/login`, {
         method:  'POST',
@@ -25,13 +25,13 @@ export const useAuth = () => {
         body: JSON.stringify(values)
       });
       const data = await response.json();
-      console.log(data);
 
       if (data?.error === 'Authentication failed') {
         alert('Credenciais incorretas');
       }
 
       if (response.ok) {
+        localStorage.setItem('token', data)
         navigate('/dashboard');
       } else {
         console.error('Erro no login:', data.error);
@@ -42,7 +42,7 @@ export const useAuth = () => {
     }
   }
 
-  const signUp = async (values: SignUpValues) => {
+  const handleSignUp = async (values: SignUpValues) => {
     try {
       const response = await fetch(`${host}/register`, {
           method: 'POST',
@@ -52,7 +52,6 @@ export const useAuth = () => {
           body: JSON.stringify(values)
       });
       const data = await response.json();
-      console.log(data);
 
       if (data?.error === 'User with that email already exists') {
           alert('Email indisponivel');
@@ -68,5 +67,10 @@ export const useAuth = () => {
     }
   }
 
-  return { login, signUp }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  return { handleLogin, handleSignUp, handleLogout }
 }

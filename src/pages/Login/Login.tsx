@@ -17,11 +17,6 @@ import {
     SignUpText
 } from './styles'
 
-interface FormValues {
-    email: string;
-    password: string;
-}
-
 const validations = Yup.object({ 
     email: Yup.string()
         .email('Email inválido')
@@ -34,15 +29,11 @@ const validations = Yup.object({
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { handleLogin } = useAuth();
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    const handleLogin = (values: FormValues) => {
-        login(values);
-    }
 
     return (
         <MainContainer>            

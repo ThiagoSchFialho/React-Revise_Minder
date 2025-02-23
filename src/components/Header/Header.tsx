@@ -6,6 +6,7 @@ import { FaHouse, FaFileCircleCheck, FaGraduationCap  } from "react-icons/fa6";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { useTheme } from '../../contexts/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import {
     HeaderContainer,
     MenuContainer,
@@ -19,7 +20,7 @@ import {
     ToggleMenu,
     ToggleMenuList,
     ToggleMenuItem
-} from './styles'
+} from './styles';
 
 interface HeaderProps {
     isMenuOpen: boolean;
@@ -28,6 +29,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
     const { theme, toggleTheme } = useTheme();
+    const { handleLogout } = useAuth();
     const navigate = useNavigate();
     const [isToggleMenuOpen, setIsToggleMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                                         Modo Claro <MdOutlineLightMode color='white' size={24} />
                                     </ToggleMenuItem>
                                 )}                                
-                                <ToggleMenuItem onClick={() => navigate(`/login`)}>Sair</ToggleMenuItem>
+                                <ToggleMenuItem onClick={handleLogout}>Sair</ToggleMenuItem>
                             </ToggleMenuList>
                         </ToggleMenu>
                     )}
