@@ -7,9 +7,9 @@ import {
 } from './styles';
 
 const mockStudies = [
-    { id: '1', topic: 'TypeScript', qntReviews: 4, date: '23/01/25' },
-    { id: '2', topic: 'React', qntReviews: 3, date: '24/01/25' },
-    { id: '3', topic: 'Node.js', qntReviews: 5, date: '25/01/25' }
+    { id: '1', topic: 'TypeScript', qnt_reviews: 4, date: '23/01/25' },
+    { id: '2', topic: 'React', qnt_reviews: 3, date: '24/01/25' },
+    { id: '3', topic: 'Node.js', qnt_reviews: 5, date: '25/01/25' }
 ];
 
 const MyStudies: React.FC = () => {

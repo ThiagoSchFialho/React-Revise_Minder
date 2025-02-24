@@ -16,11 +16,11 @@ import {
 interface StudyProps {
     id: string
     topic: string
-    qntReviews: number
+    qnt_reviews: number
     date: string
 }
 
-const Study: React.FC<StudyProps> = ({ id, topic, qntReviews, date }) => {
+const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date }) => {
     const { theme } = useTheme();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [openMenuIndex, setOpenMenuIndex] = useState<string | null>(null);
@@ -47,7 +47,7 @@ const Study: React.FC<StudyProps> = ({ id, topic, qntReviews, date }) => {
         <StudyContainer>
             <StudyTitle>{topic}</StudyTitle>
             <StudyInfoContainer>
-                <StudyInfo>{qntReviews} Revisões</StudyInfo>
+                <StudyInfo>{qnt_reviews} Revisões</StudyInfo>
                 <StudyInfo>{date}</StudyInfo>
                 <StudyMore onClick={() => toggleMenu(id)}>
                     <IoIosMore color={theme == 'light' ? '#171823' : 'white'} size={32} />

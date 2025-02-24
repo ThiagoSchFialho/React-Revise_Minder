@@ -16,21 +16,22 @@ import {
 
 interface FormValues {
     topic: string
-    qntReviews: number
-    studyDate: string
+    qnt_reviews: number
+    study_date: string
+    user_id: number
 }
 
 const validations = Yup.object({ 
     topic: Yup.string()
       .required('Por favor, informe o tópico do estudo'),
   
-    qntReviews: Yup.number()
+    qnt_reviews: Yup.number()
       .typeError('Informe um número válido')
       .positive('A quantidade de revisões deve ser maior que zero')
       .integer('A quantidade de revisões deve ser um número inteiro')
       .required('Por favor, informe a quantidade de revisões'),
 
-    studyDate: Yup.string()
+    study_date: Yup.string()
       .required('Por favor, informe a data do estudo'),
 });
 
@@ -40,24 +41,45 @@ const StudyForm: React.FC = () => {
     const navigate = useNavigate();
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
-        qntReviews: 0,
-        studyDate: ''
+        qnt_reviews: 0,
+        study_date: '',
+        user_id: Number(localStorage.getItem('userId'))
     })
 
     useEffect(() => {
         if (id) {
             setInitialValues({
                 topic: '',
-                qntReviews: 0,
-                studyDate: ''
+                qnt_reviews: 0,
+                study_date: '',
+                user_id: Number(localStorage.getItem('userId'))
             })
         }
 
     }, [id])
 
-    const handleSubmit = (values: FormValues) => {
-        console.log(values);
-        navigate('/dashboard');
+    const handleSubmit = async (values: FormValues) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch('http://localhost:3000/study', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+      
+            if (response.ok) {
+                navigate('/myStudies');
+            } else {
+                console.error('Erro criação do estudo:', data.error);
+            }
+          } catch (error) {
+              console.error('Erro na requisição:', error);
+          }
     }
 
     return (
@@ -87,28 +109,28 @@ const StudyForm: React.FC = () => {
                             </InputContainer>
     
                             <InputContainer>
-                                <Label htmlFor='qntReviews'>Quantidade de revisões</Label>
+                                <Label htmlFor='qnt_reviews'>Quantidade de revisões</Label>
                                 <Input 
                                     type="number"
                                     min='0'
-                                    name="qntReviews"
-                                    id="qntReviews"
+                                    name="qnt_reviews"
+                                    id="qnt_reviews"
                                     onChange={handleChange}
-                                    value={values.qntReviews}
+                                    value={values.qnt_reviews}
                                 />
-                                {touched.qntReviews && errors.qntReviews && <Error>{errors.qntReviews}</Error>}
+                                {touched.qnt_reviews && errors.qnt_reviews && <Error>{errors.qnt_reviews}</Error>}
                             </InputContainer>
 
                             <InputContainer>
-                                <Label htmlFor='studyDate'>Data do estudo</Label>
+                                <Label htmlFor='study_date'>Data do estudo</Label>
                                 <Input 
                                     type="date"
-                                    name="studyDate"
-                                    id="studyDate"
+                                    name="study_date"
+                                    id="study_date"
                                     onChange={handleChange}
-                                    value={values.studyDate}
+                                    value={values.study_date}
                                 />
-                                {touched.studyDate && errors.studyDate && <Error>{errors.studyDate}</Error>}
+                                {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
                             </InputContainer>
 
                             <SubmitButton type='submit'>{id ? 'Salvar' : 'Adicionar'}</SubmitButton>
