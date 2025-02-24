@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useDb } from '../../hooks/useDb';
 import {
     MainContainer,
     FormContainer,
@@ -35,10 +36,18 @@ const validations = Yup.object({
       .required('Por favor, informe a data do estudo'),
 });
 
+const formatDate = (date: string) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear());
+    return `${year}-${month}-${day}`;
+};
+
 const StudyForm: React.FC = () => {
+    const { createStudy, getStudy, updateStudy } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
         qnt_reviews: 0,
@@ -48,38 +57,26 @@ const StudyForm: React.FC = () => {
 
     useEffect(() => {
         if (id) {
-            setInitialValues({
-                topic: '',
-                qnt_reviews: 0,
-                study_date: '',
-                user_id: Number(localStorage.getItem('userId'))
-            })
-        }
+            const fetchStudies = async () => {
+                const study = await getStudy(id);
 
+                setInitialValues({
+                    topic: study.topic,
+                    qnt_reviews: study.qnt_reviews,
+                    study_date: formatDate(study.date),
+                    user_id: Number(localStorage.getItem('userId'))
+                })
+            }
+            fetchStudies();
+        }
     }, [id])
 
     const handleSubmit = async (values: FormValues) => {
-        const token = localStorage.getItem('token');
-
-        try {
-            const response = await fetch('http://localhost:3000/study', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            });
-            const data = await response.json();
-      
-            if (response.ok) {
-                navigate('/myStudies');
-            } else {
-                console.error('Erro criação do estudo:', data.error);
-            }
-          } catch (error) {
-              console.error('Erro na requisição:', error);
-          }
+        if (id) {
+            updateStudy(values, id);
+        } else {
+            createStudy(values);
+        }
     }
 
     return (

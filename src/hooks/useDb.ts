@@ -1,4 +1,63 @@
+import { useNavigate } from "react-router-dom";
+
+interface StudyValues {
+    topic: string
+    qnt_reviews: number
+    study_date: string
+    user_id: number
+}
+
 export const useDb = () => {
+    const navigate = useNavigate();
+
+    const createStudy = async (values: StudyValues) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch('http://localhost:3000/study', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+      
+            if (response.ok) {
+                navigate('/myStudies');
+            } else {
+                console.error('Erro criação do estudo:', data.error);
+            }
+          } catch (error) {
+              console.error('Erro na requisição:', error);
+          }
+    }
+
+    const getStudy = async (id: string) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`http://localhost:3000/study/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao recuperar estudo', data.error);
+            }
+
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+    }
+
     const getStudies = async () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
@@ -27,5 +86,29 @@ export const useDb = () => {
         }
     }
 
-    return { getStudies }
+    const updateStudy = async (values: StudyValues, id: string) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`http://localhost:3000/study/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+      
+            if (response.ok) {
+                navigate('/myStudies');
+            } else {
+                console.error('Erro na edição do estudo:', data.error);
+            }
+          } catch (error) {
+              console.error('Erro na requisição:', error);
+          }
+    }
+
+    return { createStudy, getStudy, getStudies, updateStudy }
 }
