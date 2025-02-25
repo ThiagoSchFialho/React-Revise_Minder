@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Review from '../../components/Review/Review';
+import Loading from '../../components/Loading/Loading';
+import NoReviews from '../../components/NoResults/NoReviews/NoReviews';
 import { useDb } from '../../hooks/useDb';
 import {
     MainContainer,
@@ -21,13 +23,18 @@ const PastReviews: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [pastReviews, setPastReviews] = useState<Review[]>([]);
     const [reviews, setReviews] = useState<Review[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchReviews = async () => {
-            setReviews(await getReviews());
-        }
-        fetchReviews();
-    }, [])
+        const fetchStudies = async () => {
+            setLoading(true);
+            const data = await getReviews();
+            setReviews(data);
+            setLoading(false);
+        };
+    
+        fetchStudies();
+    }, []);
 
     useEffect(() => {
         const pastReviews = reviews.filter((review) => {
@@ -44,9 +51,18 @@ const PastReviews: React.FC = () => {
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <MainContainer isMenuOpen={isMenuOpen}>
                 <Title>Revisões passadas</Title>
-                {pastReviews.map((review) => (
+                {loading ? (
+                    <Loading />
+                ) : reviews && reviews.length > 0 ? (
+                    <>
+                        {pastReviews.map((review) => (
                     <Review key={review.id} {...review} />
                 ))}
+                    </>
+                ) : (
+                    <NoReviews />
+                )}
+                
             </MainContainer>
         </>
     );
