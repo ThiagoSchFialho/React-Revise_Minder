@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Kanban from '../../components/Kanban/Kanban';
 import Review from '../../components/Review/Review';
+import Loading from '../../components/Loading/Loading';
+import NoFutureReviews from '../../components/NoResults/NoFutureReviews/NoFutureReviews';
 import { useDb } from '../../hooks/useDb';
 import {
     MainContainer,
@@ -24,13 +26,18 @@ const Dashboard: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [FutureReviews, setFutureReviews] = useState<Review[]>([]);
     const [reviews, setReviews] = useState<Review[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchReviews = async () => {
-            setReviews(await getReviews());
-        }
-        fetchReviews();
-    }, [])
+        const fetchStudies = async () => {
+            setLoading(true);
+            const data = await getReviews();
+            setReviews(data);
+            setLoading(false);
+        };
+    
+        fetchStudies();
+    }, []);
 
     useEffect(() => {
         const futureReviews = reviews.filter((review) => {
@@ -51,9 +58,17 @@ const Dashboard: React.FC = () => {
                 <SeparatorLine/>
 
                 <FutureReviewsContainer>
-                    {FutureReviews.map((review) => (
-                        <Review key={review.id} {...review} />
-                    ))}
+                    {loading ? (
+                        <Loading />
+                    ) : FutureReviews && FutureReviews.length > 0 ? (
+                        <>
+                            {FutureReviews.map((review) => (
+                                <Review key={review.id} {...review} />
+                            ))}
+                        </>
+                    ) : (
+                        <NoFutureReviews />
+                    )}
                 </FutureReviewsContainer>
             </MainContainer>
         </>
