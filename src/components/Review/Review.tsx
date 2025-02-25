@@ -8,10 +8,12 @@ import {
 } from './styles';
 
 interface ReviewProps {
-    id: string
+    id: number
     topic: string
     status: string
     date: string
+    study_id: number
+    user_id: number
 }
 
 const formatDate = (date: string) => {
@@ -23,7 +25,7 @@ const formatDate = (date: string) => {
     return `${day}/${month}/${year}`;
 }
 
-const Review: React.FC<ReviewProps> = ({ id, topic, status, date }) => {
+const Review: React.FC<ReviewProps> = ({ topic, status, date }) => {
 
     const getStatus = () => {
         const currentDate = new Date();
