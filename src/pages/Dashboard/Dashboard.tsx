@@ -22,7 +22,6 @@ interface Review {
 const Dashboard: React.FC = () => {
     const { getReviews } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [todaysReviews, setTodaysReviews] = useState<Review[]>([]);
     const [FutureReviews, setFutureReviews] = useState<Review[]>([]);
     const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -38,11 +37,6 @@ const Dashboard: React.FC = () => {
             return new Date(review.date).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
         });
 
-        const todaysReviews = reviews.filter((review) => {
-            return new Date(review.date).toDateString() == new Date().toDateString();
-        });
-    
-        setTodaysReviews(todaysReviews)
         setFutureReviews(futureReviews);
     }, [reviews]);
 
@@ -51,7 +45,7 @@ const Dashboard: React.FC = () => {
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <MainContainer isMenuOpen={isMenuOpen}>
 
-                <Kanban data={todaysReviews}/>
+                <Kanban/>
 
                 <SeparatorTitle>Revisões futuras</SeparatorTitle>
                 <SeparatorLine/>

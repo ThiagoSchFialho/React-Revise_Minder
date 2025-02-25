@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDb } from '../../hooks/useDb';
 import {
     KanbanContainer,
     KanbanColumn,
@@ -17,37 +18,51 @@ interface Review {
     user_id: number;
 }
 
-interface KanbanProps {
-    data: Review[];
-}
-
-const Kanban: React.FC<KanbanProps> = ({ data }) => {
+const Kanban: React.FC = () => {
+    const { getReviews, updateReviewStatus } = useDb();
     const [reviews, setReviews] = useState<Review[]>([]);
 
+    const fetchReviews = async () => {
+        const reviews = await getReviews();
+
+        const todaysReviews = reviews.filter((review: Review) => {
+            return new Date(review.date).toDateString() == new Date().toDateString();
+        });
+
+        setReviews(todaysReviews);
+    }
+
     useEffect(() => {
-        setReviews(data)
-    }, [data])
+        fetchReviews();
+    }, [])
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: number) => {
         e.dataTransfer.setData('id', String(id));
         e.currentTarget.style.opacity = '0.5';
     };
 
+    const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+        e.currentTarget.style.opacity = '1';
+    };
+
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
     };
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>, status: string) => {
+    const onDrop = async (e: React.DragEvent<HTMLDivElement>, status: string) => {
         const id = e.dataTransfer.getData('id');
 
-        const updatedReviews = reviews.map((review) => {
-            if (String(review.id) == String(id)) {
-                return { ...review, status };
-            }
-            return review;
-        });
+        setReviews((prevReviews) =>
+            prevReviews.map((review) =>
+                review.id === Number(id) ? { ...review, status } : review
+            )
+        );
 
-        setReviews(updatedReviews);
+        const review = await updateReviewStatus(Number(id), status);
+        if (review) {
+            fetchReviews();
+        }
+        
     };
 
     const KanbanCell: React.FC<{ title: string; status: 'todo' | 'doing' | 'done' }> = ({ title, status }) => {
@@ -65,6 +80,7 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
                             key={review.id}
                             draggable
                             onDragStart={(e) => onDragStart(e, review.id)}
+                            onDragEnd={onDragEnd}
                         >
                             {review.topic}
                         </KanbanItem>

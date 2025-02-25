@@ -138,5 +138,29 @@ export const useDb = () => {
         }
     }
 
-    return { createStudy, getStudy, getStudies, updateStudy, getReviews }
+    const updateReviewStatus = async (id: number, status: string) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch('http://localhost:3000/review', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id, status })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao atualizar revisão', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
+    return { createStudy, getStudy, getStudies, updateStudy, getReviews, updateReviewStatus }
 }
