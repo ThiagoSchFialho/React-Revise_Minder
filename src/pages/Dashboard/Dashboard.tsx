@@ -11,12 +11,12 @@ import {
 } from './styles';
 
 interface Review {
-    id: number
-    topic: string
-    status: string
-    date: string
-    study_id: number
-    user_id: number
+    id: number;
+    topic: string;
+    status: string;
+    date: string;
+    study_id: number;
+    user_id: number;
 }
 
 const Dashboard: React.FC = () => {

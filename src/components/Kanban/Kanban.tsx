@@ -9,10 +9,12 @@ import {
 } from './styles';
 
 interface Review {
-    id: string
-    topic: string
-    status: string
-    date: string
+    id: number;
+    topic: string;
+    status: string;
+    date: string;
+    study_id: number;
+    user_id: number;
 }
 
 interface KanbanProps {
@@ -26,8 +28,8 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
         setReviews(data)
     }, [data])
 
-    const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-        e.dataTransfer.setData('id', id);
+    const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: number) => {
+        e.dataTransfer.setData('id', String(id));
         e.currentTarget.style.opacity = '0.5';
     };
 
@@ -39,7 +41,7 @@ const Kanban: React.FC<KanbanProps> = ({ data }) => {
         const id = e.dataTransfer.getData('id');
 
         const updatedReviews = reviews.map((review) => {
-            if (review.id === id) {
+            if (String(review.id) == String(id)) {
                 return { ...review, status };
             }
             return review;
