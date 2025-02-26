@@ -110,6 +110,29 @@ export const useDb = () => {
           }
     }
 
+    const deleteStudy = async (id: number) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`http://localhost:3000/study/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao deletar estudo', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+    }
+
     const getReviews = async () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
@@ -162,5 +185,13 @@ export const useDb = () => {
         }
     }
 
-    return { createStudy, getStudy, getStudies, updateStudy, getReviews, updateReviewStatus }
+    return {
+        createStudy,
+        getStudy,
+        getStudies,
+        updateStudy,
+        deleteStudy,
+        getReviews,
+        updateReviewStatus
+    }
 }

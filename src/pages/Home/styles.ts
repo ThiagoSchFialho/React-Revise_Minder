@@ -109,6 +109,7 @@ export const BannerParagraph = styled.p`
     text-align: center;
     margin: 15px auto 0px auto;
     width: 40%;
+    font-size: 14pt;
     
     @media (max-width: 768px) {
         width: 90%;

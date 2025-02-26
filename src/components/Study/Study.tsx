@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
-import { useTheme } from '../../contexts/ThemeContext'
+import { useTheme } from '../../contexts/ThemeContext';
+import { useDb } from '../../hooks/useDb';
 import {
     StudyContainer,
     StudyTitle,
@@ -19,6 +20,7 @@ interface StudyProps {
     qnt_reviews: number;
     date: string;
     user_id: number;
+    refresh: () => void;
 }
 
 const formatDate = (date: string) => {
@@ -26,7 +28,8 @@ const formatDate = (date: string) => {
 };
 
 
-const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date }) => {
+const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh }) => {
+    const { deleteStudy } = useDb();
     const { theme } = useTheme();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
@@ -49,6 +52,24 @@ const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date }) => {
         };
     }, [toggleMenu]);
 
+    const handleDelete = (id: number) => {
+        const confirmation = confirm('Tem certeza que deseja excluir este estudo?')
+    
+        if(!id) return
+
+        if (!confirmation) return
+
+        try {
+            deleteStudy(id);
+            refresh();
+            alert('Estudo removido com sucesso');
+            refresh();
+
+        } catch (error: any) {
+            console.error('Erro ao remover estudo', error);
+        }
+    }
+
     return (
         <StudyContainer>
             <StudyTitle>{topic}</StudyTitle>
@@ -62,7 +83,7 @@ const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date }) => {
                     <ToggleMenu ref={menuRef}>
                         <ToggleMenuList>
                             <ToggleMenuItem onClick={() => navigate(`/studyform/${id}`)}>Editar</ToggleMenuItem>
-                            <ToggleMenuItem>Excluir</ToggleMenuItem>
+                            <ToggleMenuItem onClick={() => handleDelete(id)}>Excluir</ToggleMenuItem>
                         </ToggleMenuList>
                     </ToggleMenu>
                 )}

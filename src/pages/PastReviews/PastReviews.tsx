@@ -53,7 +53,7 @@ const PastReviews: React.FC = () => {
                 <Title>Revisões passadas</Title>
                 {loading ? (
                     <Loading />
-                ) : reviews && reviews.length > 0 ? (
+                ) : pastReviews && pastReviews.length > 0 ? (
                     <>
                         {pastReviews.map((review) => (
                     <Review key={review.id} {...review} />

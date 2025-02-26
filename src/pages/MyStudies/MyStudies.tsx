@@ -23,14 +23,14 @@ const MyStudies: React.FC = () => {
     const [studies, setStudies] = useState<Study[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
+    const fetchStudies = async () => {
+        setLoading(true);
+        const data = await getStudies();
+        setStudies(data);
+        setLoading(false);
+    };
+
     useEffect(() => {
-        const fetchStudies = async () => {
-            setLoading(true);
-            const data = await getStudies();
-            setStudies(data);
-            setLoading(false);
-        };
-    
         fetchStudies();
     }, []);
 
@@ -44,7 +44,7 @@ const MyStudies: React.FC = () => {
                 ) : studies && studies.length > 0 ? (
                     <>
                         {studies.map((study) => (
-                            <Study key={study.id} {...study} />
+                            <Study key={study.id} {...study} refresh={fetchStudies} />
                         ))}
                     </>
                 ) : (
