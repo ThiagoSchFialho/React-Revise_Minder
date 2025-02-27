@@ -13,6 +13,35 @@ export const MainContainer = styled.div<{ isMenuOpen?: boolean }>`
     }
 `;
 
+export const TutorialCotainer = styled.div`
+    width: 70%;
+    height: 80vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+`;
+
+export const TutorialMessage = styled.p`
+    font-weight: 600;
+    font-size: 16pt;
+    text-align: center;
+    color: ${({theme}) => theme.text};
+`;
+
+export const TutorialButton = styled.button`
+    background-color: #1A97F0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14pt;
+    font-weight: 600;
+    cursor: pointer;
+`;
+
 export const SeparatorTitle = styled.h1`
     margin: 100px 0 0 20px;
     color: ${({theme}) => theme.text};

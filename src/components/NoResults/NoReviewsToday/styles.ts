@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    height: 40vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
 `;
 
 export const Message = styled.h1`

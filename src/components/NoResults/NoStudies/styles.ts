@@ -5,12 +5,13 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    gap: 40px;
 `;
 
 export const Message = styled.h1`
     color: ${({theme}) => theme.text};
-    font-size: 20pt;
+    font-size: 16pt;
+    font-weight: 500;
     text-align: center;
 `;
 
@@ -20,7 +21,7 @@ export const AddStudy = styled.button`
     border: none;
     border-radius: 5px;
     color: white;
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: 600;
     cursor: pointer;
 `;
