@@ -14,14 +14,19 @@ export const MainContainer = styled.div<{ isMenuOpen?: boolean }>`
 `;
 
 export const TutorialCotainer = styled.div`
-    width: 65%;
-    height: 80vh;
+    width: 55%;
+    height: 85vh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 90px;
+
+    @media (max-width: 1360px) {
+        width: 65%;
+        height: 80vh;
+    }
 `;
 
 export const TutorialTitle = styled.h2`
