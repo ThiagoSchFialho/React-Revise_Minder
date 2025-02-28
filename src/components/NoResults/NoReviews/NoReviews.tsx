@@ -1,13 +1,16 @@
 import React from 'react';
+import checklist from '../../../assets/checklist.svg';
 import {
     Message,
-    Container
+    Container,
+    NoReviewsImg
 } from './styles';
 
 const NoReviews: React.FC = () => {
     return (
         <Container>
-            <Message>Você ainda não teve revisões para fazer.</Message>
+            <Message>Nenhuma revisão feita ainda.</Message>
+            <NoReviewsImg src={checklist} alt='Sem revisões' />
         </Container>
     )
 }
