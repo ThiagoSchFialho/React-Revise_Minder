@@ -14,7 +14,7 @@ export const MainContainer = styled.div<{ isMenuOpen?: boolean }>`
 `;
 
 export const TutorialCotainer = styled.div`
-    width: 70%;
+    width: 65%;
     height: 80vh;
     margin: 0 auto;
     display: flex;
@@ -22,6 +22,12 @@ export const TutorialCotainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 90px;
+`;
+
+export const TutorialTitle = styled.h2`
+    font-size: 30pt;
+    color: ${({theme}) => theme.text};
+    margin-bottom: -60px;
 `;
 
 export const TutorialMessage = styled.p`
@@ -40,6 +46,9 @@ export const TutorialButton = styled.button`
     font-size: 14pt;
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 `;
 
 export const SeparatorTitle = styled.h1`

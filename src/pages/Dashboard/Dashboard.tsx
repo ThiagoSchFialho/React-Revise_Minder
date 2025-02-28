@@ -7,9 +7,11 @@ import NoFutureReviews from '../../components/NoResults/NoFutureReviews/NoFuture
 import NoReviewsToday from '../../components/NoResults/NoReviewsToday/NoReviewsToday';
 import { useDb } from '../../hooks/useDb';
 import { useNavigate } from 'react-router-dom';
+import { IoMdAdd } from 'react-icons/io';
 import {
     MainContainer,
     TutorialCotainer,
+    TutorialTitle,
     TutorialMessage,
     TutorialButton,
     SeparatorTitle,
@@ -79,8 +81,12 @@ const Dashboard: React.FC = () => {
 
                 ) : studies.length === 0 ? (
                     <TutorialCotainer>
+                        <TutorialTitle>Boas vindas ao Revise Minder</TutorialTitle>
                         <TutorialMessage>Adicione seu primeiro estudo e deixe nosso algoritmo calcular os momentos ideais para suas revisões.</TutorialMessage>
-                        <TutorialButton onClick={() => navigate('/studyForm')}>Adicionar estudo</TutorialButton>
+                        <TutorialButton onClick={() => navigate('/studyForm')}>
+                            <IoMdAdd color='white' size={25}/>
+                            Adicionar estudo
+                        </TutorialButton>
                     </TutorialCotainer>
                     
                 ) : (
