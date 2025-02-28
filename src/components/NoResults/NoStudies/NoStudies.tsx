@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import NoStudiesSvg from '../../../assets/notStudies.svg';
+import NoStudiesSvg from '../../../assets/noStudies.svg';
 import {
     Message,
     Container,
