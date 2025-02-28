@@ -69,7 +69,7 @@ export const ForgotPassword = styled.a`
 export const SubmitButton = styled.button`
     margin-top: 75px;
     width: 100%;
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     padding: 10px 0;
     border: none;
     border-radius: 5px;
@@ -102,7 +102,7 @@ export const SignUpText = styled.p`
     text-align: center;
 
     u {
-        color: #1A97F0;
+        color: ${({theme}) => theme.mainColor};;
         cursor: pointer;
     }
 `;

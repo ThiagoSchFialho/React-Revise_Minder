@@ -352,7 +352,7 @@ export const Text = styled.p`
 
 export const StartButton = styled.button`
     display: block;
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     border: none;
     outline: none;
     color: white;

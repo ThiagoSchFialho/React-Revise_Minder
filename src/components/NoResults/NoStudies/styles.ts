@@ -21,7 +21,7 @@ export const NoStudiesImg = styled.img`
 `;
 
 export const AddStudy = styled.button`
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;

@@ -1,9 +1,10 @@
 export const lightTheme = {
+    mainColor: '#1A97F0',
     HomeBackground: '#F3F7FA',
     background: '#EBF0F5',
     secondBackground: '#FFFFFF',
     gradientBackground: 'linear-gradient(140deg, #FFFFFF, 65%, #DEDEDE 100%)',
-    contrastBackground: '#E4E4E4',
+    contrastBackground: '#CED9E1',
     text: '#171823',
     secondText: 'rgba(23, 24, 35, 0.7)',
     border: '#EEEFF1',
@@ -14,6 +15,7 @@ export const lightTheme = {
 }
 
 export const darkTheme = {
+    mainColor: '#1A97F0',
     HomeBackground: '#171823',
     background: '#171823',
     secondBackground: '#242533',

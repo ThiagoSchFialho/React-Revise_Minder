@@ -56,10 +56,27 @@ export const Error = styled.div`
     color: red
 `;
 
+export const DateInputContainer = styled.div`
+    display: flex;
+    gap: 10px;
+`;
+
+export const TodayButton = styled.div<{ selected: boolean}>`
+    display: inline-block;
+    border: 1px solid ${({theme}) => theme.mainColor};;
+    background-color: ${(props) => props.selected ? ({theme}) => theme.mainColor : ''};
+    color: ${(props) => props.selected ? 'white' : ({theme}) => theme.text};
+    font-size: 13pt;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+`;
+
 export const SubmitButton = styled.button`
     margin-top: 75px;
     width: 100%;
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     padding: 10px 0;
     border: none;
     border-radius: 5px;

@@ -49,7 +49,7 @@ export const CheckboxLabel = styled.label`
     margin: 20px 0 8px 0;
 
     u {
-        color: #1A97F0;
+        color: ${({theme}) => theme.mainColor};;
         cursor: pointer;
     }
 `;
@@ -76,7 +76,7 @@ export const Error = styled.div`
 export const SubmitButton = styled.button`
     margin-top: 75px;
     width: 100%;
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     padding: 10px 0;
     border: none;
     border-radius: 5px;
@@ -109,7 +109,7 @@ export const RedirectText = styled.p`
     text-align: center;
 
     u {
-        color: #1A97F0;
+        color: ${({theme}) => theme.mainColor};;
         cursor: pointer;
     }
 `;

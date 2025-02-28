@@ -12,6 +12,8 @@ import {
     Label,
     Input,
     Error,
+    DateInputContainer,
+    TodayButton,
     SubmitButton
 } from './styles';
 
@@ -48,6 +50,7 @@ const StudyForm: React.FC = () => {
     const { createStudy, getStudy, updateStudy } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
+    const [isToday, setIsToday] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
         qnt_reviews: 0,
@@ -79,6 +82,13 @@ const StudyForm: React.FC = () => {
         }
     }
 
+    const handleTodayClick = (setFieldValue: (field: string, value: any) => void) => {
+        const today = new Date();
+        const formattedDate = formatDate(today.toISOString());
+        setFieldValue('study_date', formattedDate);
+    };
+    
+
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
@@ -91,7 +101,7 @@ const StudyForm: React.FC = () => {
                         validationSchema={validations}
                         onSubmit={(values) => handleSubmit(values)}
                     >
-                    {({values, handleChange, touched, errors }) => (
+                    {({values, handleChange, touched, errors, setFieldValue }) => (
                         <Form>
                             <InputContainer>
                                 <Label htmlFor='topic'>Tópico</Label>
@@ -120,13 +130,25 @@ const StudyForm: React.FC = () => {
 
                             <InputContainer>
                                 <Label htmlFor='study_date'>Data do estudo</Label>
-                                <Input 
-                                    type="date"
-                                    name="study_date"
-                                    id="study_date"
-                                    onChange={handleChange}
-                                    value={values.study_date}
-                                />
+                                <DateInputContainer>
+                                    <TodayButton
+                                        selected={isToday}
+                                        onClick={() => {
+                                            setIsToday(!isToday);
+                                            handleTodayClick(setFieldValue);
+                                        }}
+                                    >
+                                        Hoje
+                                    </TodayButton>
+                                    <Input
+                                        type="date"
+                                        name="study_date"
+                                        id="study_date"
+                                        onChange={handleChange}
+                                        value={values.study_date}
+                                        disabled={isToday ? true : false}
+                                    />
+                                </DateInputContainer>
                                 {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
                             </InputContainer>
 

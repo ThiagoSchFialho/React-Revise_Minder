@@ -39,7 +39,7 @@ export const ModalContainer = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #1A97F0;
+        background: ${({theme}) => theme.mainColor};;
         border-radius: 0 10px 10px 0;
     }
 

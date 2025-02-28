@@ -43,7 +43,7 @@ export const TutorialMessage = styled.p`
 `;
 
 export const TutorialButton = styled.button`
-    background-color: #1A97F0;
+    background-color: ${({theme}) => theme.mainColor};;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
