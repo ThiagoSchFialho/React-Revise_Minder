@@ -213,7 +213,7 @@ const StudyForm: React.FC = () => {
                             validationSchema={validations}
                             onSubmit={(values) => handleSubmit(values)}
                         >
-                        {({values, handleChange, touched, errors, setFieldValue }) => (
+                        {({values, handleChange, touched, errors, setFieldValue, setFieldTouched, validateForm }) => (
                             <Form>
                                 <BegginerInputsContainer>
                                 <BegginerInputWrapper activeIndex={index}>
@@ -229,9 +229,12 @@ const StudyForm: React.FC = () => {
                                         {touched.topic && errors.topic && <Error>{errors.topic}</Error>}
                                         <ButtonsContainer>
                                             <div></div>
-                                            <NextButton
-                                                onClick={() => setIndex((prev) => Math.min(prev + 1, 2))}
-                                            >
+                                            <NextButton onClick={async () => {
+                                                setFieldTouched("topic", true);
+                                                const validationErrors = await validateForm();
+                                                if (!validationErrors.topic) {
+                                                    setIndex((prev) => Math.min(prev + 1, 2));
+                                                }}}>
                                                 Proximo
                                                 <FaArrowRight size={20}/>
                                             </NextButton>
@@ -264,14 +267,13 @@ const StudyForm: React.FC = () => {
                                         </BegginerNumberInputContainer>
                                         {touched.qnt_reviews && errors.qnt_reviews && <Error>{errors.qnt_reviews}</Error>}
                                         <ButtonsContainer>
-                                            <BackButton 
-                                                onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}
-                                            >
-                                                Voltar
-                                            </BackButton>
-                                            <NextButton
-                                                onClick={() => setIndex((prev) => Math.min(prev + 1, 2))}
-                                            >
+                                            <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
+                                            <NextButton onClick={async () => {
+                                                setFieldTouched("qnt_reviews", true);
+                                                const validationErrors = await validateForm();
+                                                if (!validationErrors.qnt_reviews) {
+                                                    setIndex((prev) => Math.min(prev + 1, 2));
+                                                }}}>
                                                 Proximo
                                                 <FaArrowRight size={20}/>
                                             </NextButton>
@@ -302,7 +304,7 @@ const StudyForm: React.FC = () => {
                                         {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
                                         <ButtonsContainer>
                                             <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
-                                            <BegginerSubmitButton>Adicionar</BegginerSubmitButton>
+                                            <BegginerSubmitButton type="submit">Adicionar</BegginerSubmitButton>
                                         </ButtonsContainer>
                                     </BegginerInputContainer>
                                 </BegginerInputWrapper>

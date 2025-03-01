@@ -98,6 +98,9 @@ export const TodayButton = styled.div<{ selected: boolean}>`
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 `;
 
 export const SubmitButton = styled.button`
@@ -161,6 +164,9 @@ export const BegginerLabel = styled.label`
     color: ${({ theme }) => theme.text};
     margin: 50px auto 70px auto;
     max-width: 70%;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     @media (max-width: 1360px) {
         margin: 40px auto 40px auto;
