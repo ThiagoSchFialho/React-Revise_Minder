@@ -5,6 +5,9 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDb } from '../../hooks/useDb';
 import { PiLightningFill } from "react-icons/pi";
+import { FaArrowRight } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { useTheme } from '../../contexts/ThemeContext';
 import {
     MainContainer,
     FastFormbutton,
@@ -16,7 +19,19 @@ import {
     Error,
     DateInputContainer,
     TodayButton,
-    SubmitButton
+    SubmitButton,
+    BegginerFormContainer,
+    BegginerInputsContainer,
+    BegginerInputWrapper,
+    BegginerInputContainer,
+    BegginerLabel,
+    BegginerInput,
+    BegginerNumberInputContainer,
+    BegginerNumberInput,
+    ButtonsContainer,
+    BackButton,
+    NextButton,
+    BegginerSubmitButton
 } from './styles';
 
 interface FormValues {
@@ -49,11 +64,13 @@ const formatDate = (date: string) => {
 };
 
 const StudyForm: React.FC = () => {
+    const { theme } = useTheme();
     const { createStudy, getStudy, updateStudy } = useDb();
     const { id } = useParams<{ id: string }>();
     const [isFastFormSelected, setIsFastFormSelected] = useState<boolean>(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isToday, setIsToday] = useState<boolean>(false);
+    const [index, setIndex] = useState(0);
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
         qnt_reviews: 0,
@@ -98,6 +115,15 @@ const StudyForm: React.FC = () => {
         setFieldValue('study_date', formattedDate);
     };
     
+    const handleSubtract = (setFieldValue: (field: string, value: number) => void, value: number) => {
+        if (value > 0) {
+            setFieldValue('qnt_reviews', value - 1);
+        }
+    }
+    
+    const handleAdd = (setFieldValue: (field: string, value: number) => void, value: number) => {
+        setFieldValue('qnt_reviews', value + 1);
+    }
 
     return (
         <>
@@ -180,9 +206,111 @@ const StudyForm: React.FC = () => {
                         </Formik>
                     </FormContainer>
                 ) : (
-                    <FormContainer>
-                        
-                    </FormContainer>
+                    <BegginerFormContainer>
+                        <Formik
+                            initialValues={initialValues}
+                            enableReinitialize={true}
+                            validationSchema={validations}
+                            onSubmit={(values) => handleSubmit(values)}
+                        >
+                        {({values, handleChange, touched, errors, setFieldValue }) => (
+                            <Form>
+                                <BegginerInputsContainer>
+                                <BegginerInputWrapper activeIndex={index}>
+                                    <BegginerInputContainer>
+                                        <BegginerLabel htmlFor='topic'>O que você estudou?</BegginerLabel>
+                                        <BegginerInput
+                                            type="text"
+                                            name="topic"
+                                            id="topic"
+                                            onChange={handleChange}
+                                            value={values.topic}
+                                        />
+                                        {touched.topic && errors.topic && <Error>{errors.topic}</Error>}
+                                        <ButtonsContainer>
+                                            <div></div>
+                                            <NextButton
+                                                onClick={() => setIndex((prev) => Math.min(prev + 1, 2))}
+                                            >
+                                                Proximo
+                                                <FaArrowRight size={20}/>
+                                            </NextButton>
+                                        </ButtonsContainer>
+                                    </BegginerInputContainer>
+
+                                    <BegginerInputContainer>
+                                        <BegginerLabel htmlFor='qnt_reviews'>Quantas revisões você quer fazer?</BegginerLabel>
+                                        <BegginerNumberInputContainer>
+                                            <FaMinus
+                                                size={24}
+                                                color={theme == 'light' ? '#171823' : 'white'}
+                                                style={{cursor: 'pointer'}}
+                                                onClick={() => handleSubtract(setFieldValue, values.qnt_reviews)}
+                                            />
+                                            <BegginerNumberInput
+                                                type="number"
+                                                min='0'
+                                                name="qnt_reviews"
+                                                id="qnt_reviews"
+                                                onChange={handleChange}
+                                                value={values.qnt_reviews}
+                                            />
+                                            <FaPlus
+                                                size={24}
+                                                color={theme == 'light' ? '#171823' : 'white'}
+                                                style={{cursor: 'pointer'}}
+                                                onClick={() => handleAdd(setFieldValue, values.qnt_reviews)}
+                                            />
+                                        </BegginerNumberInputContainer>
+                                        {touched.qnt_reviews && errors.qnt_reviews && <Error>{errors.qnt_reviews}</Error>}
+                                        <ButtonsContainer>
+                                            <BackButton 
+                                                onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}
+                                            >
+                                                Voltar
+                                            </BackButton>
+                                            <NextButton
+                                                onClick={() => setIndex((prev) => Math.min(prev + 1, 2))}
+                                            >
+                                                Proximo
+                                                <FaArrowRight size={20}/>
+                                            </NextButton>
+                                        </ButtonsContainer>
+                                    </BegginerInputContainer>
+                                    
+                                    <BegginerInputContainer>
+                                        <BegginerLabel htmlFor='study_date'>Quando você estudou?</BegginerLabel>
+                                        <DateInputContainer>
+                                            <TodayButton
+                                                selected={isToday}
+                                                onClick={() => {
+                                                    setIsToday(!isToday);
+                                                    handleTodayClick(setFieldValue);
+                                                }}
+                                            >
+                                                Hoje
+                                            </TodayButton>
+                                            <BegginerInput
+                                                type="date"
+                                                name="study_date"
+                                                id="study_date"
+                                                onChange={handleChange}
+                                                value={values.study_date}
+                                                disabled={isToday ? true : false}
+                                            />
+                                        </DateInputContainer>
+                                        {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
+                                        <ButtonsContainer>
+                                            <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
+                                            <BegginerSubmitButton>Adicionar</BegginerSubmitButton>
+                                        </ButtonsContainer>
+                                    </BegginerInputContainer>
+                                </BegginerInputWrapper>
+                                </BegginerInputsContainer>
+                            </Form>
+                        )}
+                        </Formik>
+                    </BegginerFormContainer>
                 )}
             </MainContainer>
         </>
