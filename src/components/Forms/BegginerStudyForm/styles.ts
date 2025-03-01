@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Error = styled.div`
+    margin: 5px 0 -24px 0;
     color: red
 `;
 
@@ -66,7 +67,7 @@ export const ProgressItem = styled.div<{ status: string }>`
     border: 1px solid ${({theme}) => theme.mainColor};
     font-weight: 600;
     font-size: 14pt;
-    color: ${({theme}) => theme.text};
+    color: ${(props) => props.status === 'done' ? '#FFFFFF' : ({theme}) => theme.text};
 
     &:not(:first-child):before {
         content: '';
@@ -74,8 +75,8 @@ export const ProgressItem = styled.div<{ status: string }>`
         right: 50px;
         top: 20px;
         width: 110px;
-        height: 2px;
-        background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : '#FFFFFF'};
+        height: 1px;
+        background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : ({theme}) => theme.text};
     }
 
     @media (max-width: 1360px) {
