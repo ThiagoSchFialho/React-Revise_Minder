@@ -25,10 +25,18 @@ const Profile: React.FC = () => {
     useEffect(() => {
         const fetchEmail = async () => {
             const email = await getUserEmail();
-            setIntialValues({email: email});
+            setIntialValues(email);
         }
         fetchEmail();
     }, [])
+
+    const handleUpdateEmail = async (values: {email: string}) => {
+        const response = await updateEmail(values)
+
+        if (response) {
+            alert('Email alterado com sucesso');
+        }
+    }
 
     return (
         <>
@@ -38,7 +46,7 @@ const Profile: React.FC = () => {
                 <Formik
                     initialValues={initialValues}
                     enableReinitialize={true}
-                    onSubmit={(values) => updateEmail(values)}
+                    onSubmit={(values) => handleUpdateEmail(values)}
                 >
                     {({ values, handleChange }) => (
                         <Form>

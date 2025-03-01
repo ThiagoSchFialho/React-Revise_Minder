@@ -186,12 +186,60 @@ export const useDb = () => {
     }
 
     const getUserEmail = async () => {
-        console.error('Função não implementada');
-        return 'thiago@email.com'
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+
+        const url = new URL('http://localhost:3000/users/email');
+        url.searchParams.append('user_id', userId ? userId : '');
+
+        try {
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao recuperar email', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
     }
 
     const updateEmail = async (values: {email: string}) => {
-        console.log(values)
+        const token = localStorage.getItem('token');
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch('http://localhost:3000/users/email', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, email: values.email })
+            });
+            const data = await response.json();
+
+            if (data?.error === 'Email indisponivel') {
+                alert('Email indisponivel');
+                return;
+            }
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao atualizar email', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
     }
 
     const updatePassword = async (values: {password: string}) => {

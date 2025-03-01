@@ -93,5 +93,9 @@ export const useAuth = () => {
     navigate('/login');
   };
 
-  return { handleLogin, handleSignUp, handleLogout }
+  const deleteAccount = async () => {
+    console.error('Função não implementada');
+  }
+
+  return { handleLogin, handleSignUp, handleLogout, deleteAccount }
 }
