@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDb } from '../../../hooks/useDb';
+import { useTheme } from '../../../contexts/ThemeContext';
 import {
     FormContainer,
     InputContainer,
@@ -35,6 +36,7 @@ const validations = Yup.object({
 });
 
 const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
+    const { theme } = useTheme();
     const { createStudy, getStudy, updateStudy } = useDb();
     const [isToday, setIsToday] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>({
@@ -68,7 +70,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
         } else {
             setInitialValues({
                 topic: '',
-                qnt_reviews: 0,
+                qnt_reviews: 3,
                 study_date: '',
                 user_id: Number(localStorage.getItem('userId'))
             })
@@ -143,6 +145,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                                 onChange={handleChange}
                                 value={values.study_date}
                                 disabled={isToday ? true : false}
+                                scheme={theme}
                             />
                         </DateInputContainer>
                         {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}

@@ -23,7 +23,7 @@ export const Label = styled.label`
     margin: 20px 0 8px 0;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ scheme?: string }>`
     width: 100%;
     background-color: ${({ theme }) => theme.background};
     border: 1px solid ${({ theme }) => theme.inputBorder};
@@ -32,6 +32,7 @@ export const Input = styled.input`
     padding: 10px 15px;
     outline: none;
     color: ${({ theme }) => theme.text};
+    color-scheme: ${(props) => props.scheme};
 `;
 
 export const Error = styled.div`

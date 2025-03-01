@@ -7,7 +7,7 @@ import {
 const NoFutureReviews: React.FC = () => {
     return (
         <Container>
-            <Message>Nenhuma revisão programada ainda.</Message>
+            <Message>Nenhuma revisão programada.</Message>
         </Container>
     )
 }

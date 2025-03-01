@@ -174,6 +174,7 @@ const BegginerForm: React.FC = () => {
                                         onChange={handleChange}
                                         value={values.study_date}
                                         disabled={isToday ? true : false}
+                                        scheme={theme}
                                     />
                                 </DateInputContainer>
                                 {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}

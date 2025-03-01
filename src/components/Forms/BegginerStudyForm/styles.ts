@@ -119,7 +119,7 @@ export const BegginerLabel = styled.label`
     }
 `;
 
-export const BegginerInput = styled.input`
+export const BegginerInput = styled.input<{ scheme?: string }>`
     width: 100%;    
     padding: 10px 15px;
     background-color: ${({ theme }) => theme.background};
@@ -129,6 +129,7 @@ export const BegginerInput = styled.input`
     padding: 10px 15px;
     outline: none;
     color: ${({ theme }) => theme.text};
+    color-scheme: ${(props) => props.scheme};
 `;
 
 export const BegginerNumberInputContainer = styled.div`
