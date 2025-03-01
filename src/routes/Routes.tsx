@@ -4,7 +4,7 @@ import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import Dashboard from '../pages/Dashboard/Dashboard';
-import StudyForm from '../pages/StudyForm/StudyForm';
+import StudyFormHandler from '../pages/StudyFormHandler/StudyFormHandler';
 import MyStudies from '../pages/MyStudies/MyStudies';
 import PastReviews from '../pages/PastReviews/PastReviews';
 
@@ -18,8 +18,8 @@ const AppRoutes = () => {
 
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/studyForm' element={<StudyForm />} />
-          <Route path='/studyForm/:id' element={<StudyForm />} />
+          <Route path='/studyForm' element={<StudyFormHandler />} />
+          <Route path='/studyForm/:id' element={<StudyFormHandler />} />
           <Route path='/myStudies' element={<MyStudies />} />
           <Route path='/pastReviews' element={<PastReviews />} />
         </Route>
