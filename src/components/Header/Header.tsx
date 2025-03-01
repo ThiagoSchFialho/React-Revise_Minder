@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                     {isToggleMenuOpen && (
                         <ToggleMenu ref={menuRef}>
                             <ToggleMenuList>
-                                <ToggleMenuItem onClick={() => navigate(`/`)}>Meu Perfil</ToggleMenuItem>
+                                <ToggleMenuItem onClick={() => navigate(`/profile`)}>Meu Perfil</ToggleMenuItem>
                                 {theme === 'light' ? (
                                     <ToggleMenuItem onClick={toggleTheme}>
                                         Modo Escuro <MdOutlineDarkMode color='#171823' size={24} />

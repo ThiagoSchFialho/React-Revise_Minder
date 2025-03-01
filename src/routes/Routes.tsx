@@ -7,6 +7,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import StudyFormHandler from '../pages/StudyFormHandler/StudyFormHandler';
 import MyStudies from '../pages/MyStudies/MyStudies';
 import PastReviews from '../pages/PastReviews/PastReviews';
+import Profile from '../pages/Profile/Profile';
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           <Route path='/studyForm/:id' element={<StudyFormHandler />} />
           <Route path='/myStudies' element={<MyStudies />} />
           <Route path='/pastReviews' element={<PastReviews />} />
+          <Route path='/profile' element={<Profile />} />
         </Route>
         
       </Routes>

@@ -185,6 +185,19 @@ export const useDb = () => {
         }
     }
 
+    const getUserEmail = async () => {
+        console.error('Função não implementada');
+        return 'thiago@email.com'
+    }
+
+    const updateEmail = async (values: {email: string}) => {
+        console.log(values)
+    }
+
+    const updatePassword = async (values: {password: string}) => {
+        console.log(values);
+    }
+
     return {
         createStudy,
         getStudy,
@@ -192,6 +205,9 @@ export const useDb = () => {
         updateStudy,
         deleteStudy,
         getReviews,
-        updateReviewStatus
+        updateReviewStatus,
+        getUserEmail,
+        updateEmail,
+        updatePassword
     }
 }
