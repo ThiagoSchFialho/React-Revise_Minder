@@ -18,7 +18,7 @@ import {
 } from './styles';
 
 const Profile: React.FC = () => {
-    const { getUserEmail, updateEmail } = useDb();
+    const { getUserEmail, updateEmail, updatePassword } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setIntialValues] = useState<{email: string}>({email: ''});
 
@@ -35,6 +35,14 @@ const Profile: React.FC = () => {
 
         if (response) {
             alert('Email alterado com sucesso');
+        }
+    }
+
+    const handleUpdatePassword = async (values:{currentPassword: string, newPassword: string}) => {
+        const response = await updatePassword(values)
+
+        if (response) {
+            alert('Senha alterada com sucesso');
         }
     }
 

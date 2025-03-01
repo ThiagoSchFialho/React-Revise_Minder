@@ -268,8 +268,8 @@ export const useDb = () => {
           }
     }
 
-    const updatePassword = async (values: {password: string}) => {
-        const passwordMatch = checkPassword(values.password);
+    const updatePassword = async (values: {currentPassword: string, newPassword: string}) => {
+        const passwordMatch = checkPassword(values.currentPassword);
 
         if (!passwordMatch) {
             alert('Senha incorreta');
@@ -286,7 +286,7 @@ export const useDb = () => {
                     'Authorization': `${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_id, email: values.password })
+                body: JSON.stringify({ user_id, password: values.newPassword })
             });
             const data = await response.json();
 
