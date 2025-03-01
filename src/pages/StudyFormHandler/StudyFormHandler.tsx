@@ -12,7 +12,7 @@ import {
 
 const StudyFormHandler: React.FC = () => {
     const { id } = useParams<{ id?: string }>();
-    const [isFastFormSelected, setIsFastFormSelected] = useState<boolean>(true);
+    const [isFastFormSelected, setIsFastFormSelected] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (

@@ -41,8 +41,48 @@ export const BegginerFormContainer = styled.div`
 
 export const BegginerInputsContainer = styled.div`
     display: flex;
+    flex-direction: column;
     overflow: hidden;
     width: 100%;
+`;
+
+export const ProgressContainer = styled.div`
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+export const ProgressItem = styled.div<{ status: string }>`
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : ''};
+    border: 1px solid ${({theme}) => theme.mainColor};
+    font-weight: 600;
+    font-size: 14pt;
+    color: ${({theme}) => theme.text};
+
+    &:not(:first-child):before {
+        content: '';
+        position: absolute;
+        right: 50px;
+        top: 20px;
+        width: 110px;
+        height: 2px;
+        background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : '#FFFFFF'};
+    }
+
+    @media (max-width: 1360px) {
+        &:not(:first-child):before {
+            width: 80px;
+        }
+    }
 `;
 
 export const BegginerInputWrapper = styled.div<{ activeIndex: number }>`
@@ -74,6 +114,7 @@ export const BegginerLabel = styled.label`
 
     @media (max-width: 1360px) {
         margin: 40px auto 40px auto;
+        max-width: 80%;
     }
 `;
 

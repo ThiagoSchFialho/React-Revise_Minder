@@ -39,7 +39,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
     const [isToday, setIsToday] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
-        qnt_reviews: 0,
+        qnt_reviews: 3,
         study_date: '',
         user_id: Number(localStorage.getItem('userId'))
     })

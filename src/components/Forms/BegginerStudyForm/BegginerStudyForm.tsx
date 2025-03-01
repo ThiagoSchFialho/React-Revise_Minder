@@ -11,6 +11,8 @@ import {
     TodayButton,
     BegginerFormContainer,
     BegginerInputsContainer,
+    ProgressContainer,
+    ProgressItem,
     BegginerInputWrapper,
     BegginerInputContainer,
     BegginerLabel,
@@ -22,13 +24,6 @@ import {
     NextButton,
     BegginerSubmitButton
 } from './styles';
-
-interface FormValues {
-    topic: string
-    qnt_reviews: number
-    study_date: string
-    user_id: number
-}
 
 const validations = Yup.object({ 
     topic: Yup.string()
@@ -51,7 +46,7 @@ const BegginerForm: React.FC = () => {
     const [index, setIndex] = useState(0);
     const initialValues = {
         topic: '',
-        qnt_reviews: 0,
+        qnt_reviews: 3,
         study_date: '',
         user_id: Number(localStorage.getItem('userId'))
     }
@@ -91,98 +86,103 @@ const BegginerForm: React.FC = () => {
             {({values, handleChange, touched, errors, setFieldValue, setFieldTouched, validateForm }) => (
                 <Form>
                     <BegginerInputsContainer>
-                    <BegginerInputWrapper activeIndex={index}>
-                        <BegginerInputContainer>
-                            <BegginerLabel htmlFor='topic'>O que você estudou?</BegginerLabel>
-                            <BegginerInput
-                                type="text"
-                                name="topic"
-                                id="topic"
-                                onChange={handleChange}
-                                value={values.topic}
-                            />
-                            {touched.topic && errors.topic && <Error>{errors.topic}</Error>}
-                            <ButtonsContainer>
-                                <div></div>
-                                <NextButton onClick={async () => {
-                                    setFieldTouched("topic", true);
-                                    const validationErrors = await validateForm();
-                                    if (!validationErrors.topic) {
-                                        setIndex((prev) => Math.min(prev + 1, 2));
-                                    }}}>
-                                    Proximo
-                                    <FaArrowRight size={20}/>
-                                </NextButton>
-                            </ButtonsContainer>
-                        </BegginerInputContainer>
-
-                        <BegginerInputContainer>
-                            <BegginerLabel htmlFor='qnt_reviews'>Quantas revisões você quer fazer?</BegginerLabel>
-                            <BegginerNumberInputContainer>
-                                <FaMinus
-                                    size={24}
-                                    color={theme == 'light' ? '#171823' : 'white'}
-                                    style={{cursor: 'pointer'}}
-                                    onClick={() => handleSubtract(setFieldValue, values.qnt_reviews)}
-                                />
-                                <BegginerNumberInput
-                                    type="number"
-                                    min='0'
-                                    name="qnt_reviews"
-                                    id="qnt_reviews"
-                                    onChange={handleChange}
-                                    value={values.qnt_reviews}
-                                />
-                                <FaPlus
-                                    size={24}
-                                    color={theme == 'light' ? '#171823' : 'white'}
-                                    style={{cursor: 'pointer'}}
-                                    onClick={() => handleAdd(setFieldValue, values.qnt_reviews)}
-                                />
-                            </BegginerNumberInputContainer>
-                            {touched.qnt_reviews && errors.qnt_reviews && <Error>{errors.qnt_reviews}</Error>}
-                            <ButtonsContainer>
-                                <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
-                                <NextButton onClick={async () => {
-                                    setFieldTouched("qnt_reviews", true);
-                                    const validationErrors = await validateForm();
-                                    if (!validationErrors.qnt_reviews) {
-                                        setIndex((prev) => Math.min(prev + 1, 2));
-                                    }}}>
-                                    Proximo
-                                    <FaArrowRight size={20}/>
-                                </NextButton>
-                            </ButtonsContainer>
-                        </BegginerInputContainer>
-                        
-                        <BegginerInputContainer>
-                            <BegginerLabel htmlFor='study_date'>Quando você estudou?</BegginerLabel>
-                            <DateInputContainer>
-                                <TodayButton
-                                    selected={isToday}
-                                    onClick={() => {
-                                        setIsToday(!isToday);
-                                        handleTodayClick(setFieldValue);
-                                    }}
-                                >
-                                    Hoje
-                                </TodayButton>
+                        <ProgressContainer>
+                            <ProgressItem status={index >= 0 ? 'done' : 'notDone'} >1</ProgressItem>
+                            <ProgressItem status={index >= 1 ? 'done' : 'notDone'}>2</ProgressItem>
+                            <ProgressItem status={index >= 2 ? 'done' : 'notDone'}>3</ProgressItem>
+                        </ProgressContainer>
+                        <BegginerInputWrapper activeIndex={index}>
+                            <BegginerInputContainer>
+                                <BegginerLabel htmlFor='topic'>O que você estudou?</BegginerLabel>
                                 <BegginerInput
-                                    type="date"
-                                    name="study_date"
-                                    id="study_date"
+                                    type="text"
+                                    name="topic"
+                                    id="topic"
                                     onChange={handleChange}
-                                    value={values.study_date}
-                                    disabled={isToday ? true : false}
+                                    value={values.topic}
                                 />
-                            </DateInputContainer>
-                            {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
-                            <ButtonsContainer>
-                                <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
-                                <BegginerSubmitButton type="submit">Adicionar</BegginerSubmitButton>
-                            </ButtonsContainer>
-                        </BegginerInputContainer>
-                    </BegginerInputWrapper>
+                                {touched.topic && errors.topic && <Error>{errors.topic}</Error>}
+                                <ButtonsContainer>
+                                    <div></div>
+                                    <NextButton onClick={async () => {
+                                        setFieldTouched("topic", true);
+                                        const validationErrors = await validateForm();
+                                        if (!validationErrors.topic) {
+                                            setIndex((prev) => Math.min(prev + 1, 2));
+                                        }}}>
+                                        Proximo
+                                        <FaArrowRight size={20}/>
+                                    </NextButton>
+                                </ButtonsContainer>
+                            </BegginerInputContainer>
+
+                            <BegginerInputContainer>
+                                <BegginerLabel htmlFor='qnt_reviews'>Quantas revisões você quer fazer?</BegginerLabel>
+                                <BegginerNumberInputContainer>
+                                    <FaMinus
+                                        size={24}
+                                        color={theme == 'light' ? '#171823' : 'white'}
+                                        style={{cursor: 'pointer'}}
+                                        onClick={() => handleSubtract(setFieldValue, values.qnt_reviews)}
+                                    />
+                                    <BegginerNumberInput
+                                        type="number"
+                                        min='0'
+                                        name="qnt_reviews"
+                                        id="qnt_reviews"
+                                        onChange={handleChange}
+                                        value={values.qnt_reviews}
+                                    />
+                                    <FaPlus
+                                        size={24}
+                                        color={theme == 'light' ? '#171823' : 'white'}
+                                        style={{cursor: 'pointer'}}
+                                        onClick={() => handleAdd(setFieldValue, values.qnt_reviews)}
+                                    />
+                                </BegginerNumberInputContainer>
+                                {touched.qnt_reviews && errors.qnt_reviews && <Error>{errors.qnt_reviews}</Error>}
+                                <ButtonsContainer>
+                                    <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
+                                    <NextButton onClick={async () => {
+                                        setFieldTouched("qnt_reviews", true);
+                                        const validationErrors = await validateForm();
+                                        if (!validationErrors.qnt_reviews) {
+                                            setIndex((prev) => Math.min(prev + 1, 2));
+                                        }}}>
+                                        Proximo
+                                        <FaArrowRight size={20}/>
+                                    </NextButton>
+                                </ButtonsContainer>
+                            </BegginerInputContainer>
+                            
+                            <BegginerInputContainer>
+                                <BegginerLabel htmlFor='study_date'>Quando você estudou?</BegginerLabel>
+                                <DateInputContainer>
+                                    <TodayButton
+                                        selected={isToday}
+                                        onClick={() => {
+                                            setIsToday(!isToday);
+                                            handleTodayClick(setFieldValue);
+                                        }}
+                                    >
+                                        Hoje
+                                    </TodayButton>
+                                    <BegginerInput
+                                        type="date"
+                                        name="study_date"
+                                        id="study_date"
+                                        onChange={handleChange}
+                                        value={values.study_date}
+                                        disabled={isToday ? true : false}
+                                    />
+                                </DateInputContainer>
+                                {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
+                                <ButtonsContainer>
+                                    <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
+                                    <BegginerSubmitButton type="submit">Adicionar</BegginerSubmitButton>
+                                </ButtonsContainer>
+                            </BegginerInputContainer>
+                        </BegginerInputWrapper>
                     </BegginerInputsContainer>
                 </Form>
             )}
