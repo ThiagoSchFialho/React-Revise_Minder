@@ -242,8 +242,62 @@ export const useDb = () => {
         }
     }
 
+    const checkPassword = async (password: string) => {
+        const token = localStorage.getItem('token');
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch('http://localhost:3000/users/password', {
+              method:  'POST',
+              headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ user_id, password })
+            });
+            const data = await response.json();
+      
+            if (response.ok) {      
+              return true;
+            } else {
+              console.error('Senha invalida', data.error);
+            }
+      
+          } catch (error) {
+            console.error('Erro na requisição:', error);
+          }
+    }
+
     const updatePassword = async (values: {password: string}) => {
-        console.log(values);
+        const passwordMatch = checkPassword(values.password);
+
+        if (!passwordMatch) {
+            alert('Senha incorreta');
+            return;
+        }
+
+        const token = localStorage.getItem('token');
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch('http://localhost:3000/users/password', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, email: values.password })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao atualizar senha', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
     }
 
     return {
