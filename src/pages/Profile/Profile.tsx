@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
 import { useDb } from '../../hooks/useDb';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import {
     MainContainer,
@@ -21,6 +22,7 @@ import {
 const Profile: React.FC = () => {
     const navigate = useNavigate();
     const { getUserEmail, updateEmail } = useDb();
+    const { deleteAccount } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setIntialValues] = useState<{email: string}>({email: ''});
 
@@ -38,6 +40,14 @@ const Profile: React.FC = () => {
         if (response) {
             alert('Email alterado com sucesso');
         }
+    }
+
+    const handleDeleteAccount = async () => {
+        const confirmation = confirm('Tem certeza que deseja excluir sua conta e todos os seus dados?');
+
+        if (!confirmation) return
+
+        await deleteAccount();
     }
 
     return (
@@ -73,7 +83,7 @@ const Profile: React.FC = () => {
                         <DeleteTitle>Se essa conta for excluida todos os dados serão excluidos.</DeleteTitle>
                         <DeleteText>Essa operação não pode ser desfeita.</DeleteText>
                     </TextContainer>
-                    <DeleteButton>Excluir conta</DeleteButton>
+                    <DeleteButton onClick={handleDeleteAccount}>Excluir conta</DeleteButton>
                 </DeleteAccountContainer>
             </MainContainer>
         </>

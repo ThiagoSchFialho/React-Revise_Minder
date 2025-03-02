@@ -40,16 +40,30 @@ const SignUp: React.FC = () => {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const { handleSignUp, errorMessage } = useAuth();
+    const [errorMessageState, setErrorMessageState] = useState<string | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+            if (errorMessage) {
+                setErrorMessageState(errorMessage)
+                const timer = setTimeout(() => {
+                    setErrorMessageState(null);
+                }, 5000);
+    
+                return () => clearTimeout(timer);
+            } else {
+                setErrorMessageState(null)
+            }
+        }, [errorMessage])
+
     return (
         <>
             <TermsAndPrivacyModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
             <MainContainer>
-                {errorMessage && <FeedBack type='bad' message={errorMessage} />}
+                {errorMessageState && <FeedBack type='bad' message={errorMessage ?? ''} />}
                 <FormTitle>Cadastro</FormTitle>
                 <FormContainer>
                     <Formik

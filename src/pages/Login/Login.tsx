@@ -33,22 +33,36 @@ const Login: React.FC = () => {
     const location = useLocation();
     const { handleLogin, errorMessage } = useAuth();
     const [successMessage, setSuccessMessage] = useState(location.state?.successMessage || null);
+    const [errorMessageState, setErrorMessageState] = useState<string | null>(null)
     
     useEffect(() => {
         window.scrollTo(0, 0);
         if (successMessage) {
             const timer = setTimeout(() => {
                 setSuccessMessage(null);
-            }, 5000);
+            }, 3000);
 
             return () => clearTimeout(timer);
         }
     }, [successMessage]);
 
+    useEffect(() => {
+        if (errorMessage) {
+            setErrorMessageState(errorMessage)
+            const timer = setTimeout(() => {
+                setErrorMessageState(null);
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        } else {
+            setErrorMessageState(null)
+        }
+    }, [errorMessage])
+
     return (
         <MainContainer>
             {successMessage && <FeedBack type='good' message={successMessage} />}
-            {errorMessage && <FeedBack type='bad' message={errorMessage} />}
+            {errorMessageState && <FeedBack type='bad' message={errorMessage ?? ''} />}
             <FormTitle>Login</FormTitle>
             <FormContainer>
                 <Formik

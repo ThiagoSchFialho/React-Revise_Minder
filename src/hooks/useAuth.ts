@@ -96,7 +96,28 @@ export const useAuth = () => {
   };
 
   const deleteAccount = async () => {
-    console.error('Função não implementada');
+    const token = localStorage.getItem('token');
+    const user_id = localStorage.getItem('userId');
+
+    try {
+      const response = await fetch(`http://localhost:3000/users/${user_id}`, {
+          method: 'DELETE',
+          headers: {
+              'Authorization': `${token}`,
+              'Content-Type': 'application/json'
+          }
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+          localStorage.removeItem('token');
+          navigate('/');
+      } else {
+          console.error('Erro ao excluir conta:', data.error);
+      }
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+    }
   }
 
   return { handleLogin, handleSignUp, handleLogout, deleteAccount, errorMessage }
