@@ -28,7 +28,7 @@ export const Label = styled.label`
 export const Input = styled.input`
     width: calc(100% - 110px);
     background-color: ${({theme}) => theme.secondBackground};
-    border: 1px solid ${({theme}) => theme.border};
+    border: 1px solid ${({theme}) => theme.inputBorder};
     font-size: 12pt;
     padding: 10px;
     margin-right: 20px;
@@ -39,7 +39,7 @@ export const Input = styled.input`
 
 export const SaveButton = styled.button`
     background-color: ${({theme}) => theme.secondBackground};
-    border: 1px solid ${({theme}) => theme.border};
+    border: 1px solid ${({theme}) => theme.inputBorder};
     font-size: 12pt;
     padding: 10px 20px;
     border-radius: 5px;
@@ -49,7 +49,7 @@ export const SaveButton = styled.button`
 
 export const ChangePasswordButton = styled.button`
     background-color: ${({theme}) => theme.secondBackground};
-    border: 1px solid ${({theme}) => theme.border};
+    border: 1px solid ${({theme}) => theme.inputBorder};
     font-size: 12pt;
     padding: 10px 20px;
     margin-top: 30px;
@@ -68,7 +68,7 @@ export const DeleteAccountContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     background-color: ${({theme}) => theme.secondBackground};
-    border: 1px solid ${({theme}) => theme.border};
+    border: 1px solid ${({theme}) => theme.inputBorder};
     padding: 30px 50px;
     margin-right: 20px;
     border-radius: 5px;
