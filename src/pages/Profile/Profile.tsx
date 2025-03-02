@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import { useDb } from '../../hooks/useDb';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import {
     MainContainer,
     Title,
@@ -25,6 +26,7 @@ const Profile: React.FC = () => {
     const { deleteAccount } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setIntialValues] = useState<{email: string}>({email: ''});
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchEmail = async () => {
@@ -42,13 +44,26 @@ const Profile: React.FC = () => {
         }
     }
 
+    // const handleDeleteAccount = async () => {
+    //     const confirmation = confirm('Tem certeza que deseja excluir sua conta e todos os seus dados?');
+
+    //     if (!confirmation) return
+
+    //     await deleteAccount();
+    // }
+
     const handleDeleteAccount = async () => {
-        const confirmation = confirm('Tem certeza que deseja excluir sua conta e todos os seus dados?');
+        setShowModal(true);
+    };
 
-        if (!confirmation) return
-
+    const handleConfirm = async () => {
+        setShowModal(false);
         await deleteAccount();
-    }
+    };
+
+    const handleCancel = () => {
+        setShowModal(false);
+    };
 
     return (
         <>
@@ -84,6 +99,14 @@ const Profile: React.FC = () => {
                         <DeleteText>Essa operação não pode ser desfeita.</DeleteText>
                     </TextContainer>
                     <DeleteButton onClick={handleDeleteAccount}>Excluir conta</DeleteButton>
+                    {showModal && (
+                        <ConfirmModal
+                            title="Tem certeza que deseja excluir sua conta e todos os seus dados?"
+                            message="Essa operação não pode ser desfeita!"
+                            onConfirm={handleConfirm}
+                            onCancel={handleCancel}
+                        />
+                    )}
                 </DeleteAccountContainer>
             </MainContainer>
         </>
