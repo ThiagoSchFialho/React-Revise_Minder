@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TermsAndPrivacyModal from '../../components/Terms/Terms';
 import { useAuth } from '../../hooks/useAuth';
+import FeedBack from '../../components/FeedBack/FeedBack';
 import {
     MainContainer,
     FormContainer,
@@ -38,7 +39,7 @@ const validations = Yup.object({
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const { handleSignUp } = useAuth();
+    const { handleSignUp, errorMessage } = useAuth();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -48,6 +49,7 @@ const SignUp: React.FC = () => {
         <>
             <TermsAndPrivacyModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
             <MainContainer>
+                {errorMessage && <FeedBack type='bad' message={errorMessage} />}
                 <FormTitle>Cadastro</FormTitle>
                 <FormContainer>
                     <Formik

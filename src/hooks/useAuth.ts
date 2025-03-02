@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
+import { useState } from "react";
 
 interface LoginValues {
   email: string;
@@ -26,6 +27,7 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const host = 'http://localhost:3000/auth';
 
   const handleLogin = async (values: LoginValues) => {
@@ -40,7 +42,7 @@ export const useAuth = () => {
       const data = await response.json();
 
       if (data?.error === 'Authentication failed') {
-        alert('Credenciais incorretas');
+        setErrorMessage('Credenciais incorretas');
         return;
       }
 
@@ -74,12 +76,12 @@ export const useAuth = () => {
       const data = await response.json();
 
       if (data?.error === 'User with that email already exists') {
-          alert('Email indisponivel');
+          setErrorMessage('Email indisponivel');
           return;
       }
 
       if (response.ok) {
-          navigate('/login');
+          navigate('/login', { state: { successMessage: 'Cadastro bem sucedido!' } });
       } else {
           console.error('Erro no cadastro:', data.error);
       }
@@ -97,5 +99,5 @@ export const useAuth = () => {
     console.error('Função não implementada');
   }
 
-  return { handleLogin, handleSignUp, handleLogout, deleteAccount }
+  return { handleLogin, handleSignUp, handleLogout, deleteAccount, errorMessage }
 }

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../../hooks/useAuth';
+import FeedBack from '../../components/FeedBack/FeedBack';
 import {
     MainContainer,
     FormContainer,
@@ -29,14 +30,25 @@ const validations = Yup.object({
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
-    const { handleLogin } = useAuth();
-
+    const location = useLocation();
+    const { handleLogin, errorMessage } = useAuth();
+    const [successMessage, setSuccessMessage] = useState(location.state?.successMessage || null);
+    
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        if (successMessage) {
+            const timer = setTimeout(() => {
+                setSuccessMessage(null);
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage]);
 
     return (
-        <MainContainer>            
+        <MainContainer>
+            {successMessage && <FeedBack type='good' message={successMessage} />}
+            {errorMessage && <FeedBack type='bad' message={errorMessage} />}
             <FormTitle>Login</FormTitle>
             <FormContainer>
                 <Formik
