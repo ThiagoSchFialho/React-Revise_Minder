@@ -257,10 +257,10 @@ export const useDb = () => {
             });
             const data = await response.json();
       
-            if (response.ok) {      
-              return true;
+            if (response.ok) { 
+                return data;
             } else {
-              console.error('Senha invalida', data.error);
+                console.error(data.error);
             }
       
           } catch (error) {
@@ -269,13 +269,6 @@ export const useDb = () => {
     }
 
     const updatePassword = async (values: {currentPassword: string, newPassword: string}) => {
-        const passwordMatch = checkPassword(values.currentPassword);
-
-        if (!passwordMatch) {
-            alert('Senha incorreta');
-            return;
-        }
-
         const token = localStorage.getItem('token');
         const user_id = localStorage.getItem('userId');
 
@@ -310,6 +303,7 @@ export const useDb = () => {
         updateReviewStatus,
         getUserEmail,
         updateEmail,
+        checkPassword,
         updatePassword
     }
 }

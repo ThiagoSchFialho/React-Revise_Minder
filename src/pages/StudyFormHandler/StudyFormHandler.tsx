@@ -18,7 +18,7 @@ const StudyFormHandler: React.FC = () => {
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-            <MainContainer isMenuOpen={isMenuOpen}>
+            <MainContainer>
                 <FormTitle>{id ? 'Editar' : 'Adicionar'} estudo</FormTitle>
                 {!id && (
                     <FastFormbutton

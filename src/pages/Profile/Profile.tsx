@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
 import { useDb } from '../../hooks/useDb';
+import { useNavigate } from 'react-router-dom';
 import {
     MainContainer,
     Title,
@@ -18,7 +19,8 @@ import {
 } from './styles';
 
 const Profile: React.FC = () => {
-    const { getUserEmail, updateEmail, updatePassword } = useDb();
+    const navigate = useNavigate();
+    const { getUserEmail, updateEmail } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setIntialValues] = useState<{email: string}>({email: ''});
 
@@ -38,18 +40,10 @@ const Profile: React.FC = () => {
         }
     }
 
-    const handleUpdatePassword = async (values:{currentPassword: string, newPassword: string}) => {
-        const response = await updatePassword(values)
-
-        if (response) {
-            alert('Senha alterada com sucesso');
-        }
-    }
-
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-            <MainContainer isMenuOpen={isMenuOpen}>
+            <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Meu perfil</Title>
                 <Formik
                     initialValues={initialValues}
@@ -70,7 +64,7 @@ const Profile: React.FC = () => {
                         </Form>
                     )}
                 </Formik>
-                <ChangePasswordButton>Alterar Senha</ChangePasswordButton>
+                <ChangePasswordButton onClick={() => navigate('/changePassword')}>Alterar Senha</ChangePasswordButton>
 
                 <Separator />
 

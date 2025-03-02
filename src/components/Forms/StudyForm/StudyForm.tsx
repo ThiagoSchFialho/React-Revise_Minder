@@ -130,7 +130,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                         <Label htmlFor='study_date'>Data do estudo</Label>
                         <DateInputContainer>
                             <TodayButton
-                                selected={isToday}
+                                $selected={isToday}
                                 onClick={() => {
                                     setIsToday(!isToday);
                                     handleTodayClick(setFieldValue);
@@ -145,7 +145,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                                 onChange={handleChange}
                                 value={values.study_date}
                                 disabled={isToday ? true : false}
-                                scheme={theme}
+                                $scheme={theme}
                             />
                         </DateInputContainer>
                         {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}

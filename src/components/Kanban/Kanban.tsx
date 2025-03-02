@@ -74,7 +74,7 @@ const Kanban: React.FC = () => {
                 <KanbanTitleContainer>
                     <KanbanTitle>{title}</KanbanTitle>
                 </KanbanTitleContainer>
-                <KanbanContent status={status}>
+                <KanbanContent $status={status}>
                     {reviews.filter((review) => review.status === status).map((review) => (
                         <KanbanItem
                             key={review.id}

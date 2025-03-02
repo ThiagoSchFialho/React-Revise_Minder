@@ -87,11 +87,11 @@ const BegginerForm: React.FC = () => {
                 <Form>
                     <BegginerInputsContainer>
                         <ProgressContainer>
-                            <ProgressItem status={index >= 0 ? 'done' : 'notDone'} >1</ProgressItem>
-                            <ProgressItem status={index >= 1 ? 'done' : 'notDone'}>2</ProgressItem>
-                            <ProgressItem status={index >= 2 ? 'done' : 'notDone'}>3</ProgressItem>
+                            <ProgressItem $status={index >= 0 ? 'done' : 'notDone'} >1</ProgressItem>
+                            <ProgressItem $status={index >= 1 ? 'done' : 'notDone'}>2</ProgressItem>
+                            <ProgressItem $status={index >= 2 ? 'done' : 'notDone'}>3</ProgressItem>
                         </ProgressContainer>
-                        <BegginerInputWrapper activeIndex={index}>
+                        <BegginerInputWrapper $activeIndex={index}>
                             <BegginerInputContainer>
                                 <BegginerLabel htmlFor='topic'>O que você estudou?</BegginerLabel>
                                 <BegginerInput
@@ -174,7 +174,7 @@ const BegginerForm: React.FC = () => {
                                         onChange={handleChange}
                                         value={values.study_date}
                                         disabled={isToday ? true : false}
-                                        scheme={theme}
+                                        $scheme={theme}
                                     />
                                 </DateInputContainer>
                                 {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}

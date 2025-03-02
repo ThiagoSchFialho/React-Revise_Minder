@@ -37,7 +37,7 @@ const MyStudies: React.FC = () => {
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-            <MainContainer isMenuOpen={isMenuOpen}>
+            <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Meus Estudos</Title>
                 {loading ? (
                     <Loading />

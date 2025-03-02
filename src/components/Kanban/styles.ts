@@ -27,15 +27,15 @@ export const KanbanTitle = styled.h2`
     font-weight: 500;
 `;
 
-export const KanbanContent = styled.div<{ status: string }>`
+export const KanbanContent = styled.div<{ $status: string }>`
     padding: 15px 25px 80px 25px;
     min-height: 300px;
 
     & > div {
         background-color: ${(props) => {
-            if (props.status === 'doing') {
+            if (props.$status === 'doing') {
                 return '#1A97F0';
-            } else if (props.status === 'done') {
+            } else if (props.$status === 'done') {
                 return '#048C38';
             } else {
                 return 'rgb(76, 76, 80)';

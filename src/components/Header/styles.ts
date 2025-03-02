@@ -48,10 +48,10 @@ export const ProfileButton = styled.div`
     cursor: pointer;
 `;
 
-export const SideMenuContainer = styled.div<{ isMenuOpen?: boolean }>`
+export const SideMenuContainer = styled.div<{ $isMenuOpen?: boolean }>`
     background-color: ${({theme}) => theme.background};
     position: absolute;
-    width: ${(props) => props.isMenuOpen ? '260px' : '88px' };
+    width: ${(props) => props.$isMenuOpen ? '260px' : '88px' };
     justify-content: center;
     gap: 60px;
     padding: 30px 26px;

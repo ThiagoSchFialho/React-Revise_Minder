@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-            <MainContainer isMenuOpen={isMenuOpen}>
+            <MainContainer $isMenuOpen={isMenuOpen}>
 
                 {todaysReviews.length > 0 ? (
                     <Kanban />

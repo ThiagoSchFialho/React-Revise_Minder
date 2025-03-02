@@ -72,7 +72,7 @@ const Login: React.FC = () => {
                         </InputContainer>
 
                         <ForgotPassword href="">Esqueci minha senha</ForgotPassword>
-                        <SubmitButton>Entrar</SubmitButton>
+                        <SubmitButton  type='submit'>Entrar</SubmitButton>
                     </Form>
                 )}
                     

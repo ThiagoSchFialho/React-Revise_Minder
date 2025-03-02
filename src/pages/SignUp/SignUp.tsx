@@ -105,7 +105,7 @@ const SignUp: React.FC = () => {
                                 <CheckboxLabel>Li e aceito os <u onClick={() => setIsModalVisible(true)}>termos de uso</u>.</CheckboxLabel>
                                 {touched.terms && errors.terms && <Error>{errors.terms}</Error>}
                             </InputContainer>
-                            <SubmitButton>Cadastrar</SubmitButton>
+                            <SubmitButton  type='submit'>Cadastrar</SubmitButton>
                         </Form>
                     )}
                         

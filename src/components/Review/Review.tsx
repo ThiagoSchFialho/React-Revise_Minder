@@ -46,7 +46,7 @@ const Review: React.FC<ReviewProps> = ({ topic, status, date }) => {
         <ReviewContainer>
             <ReviewTitle>{topic}</ReviewTitle>
             <ReviewInfoContainer>
-                <ReviewStatus status={getStatus()}>{getStatus()}</ReviewStatus>
+                <ReviewStatus $status={getStatus()}>{getStatus()}</ReviewStatus>
                 <ReviewDate>{formatDate(date)}</ReviewDate>
             </ReviewInfoContainer>
         </ReviewContainer>

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div<{ isMenuOpen?: boolean }>`
+export const MainContainer = styled.div`
     background-color: ${({theme}) => theme.background};
     min-height: 100vh;
     padding-bottom: 50px;

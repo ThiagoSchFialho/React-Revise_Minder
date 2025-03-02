@@ -55,7 +55,7 @@ export const ProgressContainer = styled.div`
     justify-content: space-between;
 `;
 
-export const ProgressItem = styled.div<{ status: string }>`
+export const ProgressItem = styled.div<{ $status: string }>`
     position: relative;
     width: 40px;
     height: 40px;
@@ -63,11 +63,11 @@ export const ProgressItem = styled.div<{ status: string }>`
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : ''};
+    background-color: ${(props) => props.$status === 'done' ? ({theme}) => theme.mainColor : ''};
     border: 1px solid ${({theme}) => theme.mainColor};
     font-weight: 600;
     font-size: 14pt;
-    color: ${(props) => props.status === 'done' ? '#FFFFFF' : ({theme}) => theme.text};
+    color: ${(props) => props.$status === 'done' ? '#FFFFFF' : ({theme}) => theme.text};
 
     &:not(:first-child):before {
         content: '';
@@ -76,7 +76,7 @@ export const ProgressItem = styled.div<{ status: string }>`
         top: 20px;
         width: 110px;
         height: 1px;
-        background-color: ${(props) => props.status === 'done' ? ({theme}) => theme.mainColor : ({theme}) => theme.text};
+        background-color: ${(props) => props.$status === 'done' ? ({theme}) => theme.mainColor : ({theme}) => theme.text};
     }
 
     @media (max-width: 1360px) {
@@ -86,10 +86,10 @@ export const ProgressItem = styled.div<{ status: string }>`
     }
 `;
 
-export const BegginerInputWrapper = styled.div<{ activeIndex: number }>`
+export const BegginerInputWrapper = styled.div<{ $activeIndex: number }>`
     display: flex;
     transition: transform 0.3s ease-in-out;
-    transform: translateX(${({ activeIndex }) => `-${activeIndex * 100}%`});
+    transform: translateX(${({ $activeIndex }) => `-${$activeIndex * 100}%`});
     width: 100%;
 `;
 
@@ -119,7 +119,7 @@ export const BegginerLabel = styled.label`
     }
 `;
 
-export const BegginerInput = styled.input<{ scheme?: string }>`
+export const BegginerInput = styled.input<{ $scheme?: string }>`
     width: 100%;    
     padding: 10px 15px;
     background-color: ${({ theme }) => theme.background};
@@ -129,7 +129,7 @@ export const BegginerInput = styled.input<{ scheme?: string }>`
     padding: 10px 15px;
     outline: none;
     color: ${({ theme }) => theme.text};
-    color-scheme: ${(props) => props.scheme};
+    color-scheme: ${(props) => props.$scheme};
 `;
 
 export const BegginerNumberInputContainer = styled.div`

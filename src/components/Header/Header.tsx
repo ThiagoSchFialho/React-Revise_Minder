@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
                     )}
                 </UserContainer>
             </HeaderContainer>
-            <SideMenuContainer isMenuOpen={isMenuOpen}>
+            <SideMenuContainer $isMenuOpen={isMenuOpen}>
                 <MenuItemContainer onClick={() => navigate('/dashboard')}>
                     <FaHouse style={{cursor: 'pointer'}} color={theme == 'light' ? '#171823' : 'white'} size={30}/>
                     {isMenuOpen ? (

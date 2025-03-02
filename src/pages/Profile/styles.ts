@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div<{ isMenuOpen?: boolean }>`
+export const MainContainer = styled.div<{ $isMenuOpen?: boolean }>`
     background-color: ${({theme}) => theme.background};
     min-height: 100vh;
-    padding-left: ${(props) => props.isMenuOpen ? 'calc(360px + 10%)' : 'calc(188px + 10%)'};
+    padding-left: ${(props) => props.$isMenuOpen ? 'calc(360px + 10%)' : 'calc(188px + 10%)'};
     padding-right: 10%;
     padding-bottom: 50px;
 
     @media (max-width: 1360px) {
-        padding-left: ${(props) => props.isMenuOpen ? 'calc(260px + 10%)' : 'calc(88px + 10%)'};
+        padding-left: ${(props) => props.$isMenuOpen ? 'calc(260px + 10%)' : 'calc(88px + 10%)'};
     }
 `;
 

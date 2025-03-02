@@ -49,7 +49,7 @@ const PastReviews: React.FC = () => {
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-            <MainContainer isMenuOpen={isMenuOpen}>
+            <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Revisões passadas</Title>
                 {loading ? (
                     <Loading />

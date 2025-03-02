@@ -26,22 +26,22 @@ export const ReviewInfoContainer = styled.div`
     align-items: center;
 `;
 
-export const ReviewStatus = styled.div<{ status: string}>`
+export const ReviewStatus = styled.div<{ $status: string}>`
     padding: 5px 10px;
     margin: 0px 15px;
     background-color: ${(props) => {
-        if (props.status === 'Realizada') {
+        if (props.$status === 'Realizada') {
             return '#80FFD1';
-        } else if (props.status === 'Não Realizada') {
+        } else if (props.$status === 'Não Realizada') {
             return '#FF8080';
         } else {
             return '#80D1FF'
         }
     }};
     color: ${(props) => {
-        if (props.status === 'Realizada') {
+        if (props.$status === 'Realizada') {
             return '#006B45';
-        } else if (props.status === 'Não Realizada') {
+        } else if (props.$status === 'Não Realizada') {
             return '#A30000';
         } else {
             return '#0069A3'
