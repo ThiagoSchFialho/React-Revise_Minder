@@ -31,7 +31,8 @@ const validations = Yup.object({
   
     qnt_reviews: Yup.number()
       .typeError('Informe um número válido')
-      .positive('A quantidade de revisões deve ser maior que zero')
+      .min(0, 'A quantidade de revisões deve ser pelo menos 0')
+      .max(10, 'A quantidade de revisões não pode ser maior que 10')
       .integer('A quantidade de revisões deve ser um número inteiro')
       .required('Por favor, informe a quantidade de revisões'),
 
@@ -72,7 +73,9 @@ const BegginerForm: React.FC = () => {
     }
     
     const handleAdd = (setFieldValue: (field: string, value: number) => void, value: number) => {
-        setFieldValue('qnt_reviews', value + 1);
+        if (value < 10) {
+            setFieldValue('qnt_reviews', value + 1);
+        }
     }
 
     return (
@@ -127,7 +130,8 @@ const BegginerForm: React.FC = () => {
                                     />
                                     <BegginerNumberInput
                                         type="number"
-                                        min='0'
+                                        min={0}
+                                        max={10}
                                         name="qnt_reviews"
                                         id="qnt_reviews"
                                         onChange={handleChange}
