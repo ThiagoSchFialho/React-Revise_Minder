@@ -7,6 +7,7 @@ import { useDb } from '../../hooks/useDb';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
 import { useLocation } from 'react-router-dom';
+import Achievement from '../../components/Achievement/Achievement';
 import {
     MainContainer,
     Title
@@ -27,6 +28,14 @@ const MyStudies: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [studies, setStudies] = useState<Study[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [achievementVisible, setAchievementVisible] = useState<boolean>(true);
+    const [achievement, setAchievement] = useState<string | null>(null);
+    const [reward, setReward] = useState<string | null>(null);
+
+    useEffect(() => {
+        setAchievement('Adicione seu primeiro estudo');
+        setReward('Você desbloqueou o formulário rápido');
+    }, [])
 
     const fetchStudies = async () => {
         setLoading(true);
@@ -51,6 +60,13 @@ const MyStudies: React.FC = () => {
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             {alert && <Alert type={alert.type} message={alert.message} />}
+            {achievementVisible && (
+                <Achievement
+                    achievement={achievement ?? ''}
+                    reward={reward ?? ''}
+                    onClose={() => setAchievementVisible(false)}
+                />
+            )}
             <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Meus Estudos</Title>
                 {loading ? (

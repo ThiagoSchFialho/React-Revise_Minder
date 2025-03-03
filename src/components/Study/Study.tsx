@@ -54,14 +54,17 @@ const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh, sh
         };
     }, [toggleMenu]);
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         const confirmation = confirm('Tem certeza que deseja excluir este estudo?')
         if (!id || !confirmation) return;
 
         try {
             showAlert("good", "Estudo removido com sucesso!");
             refresh();
-            deleteStudy(id);
+            const response = await deleteStudy(id);
+            if (response) {
+                refresh();
+            }
             refresh();
 
         } catch (error: unknown) {
