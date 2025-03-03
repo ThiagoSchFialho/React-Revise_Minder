@@ -10,19 +10,17 @@ import {
 } from './styles';
 
 interface ConfirmModalProps {
-    title?: string
+    title: string
     message: string
     onConfirm: () => void
     onCancel: () => void
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({ title, message, onConfirm, onCancel }) => {
+const ConfirmDeleteAccountModal: React.FC<ConfirmModalProps> = ({ title, message, onConfirm, onCancel }) => {
     return (
       <ModalOverlay>
         <ModalContainer>
-          {title && (
-            <ModalTitle>{title}</ModalTitle>
-          )}
+          <ModalTitle>{title}</ModalTitle>
           <ModalMessage>{message}</ModalMessage>
           <ButtonContainer>
             <CancelButton onClick={onCancel}>Cancelar</CancelButton>
@@ -33,4 +31,4 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ title, message, onConfirm, 
     );
   };
   
-  export default ConfirmModal;
+  export default ConfirmDeleteAccountModal;

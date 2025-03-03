@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 interface StudyValues {
     topic: string
     qnt_reviews: number
@@ -8,8 +6,6 @@ interface StudyValues {
 }
 
 export const useDb = () => {
-    const navigate = useNavigate();
-
     const createStudy = async (values: StudyValues) => {
         const token = localStorage.getItem('token');
 
@@ -25,7 +21,7 @@ export const useDb = () => {
             const data = await response.json();
       
             if (response.ok) {
-                navigate('/myStudies');
+                return true;
             } else {
                 console.error('Erro criação do estudo:', data.error);
             }
@@ -101,7 +97,7 @@ export const useDb = () => {
             const data = await response.json();
       
             if (response.ok) {
-                navigate('/myStudies');
+                return true;
             } else {
                 console.error('Erro na edição do estudo:', data.error);
             }
@@ -228,8 +224,7 @@ export const useDb = () => {
             const data = await response.json();
 
             if (data?.error === 'Email indisponivel') {
-                alert('Email indisponivel');
-                return;
+                return data;
             }
 
             if (response.ok) {

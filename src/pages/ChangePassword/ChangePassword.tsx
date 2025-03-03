@@ -4,6 +4,8 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDb } from '../../hooks/useDb';
 import { useNavigate } from 'react-router-dom';
+import Alert from '../../components/Alert/Alert';
+import { useAlert } from '../../hooks/useAlert';
 import {
     MainContainer,
     Title,
@@ -36,6 +38,7 @@ const validations = Yup.object({
 
 const ChangePassword: React.FC = () => {
     const navigate = useNavigate();
+    const { alert, showAlert } = useAlert();
     const { checkPassword, updatePassword } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setInitialValues] = useState<FormValues>(
@@ -59,20 +62,20 @@ const ChangePassword: React.FC = () => {
 
         const passwordMatch = await checkPassword(currentPassword);
         if (!passwordMatch) {
-            alert('Senha atual incorreta');
+            showAlert("bad", "Senha atual incorreta.", 4000);
             return false;
         }
 
         const response = await updatePassword({ currentPassword, newPassword })
         if (response) {
-            navigate('/profile');
-            alert('Senha alterada com sucesso');
+            navigate('/profile', { state: { alertType: "good", alertMessage: 'Senha alterada com sucesso' } });
         }
     }
 
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            {alert && <Alert type={alert.type} message={alert.message} />}
             <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Alterar senha</Title>
                 <FormContainer>

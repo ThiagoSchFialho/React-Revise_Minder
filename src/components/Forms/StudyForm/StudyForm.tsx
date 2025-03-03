@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDb } from '../../../hooks/useDb';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 import {
     FormContainer,
     InputContainer,
@@ -27,7 +28,7 @@ const validations = Yup.object({
   
     qnt_reviews: Yup.number()
       .typeError('Informe um número válido')
-      .min(0, 'A quantidade de revisões deve ser pelo menos 0')
+      .min(1, 'A quantidade de revisões deve ser pelo menos 1')
       .max(10, 'A quantidade de revisões não pode ser maior que 10')
       .integer('A quantidade de revisões deve ser um número inteiro')
       .required('Por favor, informe a quantidade de revisões'),
@@ -37,6 +38,7 @@ const validations = Yup.object({
 });
 
 const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
+    const navigate = useNavigate();
     const { theme } = useTheme();
     const { createStudy, getStudy, updateStudy } = useDb();
     const [isToday, setIsToday] = useState<boolean>(false);
@@ -76,17 +78,24 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                 user_id: Number(localStorage.getItem('userId'))
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     const handleSubmit = async (values: FormValues) => {
         if (id) {
-            updateStudy(values, id);
+            const success = await updateStudy(values, id);
+            if (success) {
+                navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo atualizado!' } });
+            }
         } else {
-            createStudy(values);
+            const success = await createStudy(values);
+            if (success) {
+                navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo adicionado!' } });
+            }
         }
     }
 
-    const handleTodayClick = (setFieldValue: (field: string, value: any) => void) => {
+    const handleTodayClick = (setFieldValue: (field: string, value: unknown) => void) => {
         const today = new Date();
         const formattedDate = formatDate(today.toISOString());
         setFieldValue('study_date', formattedDate);
@@ -118,7 +127,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                         <Label htmlFor='qnt_reviews'>Quantidade de revisões</Label>
                         <Input 
                             type="number"
-                            min={0}
+                            min={1}
                             max={10}
                             name="qnt_reviews"
                             id="qnt_reviews"

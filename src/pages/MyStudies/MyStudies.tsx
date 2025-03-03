@@ -4,6 +4,9 @@ import Study from '../../components/Study/Study';
 import NoStudies from '../../components/NoResults/NoStudies/NoStudies';
 import Loading from '../../components/Loading/Loading';
 import { useDb } from '../../hooks/useDb';
+import Alert from '../../components/Alert/Alert';
+import { useAlert } from '../../hooks/useAlert';
+import { useLocation } from 'react-router-dom';
 import {
     MainContainer,
     Title
@@ -18,6 +21,8 @@ interface Study {
 }
 
 const MyStudies: React.FC = () => {
+    const location = useLocation();
+    const { alert, showAlert } = useAlert();
     const { getStudies } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [studies, setStudies] = useState<Study[]>([]);
@@ -32,11 +37,20 @@ const MyStudies: React.FC = () => {
 
     useEffect(() => {
         fetchStudies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (location.state?.alertMessage) {
+            showAlert(location.state.alertType, location.state.alertMessage);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.state]);
 
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            {alert && <Alert type={alert.type} message={alert.message} />}
             <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Meus Estudos</Title>
                 {loading ? (
@@ -44,7 +58,12 @@ const MyStudies: React.FC = () => {
                 ) : studies && studies.length > 0 ? (
                     <>
                         {studies.map((study) => (
-                            <Study key={study.id} {...study} refresh={fetchStudies} />
+                            <Study
+                                key={study.id}
+                                {...study}
+                                refresh={fetchStudies}
+                                showAlert={showAlert}
+                            />
                         ))}
                     </>
                 ) : (

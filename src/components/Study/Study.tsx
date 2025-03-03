@@ -21,6 +21,7 @@ interface StudyProps {
     date: string;
     user_id: number;
     refresh: () => void;
+    showAlert: (type: "good" | "bad", message: string, timeout?: number) => void;
 }
 
 const formatDate = (date: string) => {
@@ -28,13 +29,14 @@ const formatDate = (date: string) => {
 };
 
 
-const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh }) => {
+const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh, showAlert }) => {
     const { deleteStudy } = useDb();
     const { theme } = useTheme();
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
     const navigate = useNavigate();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const toggleMenu = (id: number | null) => {
         setOpenMenuIndex(openMenuIndex === id ? null : id);
     };
@@ -54,18 +56,14 @@ const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh }) 
 
     const handleDelete = (id: number) => {
         const confirmation = confirm('Tem certeza que deseja excluir este estudo?')
-    
-        if(!id) return
-
-        if (!confirmation) return
+        if (!id || !confirmation) return;
 
         try {
+            showAlert("good", "Estudo removido com sucesso!");
             deleteStudy(id);
             refresh();
-            alert('Estudo removido com sucesso');
-            refresh();
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Erro ao remover estudo', error);
         }
     }

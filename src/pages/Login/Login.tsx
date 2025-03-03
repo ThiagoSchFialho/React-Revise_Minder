@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../../hooks/useAuth';
-import FeedBack from '../../components/FeedBack/FeedBack';
+import Alert from '../../components/Alert/Alert';
+import { useAlert } from '../../hooks/useAlert';
 import {
     MainContainer,
     FormContainer,
@@ -18,6 +19,11 @@ import {
     SignUpText
 } from './styles'
 
+interface LoginValues {
+    email: string;
+    password: string;
+  }
+
 const validations = Yup.object({ 
     email: Yup.string()
         .email('Email inválido')
@@ -31,38 +37,30 @@ const validations = Yup.object({
 const Login: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { handleLogin, errorMessage } = useAuth();
-    const [successMessage, setSuccessMessage] = useState(location.state?.successMessage || null);
-    const [errorMessageState, setErrorMessageState] = useState<string | null>(null)
+    const { alert, showAlert } = useAlert();
+    const { login } = useAuth();
     
     useEffect(() => {
-        window.scrollTo(0, 0);
-        if (successMessage) {
-            const timer = setTimeout(() => {
-                setSuccessMessage(null);
-            }, 3000);
-
-            return () => clearTimeout(timer);
+        if (location.state?.alertMessage) {
+            showAlert(location.state.alertType, location.state.alertMessage);
         }
-    }, [successMessage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.state]);
 
-    useEffect(() => {
-        if (errorMessage) {
-            setErrorMessageState(errorMessage)
-            const timer = setTimeout(() => {
-                setErrorMessageState(null);
-            }, 5000);
+    const handleLogin = async (values: LoginValues) => {
+        const response = await login(values);
 
-            return () => clearTimeout(timer);
+        if (response?.error) {
+            showAlert("bad", "Credenciais incorretas", 4000);
+
         } else {
-            setErrorMessageState(null)
+            navigate('/dashboard');
         }
-    }, [errorMessage])
+    }
 
     return (
         <MainContainer>
-            {successMessage && <FeedBack type='good' message={successMessage} />}
-            {errorMessageState && <FeedBack type='bad' message={errorMessage ?? ''} />}
+            {alert && <Alert type={alert.type} message={alert.message} />}
             <FormTitle>Login</FormTitle>
             <FormContainer>
                 <Formik

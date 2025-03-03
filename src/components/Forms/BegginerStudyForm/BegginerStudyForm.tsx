@@ -5,6 +5,7 @@ import { useTheme } from '../../../contexts/ThemeContext';
 import { useDb } from '../../../hooks/useDb';
 import { FaArrowRight } from "react-icons/fa";
 import { FaMinus, FaPlus } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 import {
     Error,
     DateInputContainer,
@@ -25,13 +26,20 @@ import {
     BegginerSubmitButton
 } from './styles';
 
+interface Study {
+    topic: string
+    qnt_reviews: number
+    study_date: string
+    user_id: number
+}
+
 const validations = Yup.object({ 
     topic: Yup.string()
       .required('Por favor, informe o tópico do estudo'),
   
     qnt_reviews: Yup.number()
       .typeError('Informe um número válido')
-      .min(0, 'A quantidade de revisões deve ser pelo menos 0')
+      .min(1, 'A quantidade de revisões deve ser pelo menos 1')
       .max(10, 'A quantidade de revisões não pode ser maior que 10')
       .integer('A quantidade de revisões deve ser um número inteiro')
       .required('Por favor, informe a quantidade de revisões'),
@@ -41,6 +49,7 @@ const validations = Yup.object({
 });
 
 const BegginerForm: React.FC = () => {
+    const navigate = useNavigate();
     const { theme } = useTheme();
     const { createStudy } = useDb();
     const [isToday, setIsToday] = useState<boolean>(false);
@@ -60,14 +69,14 @@ const BegginerForm: React.FC = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const handleTodayClick = (setFieldValue: (field: string, value: any) => void) => {
+    const handleTodayClick = (setFieldValue: (field: string, value: unknown) => void) => {
         const today = new Date();
         const formattedDate = formatDate(today.toISOString());
         setFieldValue('study_date', formattedDate);
     };
     
     const handleSubtract = (setFieldValue: (field: string, value: number) => void, value: number) => {
-        if (value > 0) {
+        if (value > 1) {
             setFieldValue('qnt_reviews', value - 1);
         }
     }
@@ -78,13 +87,20 @@ const BegginerForm: React.FC = () => {
         }
     }
 
+    const handleCreateStudy = async (values: Study) => {
+        const success = await createStudy(values);
+        if (success) {
+            navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo adicionado!' } });
+        }
+    }
+
     return (
         <BegginerFormContainer>
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
                 validationSchema={validations}
-                onSubmit={(values) => createStudy(values)}
+                onSubmit={(values) => handleCreateStudy(values)}
             >
             {({values, handleChange, touched, errors, setFieldValue, setFieldTouched, validateForm }) => (
                 <Form>
@@ -130,7 +146,7 @@ const BegginerForm: React.FC = () => {
                                     />
                                     <BegginerNumberInput
                                         type="number"
-                                        min={0}
+                                        min={1}
                                         max={10}
                                         name="qnt_reviews"
                                         id="qnt_reviews"

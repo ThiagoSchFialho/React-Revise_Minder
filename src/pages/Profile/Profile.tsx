@@ -3,8 +3,10 @@ import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
 import { useDb } from '../../hooks/useDb';
 import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ConfirmDeleteAccountModal from '../../components/ConfirmDeleteAccountModal/ConfirmDeleteAccountModal';
+import Alert from '../../components/Alert/Alert';
+import { useAlert } from '../../hooks/useAlert';
 import {
     MainContainer,
     Title,
@@ -21,7 +23,9 @@ import {
 } from './styles';
 
 const Profile: React.FC = () => {
+    const location = useLocation();
     const navigate = useNavigate();
+    const { alert, showAlert } = useAlert();
     const { getUserEmail, updateEmail } = useDb();
     const { deleteAccount } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,28 +33,31 @@ const Profile: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
+        if (location.state?.alertMessage) {
+            showAlert(location.state.alertType, location.state.alertMessage);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.state]);
+
+    useEffect(() => {
         const fetchEmail = async () => {
             const email = await getUserEmail();
             setIntialValues(email);
         }
         fetchEmail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleUpdateEmail = async (values: {email: string}) => {
         const response = await updateEmail(values)
 
-        if (response) {
-            alert('Email alterado com sucesso');
+        if (response?.error) {
+            showAlert("bad", "Este e-mail já está em uso.", 4000);
+            
+        } else {
+            showAlert("good", "Email alterado com sucesso!");
         }
     }
-
-    // const handleDeleteAccount = async () => {
-    //     const confirmation = confirm('Tem certeza que deseja excluir sua conta e todos os seus dados?');
-
-    //     if (!confirmation) return
-
-    //     await deleteAccount();
-    // }
 
     const handleDeleteAccount = async () => {
         setShowModal(true);
@@ -68,6 +75,7 @@ const Profile: React.FC = () => {
     return (
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            {alert && <Alert type={alert.type} message={alert.message} />}
             <MainContainer $isMenuOpen={isMenuOpen}>
                 <Title>Meu perfil</Title>
                 <Formik
@@ -100,7 +108,7 @@ const Profile: React.FC = () => {
                     </TextContainer>
                     <DeleteButton onClick={handleDeleteAccount}>Excluir conta</DeleteButton>
                     {showModal && (
-                        <ConfirmModal
+                        <ConfirmDeleteAccountModal
                             title="Tem certeza que deseja excluir sua conta e todos os seus dados?"
                             message="Essa operação não pode ser desfeita!"
                             onConfirm={handleConfirm}

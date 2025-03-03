@@ -34,6 +34,7 @@ const Kanban: React.FC = () => {
 
     useEffect(() => {
         fetchReviews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, id: number) => {

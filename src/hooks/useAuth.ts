@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
-import { useState } from "react";
 
 interface LoginValues {
   email: string;
@@ -27,10 +26,9 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const host = 'http://localhost:3000/auth';
 
-  const handleLogin = async (values: LoginValues) => {
+  const login = async (values: LoginValues) => {
     try {
       const response = await fetch(`${host}/login`, {
         method:  'POST',
@@ -42,8 +40,7 @@ export const useAuth = () => {
       const data = await response.json();
 
       if (data?.error === 'Authentication failed') {
-        setErrorMessage('Credenciais incorretas');
-        return;
+          return data;
       }
 
       if (response.ok && data.token) {
@@ -54,7 +51,6 @@ export const useAuth = () => {
           localStorage.setItem('userId', userId);
         }
 
-        navigate('/dashboard');
       } else {
         console.error('Erro no login:', data.error);
       }
@@ -64,7 +60,7 @@ export const useAuth = () => {
     }
   }
 
-  const handleSignUp = async (values: SignUpValues) => {
+  const signUp = async (values: SignUpValues) => {
     try {
       const response = await fetch(`${host}/register`, {
           method: 'POST',
@@ -76,12 +72,12 @@ export const useAuth = () => {
       const data = await response.json();
 
       if (data?.error === 'User with that email already exists') {
-          setErrorMessage('Email indisponivel');
-          return;
+          return data;
       }
 
       if (response.ok) {
-          navigate('/login', { state: { successMessage: 'Cadastro bem sucedido!' } });
+          return data;
+          
       } else {
           console.error('Erro no cadastro:', data.error);
       }
@@ -120,5 +116,5 @@ export const useAuth = () => {
     }
   }
 
-  return { handleLogin, handleSignUp, handleLogout, deleteAccount, errorMessage }
+  return { login, signUp, handleLogout, deleteAccount }
 }

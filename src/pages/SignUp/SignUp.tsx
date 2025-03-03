@@ -4,7 +4,8 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TermsAndPrivacyModal from '../../components/Terms/Terms';
 import { useAuth } from '../../hooks/useAuth';
-import FeedBack from '../../components/FeedBack/FeedBack';
+import Alert from '../../components/Alert/Alert';
+import { useAlert } from '../../hooks/useAlert';
 import {
     MainContainer,
     FormContainer,
@@ -19,6 +20,12 @@ import {
     RedirectContainer,
     RedirectText
 } from './styles';
+
+interface SignUpValues {
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
 
 const validations = Yup.object({ 
     email: Yup.string()
@@ -38,32 +45,30 @@ const validations = Yup.object({
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
+    const { alert, showAlert } = useAlert();
+    const { signUp } = useAuth();
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const { handleSignUp, errorMessage } = useAuth();
-    const [errorMessageState, setErrorMessageState] = useState<string | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    useEffect(() => {
-            if (errorMessage) {
-                setErrorMessageState(errorMessage)
-                const timer = setTimeout(() => {
-                    setErrorMessageState(null);
-                }, 5000);
-    
-                return () => clearTimeout(timer);
-            } else {
-                setErrorMessageState(null)
-            }
-        }, [errorMessage])
+    const handleSignUp = async (values: SignUpValues) => {
+        const response = await signUp(values);
+
+        if (response?.error) {
+            showAlert("bad", "Email indisponivel.", 4000);
+            
+        } else {
+            navigate('/login', { state: { alertType: "good", alertMessage: 'Cadastro bem sucedido!' } });
+        }
+    }
 
     return (
         <>
             <TermsAndPrivacyModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
             <MainContainer>
-                {errorMessageState && <FeedBack type='bad' message={errorMessage ?? ''} />}
+                {alert && <Alert type={alert.type} message={alert.message} />}
                 <FormTitle>Cadastro</FormTitle>
                 <FormContainer>
                     <Formik
