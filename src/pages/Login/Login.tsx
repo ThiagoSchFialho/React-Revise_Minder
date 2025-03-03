@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useAuth } from '../../hooks/useAuth';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
     MainContainer,
     FormContainer,
@@ -35,6 +36,7 @@ const validations = Yup.object({
 });
 
 const Login: React.FC = () => {
+    const { theme } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
     const { alert, showAlert } = useAlert();
@@ -91,6 +93,7 @@ const Login: React.FC = () => {
                                 id="password"
                                 onChange={handleChange}
                                 value={values.password}
+                                $scheme={theme}
                             />
                             {touched.password && errors.password && <Error>{errors.password}</Error>}
                         </InputContainer>

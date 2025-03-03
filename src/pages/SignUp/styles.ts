@@ -54,7 +54,7 @@ export const CheckboxLabel = styled.label`
     }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ $scheme?: string }>`
     width: 100%;
     background-color: ${({theme}) => theme.background};
     border: 1px solid ${({theme}) => theme.inputBorder};
@@ -63,6 +63,7 @@ export const Input = styled.input`
     padding: 10px 15px;
     outline: none;
     color: ${({theme}) => theme.text};
+    color-scheme: ${(props) => props.$scheme};
 `;
 
 export const CheckboxInput = styled.input`

@@ -6,6 +6,7 @@ import TermsAndPrivacyModal from '../../components/Terms/Terms';
 import { useAuth } from '../../hooks/useAuth';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
     MainContainer,
     FormContainer,
@@ -45,6 +46,7 @@ const validations = Yup.object({
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
+    const { theme } = useTheme();
     const { alert, showAlert } = useAlert();
     const { signUp } = useAuth();
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -99,6 +101,7 @@ const SignUp: React.FC = () => {
                                     id="password"
                                     onChange={handleChange}
                                     value={values.password}
+                                    $scheme={theme}
                                 />
                                 {touched.password && errors.password && <Error>{errors.password}</Error>}
                             </InputContainer>
@@ -111,6 +114,7 @@ const SignUp: React.FC = () => {
                                     id="confirmPassword"
                                     onChange={handleChange}
                                     value={values.confirmPassword}
+                                    $scheme={theme}
                                 />
                                 {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
                             </InputContainer>

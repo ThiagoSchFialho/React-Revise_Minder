@@ -6,6 +6,7 @@ import { useDb } from '../../hooks/useDb';
 import { useNavigate } from 'react-router-dom';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
     MainContainer,
     Title,
@@ -38,6 +39,7 @@ const validations = Yup.object({
 
 const ChangePassword: React.FC = () => {
     const navigate = useNavigate();
+    const { theme } = useTheme();
     const { alert, showAlert } = useAlert();
     const { checkPassword, updatePassword } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,6 +96,7 @@ const ChangePassword: React.FC = () => {
                                     id="currentPassword"
                                     value={values.currentPassword}
                                     onChange={handleChange}
+                                    $scheme={theme}
                                 />
                                 {touched.currentPassword && errors.currentPassword && <Error>{errors.currentPassword}</Error>}
 
@@ -104,6 +107,7 @@ const ChangePassword: React.FC = () => {
                                     id="newPassword"
                                     value={values.newPassword}
                                     onChange={handleChange}
+                                    $scheme={theme}
                                 />
                                 {touched.newPassword && errors.newPassword && <Error>{errors.newPassword}</Error>}
 
@@ -114,6 +118,7 @@ const ChangePassword: React.FC = () => {
                                     id="confirmPassword"
                                     value={values.confirmPassword}
                                     onChange={handleChange}
+                                    $scheme={theme}
                                 />
                                 {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
                             
