@@ -39,7 +39,7 @@ export const useAuth = () => {
       });
       const data = await response.json();
 
-      if (data?.error === 'Authentication failed') {
+      if (data.error) {
           return data;
       }
 
@@ -71,7 +71,7 @@ export const useAuth = () => {
       });
       const data = await response.json();
 
-      if (data?.error === 'User with that email already exists') {
+      if (data.error) {
           return data;
       }
 

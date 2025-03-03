@@ -58,9 +58,12 @@ const SignUp: React.FC = () => {
     const handleSignUp = async (values: SignUpValues) => {
         const response = await signUp(values);
 
-        if (response?.error) {
+        if (response?.error === 'User with that email already exists') {
             showAlert("bad", "Email indisponivel.", 4000);
             
+        } else if (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
+
         } else {
             navigate('/login', { state: { alertType: "good", alertMessage: 'Cadastro bem sucedido!' } });
         }

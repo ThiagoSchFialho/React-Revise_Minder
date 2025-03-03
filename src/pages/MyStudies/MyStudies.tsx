@@ -24,17 +24,25 @@ interface Study {
 const MyStudies: React.FC = () => {
     const location = useLocation();
     const { alert, showAlert } = useAlert();
-    const { getStudies } = useDb();
+    const { getStudies, getUser, addAchievement } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [studies, setStudies] = useState<Study[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [achievementVisible, setAchievementVisible] = useState<boolean>(true);
+    const [achievementVisible, setAchievementVisible] = useState<boolean>(false);
     const [achievement, setAchievement] = useState<string | null>(null);
     const [reward, setReward] = useState<string | null>(null);
 
     useEffect(() => {
-        setAchievement('Adicione seu primeiro estudo');
-        setReward('Você desbloqueou o formulário rápido');
+        const fetchUser = async () => {
+            const user = await getUser();
+            if (user.qnt_studies_added == 1) {
+                setAchievementVisible(true);
+                setAchievement('Adicione seu primeiro estudo');
+                setReward('Você desbloqueou o formulário rápido');
+                await addAchievement('Adicione seu primeiro estudo', 'Você desbloqueou o formulário rápido');
+            }
+        }
+        fetchUser();
     }, [])
 
     const fetchStudies = async () => {

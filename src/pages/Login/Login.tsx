@@ -52,8 +52,11 @@ const Login: React.FC = () => {
     const handleLogin = async (values: LoginValues) => {
         const response = await login(values);
 
-        if (response?.error) {
+        if (response?.error === 'Authentication failed') {
             showAlert("bad", "Credenciais incorretas", 4000);
+
+        } else if (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
 
         } else {
             navigate('/dashboard');

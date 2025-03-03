@@ -6,6 +6,31 @@ interface StudyValues {
 }
 
 export const useDb = () => {
+    const addQntStudyAdded = async () => {
+        const token = localStorage.getItem('token');
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch('https://revise-minder-backend.onrender.com/users/studyAdded', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return true;
+            } else {
+                console.error('Erro ao incrementar estudos adicionados', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+    }
+
     const createStudy = async (values: StudyValues) => {
         const token = localStorage.getItem('token');
 
@@ -21,7 +46,11 @@ export const useDb = () => {
             const data = await response.json();
       
             if (response.ok) {
-                return true;
+                const response = await addQntStudyAdded();
+                if (response) {
+                    return true;
+                }
+                return false;
             } else {
                 console.error('Erro criação do estudo:', data.error);
             }
@@ -288,6 +317,58 @@ export const useDb = () => {
         }
     }
 
+    const getUser = async () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+
+        const url = new URL('https://revise-minder-backend.onrender.com/users');
+        url.searchParams.append('user_id', userId ? userId : '');
+
+        try {
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao recuperar usuário', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
+    const addAchievement = async (name: string, reward: string) => {
+        const token = localStorage.getItem('token');
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch('https://revise-minder-backend.onrender.com/achievement', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, reward, user_id })
+            });
+            const data = await response.json();
+      
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao criar conquista:', data.error);
+            }
+          } catch (error) {
+              console.error('Erro na requisição:', error);
+          }
+    }
+
     return {
         createStudy,
         getStudy,
@@ -299,6 +380,8 @@ export const useDb = () => {
         getUserEmail,
         updateEmail,
         checkPassword,
-        updatePassword
+        updatePassword,
+        getUser,
+        addAchievement
     }
 }
