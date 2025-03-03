@@ -26,7 +26,7 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const host = 'http://localhost:3000/auth';
+  const host = 'https://revise-minder-backend.onrender.com/auth';
 
   const login = async (values: LoginValues) => {
     try {
@@ -96,7 +96,7 @@ export const useAuth = () => {
     const user_id = localStorage.getItem('userId');
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${user_id}`, {
+      const response = await fetch(`https://revise-minder-backend.onrender.com/users/${user_id}`, {
           method: 'DELETE',
           headers: {
               'Authorization': `${token}`,
