@@ -35,15 +35,20 @@ const MyStudies: React.FC = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const user = await getUser();
-            if (user.qnt_studies_added == 1) {
+            const achievementKey = 'first_study_achievement';
+            const hasAchieved = localStorage.getItem(achievementKey);
+
+            if (user.qnt_studies_added === 1 && !hasAchieved) {
                 setAchievementVisible(true);
                 setAchievement('Adicione seu primeiro estudo');
                 setReward('Você desbloqueou o formulário rápido');
                 await addAchievement('Adicione seu primeiro estudo', 'Você desbloqueou o formulário rápido');
+                
+                localStorage.setItem(achievementKey, 'true');
             }
         }
         fetchUser();
-    }, [])
+    }, []);
 
     const fetchStudies = async () => {
         setLoading(true);
