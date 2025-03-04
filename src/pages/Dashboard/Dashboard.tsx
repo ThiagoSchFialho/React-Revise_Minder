@@ -60,11 +60,11 @@ const Dashboard: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const todaysReviews = reviews.filter((review: Review) => {
+        const todaysReviews = reviews?.filter((review: Review) => {
             return new Date(review.date).toDateString() == new Date().toDateString();
         });
 
-        const futureReviews = reviews.filter((review) => {
+        const futureReviews = reviews?.filter((review) => {
             return new Date(review.date).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
         });
 
