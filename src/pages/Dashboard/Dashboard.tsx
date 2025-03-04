@@ -80,10 +80,10 @@ const Dashboard: React.FC = () => {
                 {loading ? (
                     <Loading />
 
-                ) : todaysReviews.length > 0 ? (
+                ) : todaysReviews?.length > 0 ? (
                     <Kanban />
 
-                ) : studies.length === 0 ? (
+                ) : studies?.length === 0 ? (
                     <TutorialCotainer>
                         <TutorialTitle>Boas vindas ao Revise Minder</TutorialTitle>
                         <TutorialMessage>Adicione seu primeiro estudo e deixe nosso algoritmo calcular os momentos ideais para suas revisões.</TutorialMessage>
