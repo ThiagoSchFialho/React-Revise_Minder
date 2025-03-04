@@ -25,7 +25,7 @@ const Kanban: React.FC = () => {
     const fetchReviews = async () => {
         const reviews = await getReviews();
 
-        const todaysReviews = reviews.filter((review: Review) => {
+        const todaysReviews = reviews?.filter((review: Review) => {
             return new Date(review.date).toDateString() == new Date().toDateString();
         });
 

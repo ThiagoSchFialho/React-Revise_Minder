@@ -37,7 +37,7 @@ const PastReviews: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const pastReviews = reviews.filter((review) => {
+        const pastReviews = reviews?.filter((review) => {
             if (new Date(review.date).toDateString() != new Date().toDateString()) {
                 return new Date(review.date) < new Date();
             }
@@ -53,7 +53,7 @@ const PastReviews: React.FC = () => {
                 <Title>Revisões passadas</Title>
                 {loading ? (
                     <Loading />
-                ) : pastReviews && pastReviews.length > 0 ? (
+                ) : pastReviews && pastReviews?.length > 0 ? (
                     <>
                         {pastReviews.map((review) => (
                     <Review key={review.id} {...review} />

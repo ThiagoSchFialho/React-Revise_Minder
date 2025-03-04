@@ -85,7 +85,7 @@ const MyStudies: React.FC = () => {
                 <Title>Meus Estudos</Title>
                 {loading ? (
                     <Loading />
-                ) : studies && studies.length > 0 ? (
+                ) : studies && studies?.length > 0 ? (
                     <>
                         {studies.map((study) => (
                             <Study

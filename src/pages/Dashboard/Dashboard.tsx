@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
                 <FutureReviewsContainer>
                     {loading ? (
                         <Loading />
-                    ) : FutureReviews && FutureReviews.length > 0 ? (
+                    ) : FutureReviews && FutureReviews?.length > 0 ? (
                         <>
                             {FutureReviews.map((review) => (
                                 <Review key={review.id} {...review} />
