@@ -25,6 +25,7 @@ const StudyFormHandler: React.FC = () => {
             setQntStudiesAdded(user.qnt_studies_added);
         }
         fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

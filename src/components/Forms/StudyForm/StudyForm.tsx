@@ -42,6 +42,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
     const { theme } = useTheme();
     const { createStudy, getStudy, updateStudy } = useDb();
     const [isToday, setIsToday] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>({
         topic: '',
         qnt_reviews: 3,
@@ -83,13 +84,17 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
 
     const handleSubmit = async (values: FormValues) => {
         if (id) {
+            setIsLoading(true);
             const success = await updateStudy(values, id);
             if (success) {
+                setIsLoading(false);
                 navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo atualizado!' } });
             }
         } else {
+            setIsLoading(true);
             const success = await createStudy(values);
             if (success) {
+                setIsLoading(false);
                 navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo adicionado!' } });
             }
         }
@@ -102,7 +107,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
     };
 
     return (
-        <FormContainer>
+        <FormContainer $isLoading={isLoading}>
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
@@ -162,7 +167,7 @@ const StudyFormc: React.FC<{ id?: string }> = ({ id }) => {
                         {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
                     </InputContainer>
 
-                    <SubmitButton type='submit'>{id ? 'Salvar' : 'Adicionar'}</SubmitButton>
+                    <SubmitButton type='submit' disabled={isLoading} $isLoading={isLoading}>{id ? 'Salvar' : 'Adicionar'}</SubmitButton>
                 </Form>
             )}
                 

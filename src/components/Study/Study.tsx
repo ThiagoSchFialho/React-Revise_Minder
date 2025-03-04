@@ -60,7 +60,6 @@ const Study: React.FC<StudyProps> = ({ id, topic, qnt_reviews, date, refresh, sh
 
         try {
             showAlert("good", "Estudo removido com sucesso!");
-            refresh();
             const response = await deleteStudy(id);
             if (response) {
                 refresh();

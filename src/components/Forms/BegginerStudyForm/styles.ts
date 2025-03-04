@@ -25,7 +25,7 @@ export const TodayButton = styled.div<{ selected: boolean}>`
     user-select: none;
 `;
 
-export const BegginerFormContainer = styled.div`
+export const BegginerFormContainer = styled.div<{ $isLoading: boolean }>`
     width: 550px;
     margin: 0 auto;
     padding: 30px 50px 45px 50px;
@@ -33,6 +33,7 @@ export const BegginerFormContainer = styled.div`
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
     @media (max-width: 1360px) {
         width: 480px;
@@ -212,15 +213,15 @@ export const NextButton = styled.div`
     user-select: none;
 `;
 
-export const BegginerSubmitButton = styled.button`
+export const BegginerSubmitButton = styled.button<{ $isLoading: boolean }>`
     width: 170px;
     text-align: center;
     line-height: 40px;
     font-weight: 500;
-    background-color: ${({theme}) => theme.mainColor};
+    background-color: ${(props) => props.$isLoading ? 'rgb(17, 114, 184)' : ({theme}) => theme.mainColor};
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
     font-size: 13pt;
 `;

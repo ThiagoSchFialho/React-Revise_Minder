@@ -78,7 +78,7 @@ export const Error = styled.div`
 export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     margin-top: 75px;
     width: 100%;
-    background-color: ${({theme}) => theme.mainColor};;
+    background-color: ${(props) => props.$isLoading ? 'rgb(17, 114, 184)' : ({theme}) => theme.mainColor};
     padding: 10px 0;
     border: none;
     border-radius: 5px;

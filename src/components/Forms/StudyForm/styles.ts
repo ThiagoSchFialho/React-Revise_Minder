@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.div<{ $isLoading: boolean }>`
     width: 430px;
     margin: 0 auto;
     padding: 30px 35px;
@@ -8,6 +8,7 @@ export const FormContainer = styled.div`
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
     @media (max-width: 1360px) {
         padding: 30px;
@@ -59,17 +60,17 @@ export const TodayButton = styled.div<{ $selected: boolean}>`
     user-select: none;
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     margin-top: 75px;
     width: 100%;
-    background-color: ${({theme}) => theme.mainColor};;
+    background-color: ${(props) => props.$isLoading ? 'rgb(17, 114, 184)' : ({theme}) => theme.mainColor};
     padding: 10px 0;
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 16pt;
     font-weight: 600;
-    cursor: pointer;
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
     @media (max-width: 1360px) {
         margin-top: 50px;

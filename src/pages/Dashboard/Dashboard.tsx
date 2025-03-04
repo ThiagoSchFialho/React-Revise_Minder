@@ -56,6 +56,7 @@ const Dashboard: React.FC = () => {
         };
 
         fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

@@ -54,6 +54,7 @@ const BegginerForm: React.FC = () => {
     const { createStudy } = useDb();
     const [isToday, setIsToday] = useState<boolean>(false);
     const [index, setIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const initialValues = {
         topic: '',
         qnt_reviews: 3,
@@ -88,14 +89,16 @@ const BegginerForm: React.FC = () => {
     }
 
     const handleCreateStudy = async (values: Study) => {
+        setIsLoading(true);
         const success = await createStudy(values);
         if (success) {
+            setIsLoading(false);
             navigate('/myStudies', { state: { alertType: "good", alertMessage: 'Estudo adicionado!' } });
         }
     }
 
     return (
-        <BegginerFormContainer>
+        <BegginerFormContainer $isLoading={isLoading}>
             <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
@@ -200,7 +203,7 @@ const BegginerForm: React.FC = () => {
                                 {touched.study_date && errors.study_date && <Error>{errors.study_date}</Error>}
                                 <ButtonsContainer>
                                     <BackButton onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}>Voltar</BackButton>
-                                    <BegginerSubmitButton type="submit">Adicionar</BegginerSubmitButton>
+                                    <BegginerSubmitButton type="submit" disabled={isLoading} $isLoading={isLoading}>Adicionar</BegginerSubmitButton>
                                 </ButtonsContainer>
                             </BegginerInputContainer>
                         </BegginerInputWrapper>
