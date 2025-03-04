@@ -27,7 +27,7 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const host = 'https://localhost:3000';
+  const host = 'http://localhost:3000';
 
   const login = async (values: LoginValues) => {
     try {
