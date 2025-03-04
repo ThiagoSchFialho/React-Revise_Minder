@@ -27,11 +27,11 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const host = 'https://revise-minder-backend.onrender.com/auth';
+  const host = 'https://revise-minder-backend.onrender.com';
 
   const login = async (values: LoginValues) => {
     try {
-      const response = await fetch(`${host}/login`, {
+      const response = await fetch(`${host}/auth/login`, {
         method:  'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export const useAuth = () => {
 
   const signUp = async (values: SignUpValues) => {
     try {
-      const response = await fetch(`${host}/register`, {
+      const response = await fetch(`${host}/auth/register`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ export const useAuth = () => {
     const user_id = localStorage.getItem('userId');
 
     try {
-      const response = await fetch(`https://revise-minder-backend.onrender.com/users/${user_id}`, {
+      const response = await fetch(`${host}/users/${user_id}`, {
           method: 'DELETE',
           headers: {
               'Authorization': `${token}`,

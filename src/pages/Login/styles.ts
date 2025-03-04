@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.div<{ $isLoading: boolean }>`
     min-height: 100vh;
     padding: 150px 0 20px 0;
     background-color: ${({ theme }) => theme.background};
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
     @media (max-width: 1360px) {
         padding-top: 40px ;
@@ -67,7 +68,7 @@ export const ForgotPassword = styled.a`
     color: ${({ theme }) => theme.text};
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     margin-top: 75px;
     width: 100%;
     background-color: ${({theme}) => theme.mainColor};;
@@ -77,7 +78,7 @@ export const SubmitButton = styled.button`
     color: white;
     font-size: 16pt;
     font-weight: 600;
-    cursor: pointer;
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
     @media (max-width: 1360px) {
         margin-top: 50px;

@@ -51,13 +51,18 @@ const SignUp: React.FC = () => {
     const { alert, showAlert } = useAlert();
     const { signUp } = useAuth();
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     const handleSignUp = async (values: SignUpValues) => {
-        const response = await signUp(values);
+        setIsLoading(true);
+        const response = await signUp(values); 
+        if (response) {
+            setIsLoading(false);
+        }
 
         if (response?.error === 'User with that email already exists') {
             showAlert("bad", "Email indisponivel.", 4000);
@@ -73,7 +78,7 @@ const SignUp: React.FC = () => {
     return (
         <>
             <TermsAndPrivacyModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}/>
-            <MainContainer>
+            <MainContainer $isLoading={isLoading}>
                 {alert && <Alert type={alert.type} message={alert.message} />}
                 <FormTitle>Cadastro</FormTitle>
                 <FormContainer>
@@ -134,7 +139,7 @@ const SignUp: React.FC = () => {
                                 <CheckboxLabel>Li e aceito os <u onClick={() => setIsModalVisible(true)}>termos de uso</u>.</CheckboxLabel>
                                 {touched.terms && errors.terms && <Error>{errors.terms}</Error>}
                             </InputContainer>
-                            <SubmitButton  type='submit'>Cadastrar</SubmitButton>
+                            <SubmitButton  type='submit' disabled={isLoading} $isLoading={isLoading}>Cadastrar</SubmitButton>
                         </Form>
                     )}
                         

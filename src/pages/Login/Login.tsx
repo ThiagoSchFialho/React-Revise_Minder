@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -36,11 +36,12 @@ const validations = Yup.object({
 });
 
 const Login: React.FC = () => {
-    const { theme } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
+    const { theme } = useTheme();
     const { alert, showAlert } = useAlert();
     const { login } = useAuth();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
         if (location.state?.alertMessage) {
@@ -50,7 +51,11 @@ const Login: React.FC = () => {
     }, [location.state]);
 
     const handleLogin = async (values: LoginValues) => {
+        setIsLoading(true);
         const response = await login(values);
+        if (response) {
+            setIsLoading(false);
+        }
 
         if (response?.error === 'Authentication failed') {
             showAlert("bad", "Credenciais incorretas", 4000);
@@ -64,7 +69,7 @@ const Login: React.FC = () => {
     }
 
     return (
-        <MainContainer>
+        <MainContainer $isLoading={isLoading}>
             {alert && <Alert type={alert.type} message={alert.message} />}
             <FormTitle>Login</FormTitle>
             <FormContainer>
@@ -102,7 +107,7 @@ const Login: React.FC = () => {
                         </InputContainer>
 
                         <ForgotPassword href="">Esqueci minha senha</ForgotPassword>
-                        <SubmitButton  type='submit'>Entrar</SubmitButton>
+                        <SubmitButton type='submit' disabled={isLoading} $isLoading={isLoading}>Entrar</SubmitButton>
                     </Form>
                 )}
                     

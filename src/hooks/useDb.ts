@@ -6,12 +6,14 @@ interface StudyValues {
 }
 
 export const useDb = () => {
+    const host = 'https://revise-minder-backend.onrender.com';
+
     const addQntStudyAdded = async () => {
         const token = localStorage.getItem('token');
         const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/users/studyAdded', {
+            const response = await fetch(`${host}/users/studyAdded`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
@@ -35,7 +37,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/study', {
+            const response = await fetch(`${host}/study`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `${token}`,
@@ -63,7 +65,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch(`https://revise-minder-backend.onrender.com/study/${id}`, {
+            const response = await fetch(`${host}/study/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `${token}`,
@@ -87,7 +89,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 
-        const url = new URL('https://revise-minder-backend.onrender.com/study');
+        const url = new URL(`${host}/study`);
         url.searchParams.append('user_id', userId ? userId : '');
 
         try {
@@ -115,7 +117,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch(`https://revise-minder-backend.onrender.com/study/${id}`, {
+            const response = await fetch(`${host}/study/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
@@ -139,7 +141,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch(`https://revise-minder-backend.onrender.com/study/${id}`, {
+            const response = await fetch(`${host}/study/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `${token}`,
@@ -162,7 +164,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 
-        const url = new URL('https://revise-minder-backend.onrender.com/review');
+        const url = new URL(`${host}/review`);
         url.searchParams.append('user_id', userId ? userId : '');
 
         try {
@@ -190,7 +192,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/review', {
+            const response = await fetch(`${host}/review`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
@@ -214,7 +216,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 
-        const url = new URL('https://revise-minder-backend.onrender.com/users/email');
+        const url = new URL(`${host}/users/email`);
         url.searchParams.append('user_id', userId ? userId : '');
 
         try {
@@ -242,7 +244,7 @@ export const useDb = () => {
         const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/users/email', {
+            const response = await fetch(`${host}/users/email`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
@@ -271,7 +273,7 @@ export const useDb = () => {
         const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/users/password', {
+            const response = await fetch(`${host}/users/password`, {
               method:  'POST',
               headers: {
                 'Authorization': `${token}`,
@@ -297,7 +299,7 @@ export const useDb = () => {
         const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/users/password', {
+            const response = await fetch(`${host}/users/password`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
@@ -321,7 +323,7 @@ export const useDb = () => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 
-        const url = new URL('https://revise-minder-backend.onrender.com/users');
+        const url = new URL(`${host}/users`);
         url.searchParams.append('user_id', userId ? userId : '');
 
         try {
@@ -349,7 +351,7 @@ export const useDb = () => {
         const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch('https://revise-minder-backend.onrender.com/achievement', {
+            const response = await fetch(`${host}/achievement`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `${token}`,
