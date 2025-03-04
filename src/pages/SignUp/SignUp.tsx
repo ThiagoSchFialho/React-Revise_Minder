@@ -128,7 +128,7 @@ const SignUp: React.FC = () => {
                                     name="terms"
                                     id="terms"
                                     onChange={handleChange}
-                                    value={values.terms}
+                                    checked={values.terms}
                                 />
                                 <CheckboxLabel>Li e aceito os <u onClick={() => setIsModalVisible(true)}>termos de uso</u>.</CheckboxLabel>
                                 {touched.terms && errors.terms && <Error>{errors.terms}</Error>}

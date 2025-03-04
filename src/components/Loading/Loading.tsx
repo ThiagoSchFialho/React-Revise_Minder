@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { leapfrog } from 'ldrs';
 import { useTheme } from '../../contexts/ThemeContext';
-import {
-    LoadingContainer
-} from './styles';
+import { LoadingContainer } from './styles';
 
-leapfrog.register()
+leapfrog.register();
 
 const Loading: React.FC = () => {
     const { theme } = useTheme();
+    const ref = useRef<HTMLDivElement>(null);
 
-    return (
-        <LoadingContainer>
-            <l-leapfrog
-                size="40"
-                speed="2.5" 
-                color={theme === 'dark' ? "white" : "#171823"} 
-            ></l-leapfrog>
-        </LoadingContainer>
-    )
-}
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.innerHTML = '';
+
+            const loader = document.createElement('l-leapfrog');
+            loader.setAttribute('size', '40');
+            loader.setAttribute('speed', '2.5');
+            loader.setAttribute('color', theme === 'dark' ? 'white' : '#171823');
+            ref.current.appendChild(loader);
+        }
+    }, [theme]);
+
+    return <LoadingContainer ref={ref} />;
+};
 
 export default Loading;
