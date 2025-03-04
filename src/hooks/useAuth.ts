@@ -10,6 +10,7 @@ interface SignUpValues {
   email: string;
   password: string;
   confirmPassword: string;
+  terms: boolean;
 }
 
 const getUserIdFromToken = (token: string) => {
