@@ -43,6 +43,7 @@ const ChangePassword: React.FC = () => {
     const { alert, showAlert } = useAlert();
     const { checkPassword, updatePassword } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>(
         {
             currentPassword: '',
@@ -60,16 +61,19 @@ const ChangePassword: React.FC = () => {
     }, [])
 
     const handleUpdatePassword = async (values: FormValues) => {
+        setIsLoading(true);
         const { currentPassword, newPassword } = values;
 
         const passwordMatch = await checkPassword(currentPassword);
         if (!passwordMatch) {
+            setIsLoading(false);
             showAlert("bad", "Senha atual incorreta.", 4000);
             return false;
         }
 
         const response = await updatePassword({ currentPassword, newPassword })
         if (response) {
+            setIsLoading(false);
             navigate('/profile', { state: { alertType: "good", alertMessage: 'Senha alterada com sucesso' } });
         }
     }
@@ -78,7 +82,7 @@ const ChangePassword: React.FC = () => {
         <>
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             {alert && <Alert type={alert.type} message={alert.message} />}
-            <MainContainer $isMenuOpen={isMenuOpen}>
+            <MainContainer $isMenuOpen={isMenuOpen} $isLoading={isLoading}>
                 <Title>Alterar senha</Title>
                 <FormContainer>
                     <Formik
@@ -122,7 +126,7 @@ const ChangePassword: React.FC = () => {
                                 />
                                 {touched.confirmPassword && errors.confirmPassword && <Error>{errors.confirmPassword}</Error>}
                             
-                                <SubmitButton type='submit'>Salvar</SubmitButton>
+                                <SubmitButton type='submit' disabled={isLoading} $isLoading={isLoading}>Salvar</SubmitButton>
                             </Form>
                         )}
                     </Formik>

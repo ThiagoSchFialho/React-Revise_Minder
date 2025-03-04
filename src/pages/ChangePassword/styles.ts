@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div<{ $isMenuOpen?: boolean }>`
+export const MainContainer = styled.div<{ $isMenuOpen?: boolean, $isLoading: boolean }>`
     background-color: ${({theme}) => theme.background};
     min-height: 100vh;
     padding-left: ${(props) => props.$isMenuOpen ? 'calc(360px + 10%)' : 'calc(188px + 10%)'};
     padding-right: 10%;
     padding-bottom: 50px;
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
     @media (max-width: 1360px) {
         padding-left: ${(props) => props.$isMenuOpen ? 'calc(260px + 10%)' : 'calc(88px + 10%)'};
@@ -59,17 +60,17 @@ export const Error = styled.div`
     color: red
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     margin-top: 75px;
     width: 100%;
-    background-color: ${({theme}) => theme.mainColor};;
+    background-color: ${(props) => props.$isLoading ? 'rgb(17, 114, 184)' : ({theme}) => theme.mainColor};
     padding: 10px 0;
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 16pt;
     font-weight: 600;
-    cursor: pointer;
+    cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
     @media (max-width: 1360px) {
         margin-top: 50px;
