@@ -24,7 +24,7 @@ interface Study {
 const MyStudies: React.FC = () => {
     const location = useLocation();
     const { alert, showAlert } = useAlert();
-    const { getStudies, getUser, addAchievement } = useDb();
+    const { getStudies, getUser, addAchievement, getAchievement } = useDb();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [studies, setStudies] = useState<Study[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -34,20 +34,21 @@ const MyStudies: React.FC = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            const achievement = 'Adicione seu primeiro estudo';
+            const reward = 'Você desbloqueou o formulário rápido';
+            
             const user = await getUser();
-            const achievementKey = 'first_study_achievement';
-            const hasAchieved = localStorage.getItem(achievementKey);
+            const hasAchieved = await getAchievement(achievement);
 
             if (user.qnt_studies_added === 1 && !hasAchieved) {
                 setAchievementVisible(true);
-                setAchievement('Adicione seu primeiro estudo');
-                setReward('Você desbloqueou o formulário rápido');
-                await addAchievement('Adicione seu primeiro estudo', 'Você desbloqueou o formulário rápido');
-                
-                localStorage.setItem(achievementKey, 'true');
+                setAchievement(achievement);
+                setReward(reward);
+                await addAchievement(achievement, reward);
             }
         }
         fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchStudies = async () => {

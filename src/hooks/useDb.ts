@@ -371,6 +371,34 @@ export const useDb = () => {
           }
     }
 
+    const getAchievement = async (name: string) => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+
+        const url = new URL(`${host}/achievement`);
+        url.searchParams.append('user_id', userId ? userId : '');
+        url.searchParams.append('achievement_name', name);
+
+        try {
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao recuperar conquista', data.error);
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
     return {
         createStudy,
         getStudy,
@@ -384,6 +412,7 @@ export const useDb = () => {
         checkPassword,
         updatePassword,
         getUser,
-        addAchievement
+        addAchievement,
+        getAchievement
     }
 }

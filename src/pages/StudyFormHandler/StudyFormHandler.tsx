@@ -21,7 +21,6 @@ const StudyFormHandler: React.FC = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const user = await getUser();
-            console.log(user);
             setQntStudiesAdded(user.qnt_studies_added);
         }
         fetchUser();
