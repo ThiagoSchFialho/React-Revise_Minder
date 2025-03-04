@@ -76,7 +76,10 @@ const Dashboard: React.FC = () => {
             <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <MainContainer $isMenuOpen={isMenuOpen}>
 
-                {todaysReviews.length > 0 ? (
+                {loading ? (
+                    <Loading />
+
+                ) : todaysReviews.length > 0 ? (
                     <Kanban />
 
                 ) : studies.length === 0 ? (
