@@ -6,7 +6,7 @@ interface StudyValues {
 }
 
 export const useDb = () => {
-    const host = 'https://revise-minder-backend.onrender.com';
+    const host = 'https://localhost:3000';
 
     const addQntStudyAdded = async () => {
         const token = localStorage.getItem('token');
