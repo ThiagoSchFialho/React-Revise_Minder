@@ -18,7 +18,7 @@ interface TermsProps {
 
 const TermsAndPrivacyModal: React.FC<TermsProps> = ({ isVisible, onClose}) => {
     if (!isVisible) {
-        return null
+        return null;
     }
 
     return (
@@ -57,6 +57,7 @@ const TermsAndPrivacyModal: React.FC<TermsProps> = ({ isVisible, onClose}) => {
                 <List>
                     <Item>Os dados fornecidos pelo usuário serão utilizados apenas para o funcionamento do sistema, de acordo com nossa Política de Privacidade.</Item>
                     <Item>O usuário compreende e concorda que, apesar das medidas de segurança, não há garantia absoluta contra acessos não autorizados.</Item>
+                    <Item>Coletamos seu endereço de e-mail e senha durante o cadastro para criar e manter sua conta. O sistema também pode coletar informações de uso, como tempo de acesso, páginas visitadas e interações com funcionalidades.</Item>
                 </List>
 
                 <Title2>6. Modificações dos Termos</Title2>
@@ -66,7 +67,7 @@ const TermsAndPrivacyModal: React.FC<TermsProps> = ({ isVisible, onClose}) => {
                 
                 <Title2>7. Jurisdição e Legislação Aplicável</Title2>
                 <List>
-                    <Item>Estes Termos e Condições de Uso serão regidos e interpretados de acordo com as leis da República Federativa do Brasil. </Item>
+                    <Item>Estes Termos e Condições de Uso serão regidos e interpretados de acordo com as leis da República Federativa do Brasil.</Item>
                     <Item>Quaisquer disputas oriundas do uso do sistema serão submetidas ao foro da comarca da cidade de São Paulo, Estado de São Paulo, com exclusão de qualquer outro, por mais privilegiado que seja.</Item>
                 </List>
                 
@@ -87,13 +88,13 @@ const TermsAndPrivacyModal: React.FC<TermsProps> = ({ isVisible, onClose}) => {
 
                 <Title2>2. Coleta de Informações</Title2>
                 <List>
-                    <Item>Coletamos o seu endereço de e-mail e senha durante o cadastro para criar e manter sua conta.</Item>
+                    <Item>Coletamos seu endereço de e-mail e senha durante o cadastro para criar e manter sua conta.</Item>
                     <Item>O sistema também pode coletar informações de uso, como tempo de acesso, páginas visitadas e interações com funcionalidades.</Item>
                 </List>
 
                 <Title2>3. Uso das Informações</Title2>
                 <List>
-                    <Item>Utilizamos o seu endereço de e-mail para autenticação, recuperação de senha e comunicações relacionadas ao uso do sistema.</Item>
+                    <Item>Utilizamos seu endereço de e-mail para autenticação, recuperação de senha e comunicações relacionadas ao uso do sistema.</Item>
                     <Item>As informações de uso ajudam a melhorar a experiência do usuário, identificar problemas e implementar melhorias.</Item>
                 </List>
 
@@ -128,9 +129,9 @@ const TermsAndPrivacyModal: React.FC<TermsProps> = ({ isVisible, onClose}) => {
                 </List>
 
                 <Text>Ao utilizar nosso sistema, você declara ter lido, compreendido e aceitado esta Política de Privacidade.</Text>
-        </ModalContainer>
+            </ModalContainer>
         </DarkBackground>
-    )
+    );
 }
 
-export default TermsAndPrivacyModal
+export default TermsAndPrivacyModal;
