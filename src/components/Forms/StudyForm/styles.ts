@@ -10,7 +10,7 @@ export const FormContainer = styled.div<{ $isLoading: boolean }>`
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding: 30px;
     }
 `;
@@ -72,7 +72,7 @@ export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     font-weight: 600;
     cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-top: 50px;
     }
 `;

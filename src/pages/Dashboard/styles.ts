@@ -7,7 +7,7 @@ export const MainContainer = styled.div<{ $isMenuOpen?: boolean }>`
     padding-right: 100px;
     padding-bottom: 50px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-left: ${(props) => props.$isMenuOpen ? '260px' : '88px'};
         padding-right: 0px
     }
@@ -23,7 +23,7 @@ export const TutorialCotainer = styled.div`
     justify-content: center;
     gap: 90px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         width: 65%;
         height: 80vh;
     }
@@ -66,7 +66,7 @@ export const SeparatorTitle = styled.h1`
 export const SeparatorLine = styled.hr`
     margin: 5px 50px 70px 20px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin: 5px 50px 70px 20px;
     }
 `;
@@ -74,7 +74,7 @@ export const SeparatorLine = styled.hr`
 export const FutureReviewsContainer = styled.div`
     padding: 0 50px 100px 20px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding: 0 50px 100px 20px;
     }
 `;

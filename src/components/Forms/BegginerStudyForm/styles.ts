@@ -35,7 +35,7 @@ export const BegginerFormContainer = styled.div<{ $isLoading: boolean }>`
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         width: 480px;
         padding: 20px 50px 30px 50px;
     }
@@ -80,7 +80,7 @@ export const ProgressItem = styled.div<{ $status: string }>`
         background-color: ${(props) => props.$status === 'done' ? ({theme}) => theme.mainColor : ({theme}) => theme.text};
     }
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         &:not(:first-child):before {
             width: 80px;
         }
@@ -114,7 +114,7 @@ export const BegginerLabel = styled.label`
     -ms-user-select: none;
     user-select: none;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin: 40px auto 40px auto;
         max-width: 80%;
     }
@@ -176,7 +176,7 @@ export const ButtonsContainer = styled.div`
     justify-content: space-between;
     margin-top: 80px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-top: 60px;
     }
 `;

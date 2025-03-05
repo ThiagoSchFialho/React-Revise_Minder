@@ -8,7 +8,7 @@ export const MainContainer = styled.div<{ $isMenuOpen?: boolean, $isLoading: boo
     padding-bottom: 50px;
     cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-left: ${(props) => props.$isMenuOpen ? 'calc(260px + 10%)' : 'calc(88px + 10%)'};
     }
 `;
@@ -28,7 +28,7 @@ export const FormContainer = styled.div`
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding: 20px 30px;
     }
     
@@ -72,7 +72,7 @@ export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     font-weight: 600;
     cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-top: 50px;
     }
 `;

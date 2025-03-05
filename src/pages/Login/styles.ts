@@ -6,7 +6,7 @@ export const MainContainer = styled.div<{ $isLoading: boolean }>`
     background-color: ${({ theme }) => theme.background};
     cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-top: 40px ;
     }
 `;
@@ -20,7 +20,7 @@ export const FormContainer = styled.div`
     border-radius: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding: 30px;
     }
     
@@ -80,7 +80,7 @@ export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     font-weight: 600;
     cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-top: 50px;
     }
 `;
@@ -94,7 +94,7 @@ export const SignUpContainer = styled.div`
     padding: 15px 30px;
     border: 1px solid ${({theme}) => theme.inputBorder};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin: 20px auto 0 auto;
     }
 `;

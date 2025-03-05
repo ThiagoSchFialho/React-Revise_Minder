@@ -7,7 +7,7 @@ export const MainContainer = styled.div<{ $isMenuOpen?: boolean }>`
     padding-right: 10%;
     padding-bottom: 50px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-left: ${(props) => props.$isMenuOpen ? 'calc(260px + 10%)' : 'calc(88px + 10%)'};
     }
 `;

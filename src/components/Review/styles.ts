@@ -11,7 +11,7 @@ export const ReviewContainer = styled.div`
     margin: 0 auto 30px auto;
     box-shadow: ${({theme}) => theme.shadow};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         width: 80%;
     }
 `;

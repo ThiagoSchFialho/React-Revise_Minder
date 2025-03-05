@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
     padding-bottom: 50px;
     padding-top: 50px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-top: 0;
     }
 `;
@@ -30,7 +30,7 @@ export const FastFormbutton = styled.div<{ selected: boolean }>`
     -ms-user-select: none;
     user-select: none;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         font-size: 13pt;
     }
 `;
@@ -40,7 +40,7 @@ export const FormTitle = styled.h1`
     text-align: center;
     margin-bottom: 80px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-bottom: 25px;
     }
 `;

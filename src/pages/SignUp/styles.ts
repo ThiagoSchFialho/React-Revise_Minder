@@ -6,7 +6,7 @@ export const MainContainer = styled.div<{ $isLoading: boolean }>`
     background-color: ${({theme}) => theme.background};
     cursor: ${(props) => props.$isLoading ? 'progress' : 'default'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         padding-top: 20px ;
     }
 `;
@@ -30,7 +30,7 @@ export const FormTitle = styled.h1`
     text-align: center;
     margin-bottom: 25px;
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-bottom: 15px ;
     }
 `;
@@ -87,7 +87,7 @@ export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     font-weight: 600;
     cursor: ${(props) => props.$isLoading ? 'progress' : 'pointer'};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin-top: 30px;
     }
 `;
@@ -101,7 +101,7 @@ export const RedirectContainer = styled.div`
     padding: 15px 30px;
     border: 1px solid ${({theme}) => theme.inputBorder};
 
-    @media (max-width: 1360px) {
+    @media (max-width: 1366px) {
         margin: 20px auto 0 auto;
     }
 `;
