@@ -67,11 +67,12 @@ const SignUp: React.FC = () => {
         if (response?.error === 'User with that email already exists') {
             showAlert("bad", "Email indisponivel.", 4000);
             
+        } else if (response?.message) {
+            navigate('/login', { state: { alertType: "good", alertMessage: `Código de verificação enviado para ${values.email}`, time: 9999999 } });
+        
         } else if (response?.error) {
             showAlert("bad", "Erro inesperado", 4000);
 
-        } else {
-            navigate('/login', { state: { alertType: "good", alertMessage: 'Cadastro bem sucedido!' } });
         }
     }
 

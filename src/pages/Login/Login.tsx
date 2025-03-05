@@ -45,7 +45,7 @@ const Login: React.FC = () => {
     
     useEffect(() => {
         if (location.state?.alertMessage) {
-            showAlert(location.state.alertType, location.state.alertMessage);
+            showAlert(location.state.alertType, location.state.alertMessage, location.state.time);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.state]);
@@ -60,12 +60,16 @@ const Login: React.FC = () => {
         if (response?.error === 'Authentication failed') {
             showAlert("bad", "Credenciais incorretas", 4000);
 
-        } else if (response?.error) {
-            showAlert("bad", "Erro inesperado", 4000);
+        } else if (response?.error === 'User not verified') {
+            showAlert("bad", "Usuário não verificado. Verifique seu email para confirmar o cadastro.", 10000);
 
+        } else if  (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
+    
         } else {
             navigate('/dashboard');
-        }
+
+        } 
     }
 
     return (

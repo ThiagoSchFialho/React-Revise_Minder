@@ -17,6 +17,7 @@ export const Container = styled.div<{ $type: string }>`
 `;
 
 export const Message = styled.h2<{ $type: string }>`
+    text-align: center;
     font-size: 13pt;
     color: ${(props) => props.$type === 'bad' ? '#A30000' : '#006B45'}
 `;
