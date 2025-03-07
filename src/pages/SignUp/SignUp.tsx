@@ -68,7 +68,7 @@ const SignUp: React.FC = () => {
             showAlert("bad", "Email indisponivel.", 4000);
             
         } else if (response?.message) {
-            navigate('/login', { state: { alertType: "good", alertMessage: `Código de verificação enviado para ${values.email}`, time: 9999999 } });
+            navigate('/login', { state: { alertType: "good", alertMessage: `Link de verificação enviado para ${values.email}`, time: 9999999 } });
         
         } else if (response?.error) {
             showAlert("bad", "Erro inesperado", 4000);
