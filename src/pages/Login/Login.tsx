@@ -45,7 +45,7 @@ const Login: React.FC = () => {
     
     useEffect(() => {
         if (location.state?.alertMessage) {
-            showAlert(location.state.alertType, location.state.alertMessage, location.state.time);
+            showAlert(location.state.alertType, location.state.alertMessage, location.state.time ?? 3000);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.state]);
@@ -110,7 +110,7 @@ const Login: React.FC = () => {
                             {touched.password && errors.password && <Error>{errors.password}</Error>}
                         </InputContainer>
 
-                        <ForgotPassword href="">Esqueci minha senha</ForgotPassword>
+                        <ForgotPassword href='/forgotPassword'>Esqueci minha senha</ForgotPassword>
                         <SubmitButton type='submit' disabled={isLoading} $isLoading={isLoading}>Entrar</SubmitButton>
                     </Form>
                 )}

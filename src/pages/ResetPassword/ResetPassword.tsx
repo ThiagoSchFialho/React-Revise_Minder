@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header/Header';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDb } from '../../hooks/useDb';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -18,16 +17,12 @@ import {
 } from './styles';
 
 interface FormValues {
-    currentPassword: string
-    newPassword: string
-    confirmPassword: string
+    newPassword: string;
+    confirmPassword: string;
+    resetPasswordToken: string | null;
 }
 
-const validations = Yup.object({ 
-    currentPassword: Yup.string()
-      .min(8, 'A senha deve possuir pelo menos 8 caracteres!')
-      .required('Por favor, informe sua senha!'),
-  
+const validations = Yup.object({  
     newPassword: Yup.string()
       .min(8, 'A senha deve possuir pelo menos 8 caracteres!')
       .required('Por favor, informe uma nova senha!'),
@@ -37,52 +32,54 @@ const validations = Yup.object({
       .required('Por favor, confirme a nova senha!'),
   })
 
-const ChangePassword: React.FC = () => {
+const ResetPassword: React.FC = () => {
     const navigate = useNavigate();
     const { theme } = useTheme();
     const { alert, showAlert } = useAlert();
-    const { checkPassword, updatePassword } = useDb();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { resetPassword } = useDb();
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get("token");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [initialValues, setInitialValues] = useState<FormValues>(
         {
-            currentPassword: '',
             newPassword: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            resetPasswordToken: token
         }
     );
 
     useEffect(() => {
         setInitialValues({
-            currentPassword: '',
             newPassword: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            resetPasswordToken: token
         })
     }, [])
 
+    if (!token) navigate('/');
+
     const handleUpdatePassword = async (values: FormValues) => {
         setIsLoading(true);
-        const { currentPassword, newPassword } = values;
+        const { newPassword, resetPasswordToken } = values;
 
-        const passwordMatch = await checkPassword(currentPassword);
-        if (!passwordMatch) {
-            setIsLoading(false);
-            showAlert("bad", "Senha atual incorreta.", 4000);
-            return false;
-        }
-
-        const response = await updatePassword(newPassword)
+        const response = await resetPassword(newPassword, resetPasswordToken);
         if (response) {
             setIsLoading(false);
-            navigate('/profile', { state: { alertType: "good", alertMessage: 'Senha alterada com sucesso' } });
+        }
+
+        if (response?.message == 'Password reset successfully') {
+            navigate('/login', { state: { alertType: "good", alertMessage: 'Senha alterada com sucesso' } });
+        }
+        
+        if (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
         }
     }
 
     return (
         <>
-            <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             {alert && <Alert type={alert.type} message={alert.message} />}
-            <MainContainer $isMenuOpen={isMenuOpen} $isLoading={isLoading}>
+            <MainContainer $isLoading={isLoading}>
                 <Title>Alterar senha</Title>
                 <FormContainer>
                     <Formik
@@ -93,17 +90,6 @@ const ChangePassword: React.FC = () => {
                     >
                         {({ values, handleChange, touched, errors }) => (
                             <Form>
-                                <Label htmlFor="currentPassword">Senha atual</Label>
-                                <Input 
-                                    type="password"  
-                                    name="currentPassword"
-                                    id="currentPassword"
-                                    value={values.currentPassword}
-                                    onChange={handleChange}
-                                    $scheme={theme}
-                                />
-                                {touched.currentPassword && errors.currentPassword && <Error>{errors.currentPassword}</Error>}
-
                                 <Label htmlFor="newPassword">Nova senha</Label>
                                 <Input 
                                     type="password"  
@@ -136,4 +122,4 @@ const ChangePassword: React.FC = () => {
     )
 }
 
-export default ChangePassword;
+export default ResetPassword;

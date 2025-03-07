@@ -294,7 +294,7 @@ export const useDb = () => {
           }
     }
 
-    const updatePassword = async (values: {currentPassword: string, newPassword: string}) => {
+    const updatePassword = async (newPassword: string) => {
         const token = localStorage.getItem('token');
         const user_id = localStorage.getItem('userId');
 
@@ -305,7 +305,7 @@ export const useDb = () => {
                     'Authorization': `${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_id, password: values.newPassword })
+                body: JSON.stringify({ user_id, password: newPassword })
             });
             const data = await response.json();
 
@@ -399,6 +399,53 @@ export const useDb = () => {
         }
     }
 
+    const sendResetPasswordEmail = async (values: { email: string }) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`${host}/auth/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao enviar email', data.error);
+                return data;
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
+    const resetPassword = async (newPassword: string, resetPasswordToken: string | null) => {
+        try {
+            const response = await fetch(`${host}/auth/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newPassword, token: resetPasswordToken })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao alterar senha', data.error);
+                return data;
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
     return {
         createStudy,
         getStudy,
@@ -413,6 +460,8 @@ export const useDb = () => {
         updatePassword,
         getUser,
         addAchievement,
-        getAchievement
+        getAchievement,
+        sendResetPasswordEmail,
+        resetPassword
     }
 }

@@ -9,6 +9,8 @@ import MyStudies from '../pages/MyStudies/MyStudies';
 import PastReviews from '../pages/PastReviews/PastReviews';
 import Profile from '../pages/Profile/Profile';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 
 const AppRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signUp' element={<SignUp />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
+        <Route path='/ResetPassword' element={<ResetPassword />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
