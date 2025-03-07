@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../contexts/ThemeContext';
 import { useAlert } from '../../hooks/useAlert';
 import Alert from '../../components/Alert/Alert';
 import { Formik, Form } from 'formik';
@@ -17,8 +15,6 @@ import {
 } from './styles';
 
 const ForgotPassword: React.FC = () => {
-    const navigate = useNavigate();
-    const { theme } = useTheme();
     const { sendResetPasswordEmail } = useDb();
     const { alert, showAlert } = useAlert();
     const [isLoading, setIsLoading] = useState<boolean>(false);
