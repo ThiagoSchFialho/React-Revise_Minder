@@ -27,7 +27,7 @@ const getUserIdFromToken = (token: string) => {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const host = 'https://reviseminder.com/api';
+  const host = import.meta.env.VITE_BACKEND_HOST;
 
   const login = async (values: LoginValues) => {
     try {

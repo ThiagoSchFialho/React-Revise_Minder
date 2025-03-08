@@ -6,7 +6,7 @@ interface StudyValues {
 }
 
 export const useDb = () => {
-    const host = 'https://reviseminder.com/api';
+    const host = import.meta.env.VITE_BACKEND_HOST;
 
     const addQntStudyAdded = async () => {
         const token = localStorage.getItem('token');

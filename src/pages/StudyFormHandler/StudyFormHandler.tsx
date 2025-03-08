@@ -22,6 +22,9 @@ const StudyFormHandler: React.FC = () => {
         const fetchUser = async () => {
             const user = await getUser();
             setQntStudiesAdded(user.qnt_studies_added);
+            if (user.qnt_studies_added > 0) {
+                setIsFastFormSelected(true);
+            }
         }
         fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
