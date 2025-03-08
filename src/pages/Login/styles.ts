@@ -68,6 +68,20 @@ export const ForgotPassword = styled.a`
     color: ${({ theme }) => theme.text};
 `;
 
+export const ResendVerificationLink = styled.a`
+    display: block;
+    margin: 10px 0;
+    padding-left: 5px;
+    color: ${({theme}) => theme.mainColor};
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
 export const SubmitButton = styled.button<{ $isLoading: boolean }>`
     margin-top: 75px;
     width: 100%;

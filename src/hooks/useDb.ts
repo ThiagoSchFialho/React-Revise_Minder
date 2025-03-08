@@ -446,6 +446,28 @@ export const useDb = () => {
         }
     }
 
+    const resendVerification = async (email: string) => {
+        try {
+            const response = await fetch(`${host}/auth/resend-verification`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+                return data;
+            } else {
+                console.error('Erro ao reenviar email de verificação', data.error);
+                return data;
+            }
+        } catch (error) {
+            console.error('Erro na requisição', error);
+        }
+    }
+
     return {
         createStudy,
         getStudy,
@@ -462,6 +484,7 @@ export const useDb = () => {
         addAchievement,
         getAchievement,
         sendResetPasswordEmail,
-        resetPassword
+        resetPassword,
+        resendVerification
     }
 }

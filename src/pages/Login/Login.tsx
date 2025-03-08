@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import Alert from '../../components/Alert/Alert';
 import { useAlert } from '../../hooks/useAlert';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useDb } from '../../hooks/useDb';
 import {
     MainContainer,
     FormContainer,
@@ -15,6 +16,7 @@ import {
     Input,
     Error,
     ForgotPassword,
+    ResendVerificationLink,
     SubmitButton,
     SignUpContainer,
     SignUpText
@@ -41,7 +43,9 @@ const Login: React.FC = () => {
     const { theme } = useTheme();
     const { alert, showAlert } = useAlert();
     const { login } = useAuth();
+    const { resendVerification } = useDb();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [showResendOption, setShowResendOption] = useState<boolean>(false);
     
     useEffect(() => {
         if (location.state?.alertMessage) {
@@ -59,17 +63,44 @@ const Login: React.FC = () => {
 
         if (response?.error === 'Authentication failed') {
             showAlert("bad", "Credenciais incorretas", 4000);
+            setShowResendOption(false);
 
         } else if (response?.error === 'User not verified') {
             showAlert("bad", "Usuário não verificado. Verifique seu email para confirmar o cadastro.", 10000);
+            setShowResendOption(true);
 
-        } else if  (response?.error) {
+        } else if (response?.error) {
             showAlert("bad", "Erro inesperado", 4000);
+            setShowResendOption(false);
     
         } else {
             navigate('/dashboard');
+            setShowResendOption(false);
+        }
+    }
 
-        } 
+    const handleResendVerification = async (email: string) => {
+        if (!email) {
+            showAlert("bad", "Email indefinido", 4000);
+            return;
+        }
+
+        setIsLoading(true);
+        const response = await resendVerification(email);
+        if (response) {
+            setIsLoading(false);
+        }
+
+        if (response.message) {
+            showAlert("good", `Link de verificação reenviado para ${email}`, 6000);
+        }
+
+        if (response?.error === 'Falha ao reenviar email de verificação') {
+            showAlert("bad", "Erro ao reenviar email de verificação", 4000);
+
+        } else if (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
+        }
     }
 
     return (
@@ -111,6 +142,12 @@ const Login: React.FC = () => {
                         </InputContainer>
 
                         <ForgotPassword href='/forgotPassword'>Esqueci minha senha</ForgotPassword>
+                        {showResendOption && (
+                            <ResendVerificationLink onClick={() => handleResendVerification(values.email)}>
+                                Reenviar email de verificação
+                            </ResendVerificationLink>
+                        )}
+
                         <SubmitButton type='submit' disabled={isLoading} $isLoading={isLoading}>Entrar</SubmitButton>
                     </Form>
                 )}
