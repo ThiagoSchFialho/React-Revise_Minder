@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { alert, showAlert } = useAlert();
-    const { getUserEmail, updateEmail } = useDb();
+    const { getUserEmail, sendVerificationEmailUpdate } = useDb();
     const { deleteAccount } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [initialValues, setIntialValues] = useState<{email: string}>({email: ''});
@@ -49,27 +49,22 @@ const Profile: React.FC = () => {
     }, [])
 
     const handleUpdateEmail = async (values: {email: string}) => {
-        const response = await updateEmail(values)
+        const response = await sendVerificationEmailUpdate(initialValues.email, values.email);
 
-        if (response?.error) {
+        if (response?.error == 'Email indisponivel') {
             showAlert("bad", "Este e-mail já está em uso.", 4000);
             
+        } else if (response?.error) {
+            showAlert("bad", "Erro inesperado", 4000);
+
         } else {
-            showAlert("good", "Email alterado com sucesso!");
+            showAlert("good", `Link de verificação enviado para o email ${values.email}!`, 10000);
         }
     }
-
-    const handleDeleteAccount = async () => {
-        setShowModal(true);
-    };
 
     const handleConfirm = async () => {
         setShowModal(false);
         await deleteAccount();
-    };
-
-    const handleCancel = () => {
-        setShowModal(false);
     };
 
     return (
@@ -106,13 +101,13 @@ const Profile: React.FC = () => {
                         <DeleteTitle>Se essa conta for excluida todos os dados serão excluidos.</DeleteTitle>
                         <DeleteText>Essa operação não pode ser desfeita.</DeleteText>
                     </TextContainer>
-                    <DeleteButton onClick={handleDeleteAccount}>Excluir conta</DeleteButton>
+                    <DeleteButton onClick={() => setShowModal(true)}>Excluir conta</DeleteButton>
                     {showModal && (
                         <ConfirmDeleteAccountModal
                             title="Tem certeza que deseja excluir sua conta e todos os seus dados?"
                             message="Essa operação não pode ser desfeita!"
                             onConfirm={handleConfirm}
-                            onCancel={handleCancel}
+                            onCancel={() => setShowModal(false)}
                         />
                     )}
                 </DeleteAccountContainer>

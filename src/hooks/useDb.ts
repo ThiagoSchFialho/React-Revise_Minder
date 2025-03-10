@@ -239,21 +239,20 @@ export const useDb = () => {
         }
     }
 
-    const updateEmail = async (values: {email: string}) => {
+    const sendVerificationEmailUpdate = async (oldEmail: string, newEmail: string) => {
         const token = localStorage.getItem('token');
-        const user_id = localStorage.getItem('userId');
 
         try {
-            const response = await fetch(`${host}/users/email`, {
-                method: 'PUT',
+            const response = await fetch(`${host}/auth/send-verification-for-email-update`, {
+                method: 'POST',
                 headers: {
                     'Authorization': `${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_id, email: values.email })
+                body: JSON.stringify({ oldEmail, newEmail })
             });
             const data = await response.json();
-
+            
             if (data?.error === 'Email indisponivel') {
                 return data;
             }
@@ -261,7 +260,8 @@ export const useDb = () => {
             if (response.ok) {
                 return data;
             } else {
-                console.error('Erro ao atualizar email', data.error);
+                console.error('Erro ao enviar email de verificação', data.error);
+                return data;
             }
         } catch (error) {
             console.error('Erro na requisição', error);
@@ -477,7 +477,7 @@ export const useDb = () => {
         getReviews,
         updateReviewStatus,
         getUserEmail,
-        updateEmail,
+        sendVerificationEmailUpdate,
         checkPassword,
         updatePassword,
         getUser,
